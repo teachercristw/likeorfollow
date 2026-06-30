@@ -6,6 +6,7 @@
     <title>Like or Follow - Social Edition</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Top 15 Child-Friendly Classroom Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&family=Bangers&family=Boogaloo&family=Carter+One&family=Chewy&family=Comic+Neue:wght@400;700&family=DynaPuff:wght@400;700&family=Fredoka+One&family=Jua&family=Luckiest+Guy&family=Nunito:wght@400;700&family=Poppins:wght@400;700&family=Press+Start+2P&family=Righteous&family=Sigmar+One&family=Sniglet&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -16,7 +17,6 @@
             --social-green: #2ecc71;
             --social-dark: #1c1e21;
             --main-font: 'Nunito', sans-serif; 
-            --grid-tile-min: 100px; /* Dynamic Grid Sizing Variable */
         }
 
         /* THEME CLASSES */
@@ -51,6 +51,9 @@
         .screen.active { display: flex; }
 
         #screenTitle.screen.active { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px); }
+        
+        /* DIM THE GRID SCREEN SO TILES POP */
+        #screenMain { background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(4px); }
 
         h2 { font-size: 2.8rem; color: #ffffff; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin: 10px 0; font-weight: 800; }
         
@@ -85,8 +88,9 @@
         }
         .btn-home:hover { background: rgba(0,0,0,0.9); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.7); }
 
-        .title-image-box { width: 100%; height: 60%; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
-        .title-image-box img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 20px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
+        .title-text-box { width: 100%; height: auto; display: flex; justify-content: center; align-items: center; margin-bottom: 40px; margin-top: 5vh; padding: 0 20px; }
+        #displayGameTitle { font-size: clamp(4rem, 8vw, 8rem); font-weight: 900; text-shadow: 4px 4px 15px rgba(0,0,0,0.8), -2px -2px 0px rgba(0,0,0,0.5); text-transform: uppercase; margin: 0; line-height: 1.1; text-align: center; }
+
         .title-action-panel { display: flex; gap: 20px; align-items: center; }
         .title-action-panel .btn { font-size: 1.8rem; padding: 20px 50px; border-radius: 50px; }
 
@@ -106,7 +110,7 @@
         .team-box.active-turn { transform: translateY(-5px) scale(1.05); }
 
         .turn-container { 
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 20px; 
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 15px; 
             background: rgba(0, 0, 0, 0.8); padding: 8px 20px; border-radius: 30px; color: white;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2);
         }
@@ -114,21 +118,23 @@
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
         .turn-container h2 { font-size: 1.2rem; margin: 0; text-shadow: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;}
 
-        /* Fully Responsive Grid Style */
+        /* Auto-Adjusting, Non-Scrolling Grid Style */
         .grid-az { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(var(--grid-tile-min), 1fr)); 
-            gap: 12px; width: 95%; max-width: 1000px; justify-content: center; align-content: center; 
+            gap: 15px; 
+            width: 95%; max-width: 1400px; 
+            height: 70vh; /* Fixed height locks it to one screen */
+            justify-content: center; align-content: center; 
         }
         .letter-box {
-            background: rgba(255,255,255,0.9); border-radius: 18px; aspect-ratio: 1/1;
+            background: rgba(255,255,255,0.95); border-radius: 18px; 
             display: flex; justify-content: center; align-items: center; text-align: center;
-            font-size: 2.2rem; font-weight: 800; color: var(--social-dark); cursor: pointer; 
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: all 0.2s ease; border: 2px solid transparent;
-            overflow: hidden; padding: 5px; word-wrap: break-word; line-height: 1.1;
+            font-size: clamp(1.5rem, 5vh, 4rem); font-weight: 800; color: var(--social-dark); cursor: pointer; 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3); transition: all 0.2s ease; border: 3px solid transparent;
+            overflow: hidden; padding: 5px; word-wrap: break-word; line-height: 1.1; width: 100%; height: 100%;
         }
-        .letter-box:not(.disabled):hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); border-color: var(--social-blue); color: var(--social-blue); }
-        .letter-box.disabled { background: rgba(255,255,255,0.3) !important; color: rgba(0,0,0,0.2) !important; box-shadow: none !important; cursor: not-allowed; transform: scale(0.95); }
+        .letter-box:not(.disabled):hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.5); border-color: var(--social-blue); color: var(--social-blue); }
+        .letter-box.disabled { background: rgba(255,255,255,0.2) !important; color: rgba(0,0,0,0.1) !important; box-shadow: none !important; cursor: not-allowed; transform: scale(0.95); }
         .letter-box img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
 
         /* Social Post Card */
@@ -169,7 +175,8 @@
         
         .q-row { border: 1px solid #e4e6eb; padding: 15px; margin-bottom: 15px; border-radius: 12px; background: #f8f9fa; }
         input[type="text"], select, input[type="number"] { padding: 10px 12px; font-size: 1rem; border-radius: 8px; border: 1px solid #ccd0d5; width: 100%; box-sizing: border-box; background: #fff; color: #050505;}
-        input[type="text"]:focus, select:focus { border-color: var(--social-blue); outline: none; }
+        input[type="color"] { padding: 2px; height: 42px; border-radius: 8px; border: 1px solid #ccd0d5; width: 100%; cursor: pointer;}
+        input[type="text"]:focus, select:focus, input[type="number"]:focus { border-color: var(--social-blue); outline: none; }
         
     </style>
 </head>
@@ -184,13 +191,16 @@
         <audio id="sndLose" src="lose all points.wav"></audio>
         <audio id="sndReveal" src="reveal.wav"></audio>
 
+        <!-- Social Media Scoreboard -->
         <div id="globalScoreboard" class="scoreboard glass-panel" style="display:none;"></div>
 
+        <!-- Upgraded Home Button -->
         <button id="btnHome" class="btn-home" style="display:none;" onclick="confirmGoHome()">🏠 Return to Feed</button>
 
+        <!-- Title Screen -->
         <div id="screenTitle" class="screen active">
-            <div class="title-image-box">
-                <img src="titlepage.gif" alt="Game Logo Graphic">
+            <div class="title-text-box">
+                <h1 id="displayGameTitle">LIKE OR FOLLOW</h1>
             </div>
             <div class="title-action-panel">
                 <button class="btn btn-blue" style="font-size: 1.8rem; padding: 20px 50px; border-radius: 50px;" onclick="changeScreen('screenRules')">▶️ Start Challenge</button>
@@ -199,6 +209,7 @@
             <div class="developer-credit">Created by Teacher Cris Saranza</div>
         </div>
 
+        <!-- Rules Screen -->
         <div id="screenRules" class="screen">
             <div class="glass-panel" style="padding:40px; border-radius:25px; max-width:800px; color:#1c1e21; background: rgba(255,255,255,0.95);">
                 <h2 style="color:var(--social-dark); text-shadow: none; margin-top:0;">📱 Community Guidelines</h2>
@@ -212,6 +223,7 @@
             </div>
         </div>
 
+        <!-- Randomizer Screen -->
         <div id="screenRandomizer" class="screen">
             <div class="glass-panel" style="background:rgba(0,0,0,0.7); padding:50px; border-radius:30px; border: 1px solid rgba(255,255,255,0.2); max-width:800px;">
                 <h2 style="font-size: 3rem;">Who is trending first?</h2>
@@ -221,6 +233,7 @@
             </div>
         </div>
 
+        <!-- Main Grid Screen -->
         <div id="screenMain" class="screen">
             <div class="turn-container">
                 <span id="turnDot" class="turn-dot"></span>
@@ -229,6 +242,7 @@
             <div id="azGrid" class="grid-az"></div>
         </div>
 
+        <!-- The "Post" (Question Screen) -->
         <div id="screenQuestion" class="screen">
             <div class="content-card glass-panel" id="qCardShell" style="background: #fff;">
                 <div class="post-header">
@@ -271,6 +285,7 @@
             </div>
         </div>
 
+        <!-- Outcome Screen -->
         <div id="screenOutcome" class="screen">
             <div class="glass-panel" style="padding: 40px; border-radius: 25px; max-width: 600px; background: rgba(255,255,255,0.95);">
                 <div style="font-size: 3rem; margin-bottom: 15px;">🔔</div>
@@ -280,6 +295,7 @@
             </div>
         </div>
 
+        <!-- Settings Screen -->
         <div id="screenSettings" class="screen">
             <div class="settings-panel">
                 <h2 style="font-size: 2rem; margin-bottom: 20px;">⚙️ Admin Dashboard</h2>
@@ -301,6 +317,21 @@
                 </div>
 
                 <div id="tab-system" class="tab-content">
+                    
+                    <div class="q-row">
+                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Homepage Branding</h3>
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                            <div style="flex: 2; min-width: 200px;">
+                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Game Title Text:</label>
+                                <input type="text" id="gameTitleInput" value="LIKE OR FOLLOW">
+                            </div>
+                            <div style="flex: 1; min-width: 100px;">
+                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Title Font Color:</label>
+                                <input type="color" id="gameTitleColorInput" value="#ffffff">
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="q-row">
                         <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Game Rules & Visuals</h3>
                         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
@@ -314,15 +345,11 @@
                                 </select>
                             </div>
                             <div style="flex: 1; min-width: 150px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Number of Posts (Grid Count):</label>
-                                <input type="number" id="gridSizeSelect" value="26" min="1" max="26">
-                            </div>
-                            <div style="flex: 1; min-width: 150px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Tile Size (Auto-Adjusts):</label>
-                                <select id="tileSizeSelect" onchange="previewTileSize()">
-                                    <option value="70px">Small Tiles</option>
-                                    <option value="100px" selected>Medium Tiles</option>
-                                    <option value="140px">Large Tiles</option>
+                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Number of Posts (Grid Size):</label>
+                                <select id="gridSizeSelect">
+                                    <option value="10">10 Posts (Fast)</option>
+                                    <option value="16">16 Posts (Medium)</option>
+                                    <option value="26">26 Posts (Full)</option>
                                 </select>
                             </div>
                             <div style="flex: 1; min-width: 150px;">
@@ -408,7 +435,8 @@
         let gameGridSize = 26;
         let activeTheme = "theme-default";
         let activeFont = "'Nunito', sans-serif";
-        let activeTileSize = "100px";
+        let gameTitleText = "LIKE OR FOLLOW";
+        let gameTitleColor = "#ffffff";
 
         window.onload = () => {
             loadData(); buildSetup(); buildOutcomesSetup(); applySavedSettings(); shuffle(); updateVolumes();
@@ -442,16 +470,19 @@
 
         function previewTheme() { document.body.className = document.getElementById('themeSelect').value; }
         function previewFont() { document.documentElement.style.setProperty('--main-font', document.getElementById('fontSelect').value); }
-        function previewTileSize() { document.documentElement.style.setProperty('--grid-tile-min', document.getElementById('tileSizeSelect').value); }
         
         function applySavedSettings() {
             document.body.className = activeTheme; document.getElementById('themeSelect').value = activeTheme;
             document.documentElement.style.setProperty('--main-font', activeFont); document.getElementById('fontSelect').value = activeFont;
-            document.documentElement.style.setProperty('--grid-tile-min', activeTileSize); document.getElementById('tileSizeSelect').value = activeTileSize;
+            
+            document.getElementById('displayGameTitle').innerText = gameTitleText;
+            document.getElementById('displayGameTitle').style.color = gameTitleColor;
+            document.getElementById('gameTitleInput').value = gameTitleText;
+            document.getElementById('gameTitleColorInput').value = gameTitleColor;
         }
 
         function loadData() {
-            let data = localStorage.getItem('social_edition_v4');
+            let data = localStorage.getItem('social_edition_v5');
             if (data) {
                 let parsed = JSON.parse(data);
                 questions = parsed.questions || [];
@@ -461,12 +492,12 @@
                 wrongPenalty = parsed.wrongPenalty !== undefined ? parsed.wrongPenalty : 10;
                 activeTheme = parsed.theme || "theme-default";
                 activeFont = parsed.font || "'Nunito', sans-serif";
-                activeTileSize = parsed.tileSize || "100px";
+                gameTitleText = parsed.titleText || "LIKE OR FOLLOW";
+                gameTitleColor = parsed.titleColor || "#ffffff";
                 
                 document.getElementById('gridSizeSelect').value = gameGridSize;
                 document.getElementById('numTeamsSelect').value = numTeams;
                 document.getElementById('wrongPenaltyInput').value = wrongPenalty;
-                document.getElementById('tileSizeSelect').value = activeTileSize;
             } else {
                 questions = [];
                 for (let i = 0; i < 26; i++) {
@@ -493,6 +524,7 @@
                     <div class="q-row">
                         <strong style="color:var(--social-blue); font-size:1.2rem;">Post Slot #${i+1}</strong>
                         
+                        <!-- Grid Face Config -->
                         <div style="display:flex; gap:15px; margin: 15px 0; align-items:center; background:#fff; padding:10px; border-radius:8px; border:1px solid #e4e6eb;">
                             <div style="flex: 1;">
                                 <label style="font-size: 0.85rem; color: #65676b; font-weight: bold;">Grid Tile Name/Number:</label>
@@ -503,6 +535,7 @@
                             </div>
                         </div>
 
+                        <!-- Question Config -->
                         <input type="text" id="qText_${i}" value="${q.text}" style="margin: 10px 0; font-weight:bold;" placeholder="Type Question Here...">
                         
                         <div style="display:flex; gap:10px; margin-bottom:10px;">
@@ -595,18 +628,20 @@
             wrongPenalty = parseInt(document.getElementById('wrongPenaltyInput').value) || 0;
             activeTheme = document.getElementById('themeSelect').value;
             activeFont = document.getElementById('fontSelect').value;
-            activeTileSize = document.getElementById('tileSizeSelect').value;
+            
+            gameTitleText = document.getElementById('gameTitleInput').value || "LIKE OR FOLLOW";
+            gameTitleColor = document.getElementById('gameTitleColorInput').value || "#ffffff";
             
             applySavedSettings();
 
-            let payload = { questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, theme: activeTheme, font: activeFont, tileSize: activeTileSize };
-            localStorage.setItem('social_edition_v4', JSON.stringify(payload));
+            let payload = { questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, theme: activeTheme, font: activeFont, titleText: gameTitleText, titleColor: gameTitleColor };
+            localStorage.setItem('social_edition_v5', JSON.stringify(payload));
             
             buildSetup(); shuffle(); alert("Dashboard Saved!"); changeScreen('screenTitle');
         }
 
         function exportData() {
-            let payload = { questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, theme: activeTheme, font: activeFont, tileSize: activeTileSize };
+            let payload = { questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, theme: activeTheme, font: activeFont, titleText: gameTitleText, titleColor: gameTitleColor };
             const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload));
             const dl = document.createElement('a'); dl.setAttribute("href", str); dl.setAttribute("download", "social_feed_backup.json");
             document.body.appendChild(dl); dl.click(); dl.remove();
@@ -618,7 +653,7 @@
                 try {
                     const parsed = JSON.parse(event.target.result);
                     if (parsed.questions && Array.isArray(parsed.questions)) {
-                        localStorage.setItem('social_edition_v4', JSON.stringify(parsed));
+                        localStorage.setItem('social_edition_v5', JSON.stringify(parsed));
                         loadData(); buildSetup(); buildOutcomesSetup(); applySavedSettings(); alert("Data Imported!");
                     } else { alert("Data mismatch. Please check file."); }
                 } catch(err) { alert("Failed to parse file."); }
@@ -629,7 +664,21 @@
         function shuffle() { mapping = Array.from({length: 26}, (_, i) => i).sort(() => Math.random() - 0.5); buildGrid(); }
 
         function buildGrid() {
-            const grid = document.getElementById('azGrid'); grid.innerHTML = '';
+            const grid = document.getElementById('azGrid'); 
+            grid.innerHTML = '';
+            
+            // Dynamic Grid Calculation to force one screen
+            if (gameGridSize <= 10) {
+                grid.style.gridTemplateColumns = 'repeat(5, 1fr)';
+                grid.style.gridTemplateRows = 'repeat(2, 1fr)';
+            } else if (gameGridSize <= 16) {
+                grid.style.gridTemplateColumns = 'repeat(4, 1fr)';
+                grid.style.gridTemplateRows = 'repeat(4, 1fr)';
+            } else {
+                grid.style.gridTemplateColumns = 'repeat(7, 1fr)';
+                grid.style.gridTemplateRows = 'repeat(4, 1fr)';
+            }
+
             for (let i = 0; i < gameGridSize; i++) {
                 let qi = mapping[i]; 
                 let q = questions[qi];
