@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click to go VIRAL</title>
+    <title>Like or Follow - Social Edition</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Top 15 Child-Friendly Classroom Fonts -->
@@ -32,22 +32,21 @@
         /* THEMES & DYNAMIC DASHBOARD COLORS */
         body.theme-default { 
             background-image: url('Classic.png'); background-color: #000; 
-            --panel-bg: #ffffff; --panel-text: #1c1e21; --row-bg: #f8f9fa; --input-bg: #ffffff; --input-text: #050505;
+            --panel-bg: #ffffff; --panel-text: #1c1e21; --row-bg: #f8f9fa; --input-bg: #ffffff; --input-text: #050505; --border-color: #ccd0d5;
         }
         body.theme-space { 
             background-image: url('neon.png'); background-color: #0f0c29; 
-            --panel-bg: rgba(20, 20, 45, 0.95); --panel-text: #ffffff; --row-bg: rgba(255,255,255,0.1); --input-bg: #302b63; --input-text: #ffffff;
+            --panel-bg: rgba(20, 20, 45, 0.95); --panel-text: #ffffff; --row-bg: rgba(255,255,255,0.1); --input-bg: #302b63; --input-text: #ffffff; --border-color: rgba(255,255,255,0.3);
         }
         body.theme-jungle { 
             background-image: url('jungle.png'); background-color: #134e5e; 
-            --panel-bg: rgba(19, 78, 94, 0.95); --panel-text: #ffffff; --row-bg: rgba(255,255,255,0.1); --input-bg: #1e3c45; --input-text: #ffffff;
+            --panel-bg: rgba(19, 78, 94, 0.95); --panel-text: #ffffff; --row-bg: rgba(255,255,255,0.1); --input-bg: #1e3c45; --input-text: #ffffff; --border-color: rgba(255,255,255,0.3);
         }
         body.theme-ocean { 
             background-image: url('ocean.png'); background-color: #0083b0; 
-            --panel-bg: rgba(0, 131, 176, 0.95); --panel-text: #ffffff; --row-bg: rgba(255,255,255,0.1); --input-bg: #005f80; --input-text: #ffffff;
+            --panel-bg: rgba(0, 131, 176, 0.95); --panel-text: #ffffff; --row-bg: rgba(255,255,255,0.1); --input-bg: #005f80; --input-text: #ffffff; --border-color: rgba(255,255,255,0.3);
         }
 
-        /* FONT FIX: Removed universal !important so Title can use its own font */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body, button, input, select, textarea { font-family: var(--main-font); }
         #displayGameTitle, #displayGameTitle * { font-family: var(--title-font) !important; }
@@ -216,6 +215,9 @@
         .q-scroll-body { width: 100%; flex: 1; overflow-y: auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 25px 20px; gap: 20px; background: #fff; }
         .question-text { font-size: 2rem; color: #050505; font-weight: 800; margin: 0; word-break: break-word; text-align: left; width: 100%; }
         
+        /* Auto-fit Question Images */
+        #qImg { width: 100%; max-height: 35vh; object-fit: contain; border-radius: 10px; display: none; margin: 0 auto; }
+
         .options-container { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 10px; }
         .options-container .poll-btn { background: #f0f2f5; color: #050505; border: 2px solid transparent; padding: 15px 20px; font-size: 1.2rem; font-weight: bold; border-radius: 12px; text-align: left; cursor: pointer; transition: all 0.2s; }
         .options-container .poll-btn:hover { background: #e4e6eb; }
@@ -237,26 +239,26 @@
         .settings-panel { 
             background: var(--panel-bg); border-radius: 20px; padding: 25px; width: 95%; max-width: 900px; 
             height: 85vh; overflow-y: auto; color: var(--panel-text); text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            border: 2px solid rgba(255,255,255,0.2);
+            border: 2px solid var(--border-color);
         }
         .settings-panel h2, .settings-panel h3 { text-shadow: none; margin-top: 0; color: var(--panel-text); }
-        .settings-tabs { display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 0; }
+        .settings-tabs { display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 0; }
         .tab-btn { background: transparent; border: none; padding: 12px 20px; font-size: 1.1rem; font-weight: bold; color: var(--panel-text); opacity: 0.6; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
         .tab-btn.active { opacity: 1; border-bottom-color: var(--social-blue); color: var(--social-blue); }
         .tab-content { display: none; padding: 10px 0; }
         .tab-content.active { display: block; }
         
-        .q-row { border: 1px solid rgba(255,255,255,0.2); padding: 15px; margin-bottom: 15px; border-radius: 12px; background: var(--row-bg); }
-        input[type="text"], select, input[type="number"] { padding: 10px 12px; font-size: 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.3); width: 100%; box-sizing: border-box; background: var(--input-bg); color: var(--input-text);}
-        input[type="color"] { padding: 2px; height: 42px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.3); width: 100%; cursor: pointer; background: var(--input-bg);}
+        .q-row { border: 1px solid var(--border-color); padding: 15px; margin-bottom: 15px; border-radius: 12px; background: var(--row-bg); }
+        input[type="text"], select, input[type="number"] { padding: 10px 12px; font-size: 1rem; border-radius: 8px; border: 1px solid var(--border-color); width: 100%; box-sizing: border-box; background: var(--input-bg); color: var(--input-text);}
+        input[type="color"] { padding: 2px; height: 42px; border-radius: 8px; border: 1px solid var(--border-color); width: 100%; cursor: pointer; background: var(--input-bg);}
         input[type="text"]:focus, select:focus, input[type="number"]:focus { border-color: var(--social-blue); outline: none; }
         
-        .label-text { font-size: 0.85rem; font-weight: bold; opacity: 0.8; margin-bottom: 5px; display: block; }
+        .label-text { font-size: 0.85rem; font-weight: bold; opacity: 0.8; margin-bottom: 5px; display: block; color: var(--panel-text); }
 
         /* Outcome Selection Grid (Replaces Dropdown) */
         .outcome-box-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
         .outcome-box { 
-            padding: 8px 12px; background: var(--input-bg); border: 2px solid rgba(255,255,255,0.2); border-radius: 8px; 
+            padding: 8px 12px; background: var(--input-bg); border: 2px solid var(--border-color); border-radius: 8px; 
             cursor: pointer; font-size: 0.9rem; font-weight: bold; color: var(--input-text); transition: all 0.2s;
         }
         .outcome-box:hover { opacity: 0.8; }
@@ -267,9 +269,11 @@
 <body class="theme-default">
 
     <div class="game-wrapper">
-        <!-- Kid Friendly Royalty-Free Background Music Default -->
+        <!-- Audio Elements -->
         <audio id="bgMusic" loop>
             <source src="background music.mp3" type="audio/mpeg">
+            <!-- Fallback royalty free fun track -->
+            <source src="https://upload.wikimedia.org/wikipedia/commons/3/34/Kevin_MacLeod_-_Monkeys_Spinning_Monkeys.ogg" type="audio/ogg">
         </audio>
         
         <audio id="sndClick" src="click.wav"></audio>
@@ -279,11 +283,14 @@
         <audio id="sndLose" src="lose all points.wav"></audio>
         <audio id="sndReveal" src="reveal.wav"></audio>
 
+        <!-- Hidden YouTube iframe -->
+        <iframe id="ytIframePlayer" style="display:none;" width="0" height="0" frameborder="0" allow="autoplay"></iframe>
+
         <!-- Social Media Scoreboard -->
         <div id="globalScoreboard" class="scoreboard glass-panel" style="display:none;"></div>
 
         <!-- Floating Action Buttons -->
-        <button id="btnHome" class="btn-home" style="display:none;" onclick="confirmGoHome()">🏠 Return to Feed</button>
+        <button id="btnHome" class="btn-home" style="display:none;" onclick="confirmGoHome()">🏠 Feed</button>
         <button id="btnSettingsIngame" class="btn-settings-ingame" style="display:none;" onclick="openSettings('screenMain')" title="Admin Dashboard">⚙️</button>
 
         <!-- Title Screen -->
@@ -292,8 +299,8 @@
                 <h1 id="displayGameTitle">LIKE OR FOLLOW</h1>
             </div>
             <div class="title-action-panel">
-                <button class="btn btn-title btn-title-primary" onclick="changeScreen('screenRules')">Start Game</button>
-                <button class="btn btn-title btn-title-red" onclick="openSettings('screenTitle')">Settings</button>
+                <button class="btn btn-title btn-title-primary" onclick="changeScreen('screenRules')">▶️ Start Game</button>
+                <button class="btn btn-title btn-title-red" onclick="openSettings('screenTitle')">⚙️ Settings</button>
             </div>
         </div>
 
@@ -304,9 +311,9 @@
             <div class="glass-panel" style="padding:40px; border-radius:25px; max-width:800px; color:#1c1e21; background: rgba(255,255,255,0.95);">
                 <h2 style="color:var(--social-dark); text-shadow: none; margin-top:0;">📱 Community Guidelines</h2>
                 <ul style="text-align:left; font-size:1.4rem; line-height: 1.8; padding-left: 25px; margin-bottom: 30px;">
-                    <li>Answer the challenge post correctly to unlock the <strong>Viral Secret!</strong></li>
-                    <li>Choose <strong>👍 LIKE</strong> to keep the mystery secret for your team.</li>
-                    <li>Choose <strong>👤 FOLLOW</strong> to send the mystery secret to another team!</li>
+                    <li>Answer the challenge post correctly to unlock the <strong>Viral Mystery Box!</strong></li>
+                    <li>Choose <strong>👍 LIKE</strong> to keep the mystery points for your team.</li>
+                    <li>Choose <strong>👤 FOLLOW</strong> to send the mystery points to a rival team!</li>
                     <li>If you answer <strong>WRONG</strong>, your team loses followers (points) and your turn ends!</li>
                 </ul>
                 <button class="btn btn-blue" style="font-size: 1.5rem; border-radius: 50px;" onclick="initGame()">Let's Go! 🚀</button>
@@ -346,7 +353,8 @@
 
                 <div id="qScrollArea" class="q-scroll-body">
                     <div id="qText" class="question-text"></div>
-                    <img id="qImg" src="" style="width:100%; border-radius:10px; display:none; object-fit: cover; max-height: 35vh;">
+                    <img id="qImg" src="">
+                    
                     <div id="qOptions" class="options-container"></div>
                     
                     <div id="qIdArea" style="display:none; width:100%; text-align: left; margin-top: 15px;">
@@ -393,22 +401,24 @@
                 <div class="settings-tabs">
                     <button class="tab-btn active" onclick="switchTab('tab-questions', this)">Posts (Q&A)</button>
                     <button class="tab-btn" onclick="switchTab('tab-outcomes', this)">Viral Logic</button>
-                    <button class="tab-btn" onclick="switchTab('tab-system', this)">System Configuration</button>
+                    <button class="tab-btn" onclick="switchTab('tab-system', this)">System Config</button>
                 </div>
 
                 <div id="tab-questions" class="tab-content active">
-                    <p style="font-size: 0.9rem; margin-bottom: 15px; opacity: 0.8;">Configure your grid and questions. Click an outcome box to assign logic.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 15px; opacity: 0.8;">Configure your grid and questions. Click an outcome box to assign logic to that specific tile.</p>
                     <div id="setupList"></div>
                 </div>
 
                 <div id="tab-outcomes" class="tab-content">
-                    <p style="font-size: 0.9rem; margin-bottom: 15px; opacity: 0.8;">Define 12 possible outcomes for the boxes. Use math (+10, -10, *2, /2) or 'swap score' / 'lose all points'.</p>
-                    <div id="outcomesSetupList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;"></div>
+                    <p style="font-size: 0.9rem; margin-bottom: 15px; opacity: 0.8;">Define the master list of logic outcomes. Use math (+10, -10, *2, /2) or 'swap score' / 'lose all points'.</p>
+                    <div id="outcomesSetupList" style="display: flex; flex-direction: column; gap: 10px;"></div>
+                    <button class="btn btn-outline" style="margin-top: 15px; border-color: var(--social-blue); color: var(--social-blue);" onclick="addOutcome()">➕ Add Logic Item</button>
                 </div>
 
                 <div id="tab-system" class="tab-content">
+                    
                     <div class="q-row">
-                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Homepage Title Design</h3>
+                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Homepage Branding</h3>
                         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                             <div style="flex: 2; min-width: 200px;">
                                 <label class="label-text">Game Title Text:</label>
@@ -421,9 +431,9 @@
                             <div style="flex: 1; min-width: 150px;">
                                 <label class="label-text">Title Font Style:</label>
                                 <select id="titleFontSelect" onchange="previewTitle()">
-                                    <option value="'Nunito', sans-serif">Nunito</option>
-                                    <option value="'Poppins', sans-serif">Poppins</option>
-                                    <option value="'Comic Neue', cursive">Comic Neue</option>
+                                    <option value="'Nunito', sans-serif">Nunito (Modern App)</option>
+                                    <option value="'Poppins', sans-serif">Poppins (Clean)</option>
+                                    <option value="'Comic Neue', cursive">Comic Neue (Playful)</option>
                                     <option value="'Fredoka One', cursive">Fredoka One</option>
                                     <option value="'Chewy', cursive">Chewy</option>
                                     <option value="'Bangers', cursive">Bangers</option>
@@ -501,9 +511,9 @@
                             <div style="flex: 1; min-width: 150px;">
                                 <label class="label-text">Global Game Font:</label>
                                 <select id="fontSelect" onchange="previewFont()">
-                                    <option value="'Nunito', sans-serif">Nunito</option>
-                                    <option value="'Poppins', sans-serif">Poppins</option>
-                                    <option value="'Comic Neue', cursive">Comic Neue</option>
+                                    <option value="'Nunito', sans-serif">Nunito (Modern App)</option>
+                                    <option value="'Poppins', sans-serif">Poppins (Clean)</option>
+                                    <option value="'Comic Neue', cursive">Comic Neue (Playful)</option>
                                     <option value="'Fredoka One', cursive">Fredoka One</option>
                                     <option value="'Chewy', cursive">Chewy</option>
                                     <option value="'Bangers', cursive">Bangers</option>
@@ -522,22 +532,35 @@
                     </div>
 
                     <div class="q-row">
-                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Audio Control</h3>
+                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Database, Files & Audio</h3>
+                        
                         <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
-                            <button id="btnMusicToggle" class="btn btn-orange" style="font-size:0.9rem; padding: 10px 15px;" onclick="toggleMusic()">🎵 Music: ON</button>
+                            <button class="btn btn-green" style="font-size:0.9rem; padding: 10px 15px;" onclick="exportData()">📥 Export File Backup</button>
+                            <button class="btn btn-blue" style="font-size:0.9rem; padding: 10px 15px;" onclick="document.getElementById('fileIn').click()">📤 Import File Backup</button>
+                            <input type="file" id="fileIn" style="display:none;" accept=".json" onchange="importData(event)">
                         </div>
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
+
+                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                            <div>
+                                <label class="label-text">Custom YouTube BGM URL (Overrides default music):</label>
+                                <input type="text" id="ytMusicInput" placeholder="Paste YouTube link here..." onchange="updateMusicSource()">
+                            </div>
+                            
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <button id="btnMusicToggle" class="btn btn-orange" style="font-size:0.9rem; padding: 10px 15px;" onclick="toggleMusic()">🎵 Music: ON</button>
+                            </div>
+                            
                             <div style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: bold;">
-                                <span>Music Vol:</span> <input type="range" id="volMusic" min="0" max="1" step="0.1" value="0.3" oninput="updateVolumes()" style="flex:1;">
+                                <span style="min-width:70px;">Music Vol:</span> <input type="range" id="volMusic" min="0" max="1" step="0.1" value="0.3" oninput="updateVolumes()" style="flex:1;">
                             </div>
                             <div style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: bold;">
-                                <span>SFX Vol:</span> <input type="range" id="volSFX" min="0" max="1" step="0.1" value="0.9" oninput="updateVolumes()" style="flex:1;">
+                                <span style="min-width:70px;">SFX Vol:</span> <input type="range" id="volSFX" min="0" max="1" step="0.1" value="0.9" oninput="updateVolumes()" style="flex:1;">
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div style="text-align:right; padding-top:15px; border-top: 1px solid rgba(255,255,255,0.2); margin-top: 20px;">
+                <div style="text-align:right; padding-top:15px; border-top: 1px solid var(--border-color); margin-top: 20px;">
                     <button class="btn btn-outline" style="margin-right: 10px;" onclick="closeSettings()">Cancel</button>
                     <button class="btn btn-blue" onclick="saveData()">💾 Save Dashboard</button>
                 </div>
@@ -582,8 +605,8 @@
 
         async function initApp() {
             await loadData(); 
+            buildOutcomesSetup();
             buildSetup(); 
-            buildOutcomesSetup(); 
             applySavedSettings(); 
             shuffle(); 
             updateVolumes();
@@ -595,7 +618,11 @@
                 document.getElementById('btnHome').style.display = 'none';
                 document.getElementById('btnSettingsIngame').style.display = 'none';
                 changeScreen('screenTitle');
-                if (isMusicPlaying) { document.getElementById('bgMusic').pause(); }
+                if (isMusicPlaying) { 
+                    document.getElementById('bgMusic').pause(); 
+                    let ytIframe = document.getElementById('ytIframePlayer');
+                    if(ytIframe.src) ytIframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                }
             }
         }
 
@@ -661,6 +688,7 @@
             document.getElementById('gameOutlineColorInput').value = activeTitleOutlineColor;
             document.getElementById('gameOutlineThickInput').value = activeTitleOutlineThickness;
             
+            updateMusicSource();
             renderJumpingTitle(gameTitleText, gameTitleColor);
         }
 
@@ -712,6 +740,7 @@
             if(document.getElementById('numTeamsSelect')) document.getElementById('numTeamsSelect').value = numTeams;
             if(document.getElementById('wrongPenaltyInput')) document.getElementById('wrongPenaltyInput').value = wrongPenalty;
             if(document.getElementById('tileSizeSelect')) document.getElementById('tileSizeSelect').value = activeTileSize;
+            if(document.getElementById('ytMusicInput') && parsed.ytMusicUrl) document.getElementById('ytMusicInput').value = parsed.ytMusicUrl;
         }
 
         function generateDefaultData() {
@@ -723,6 +752,42 @@
                     correct: 0, answer: 'Answer Key', image: '', outcome: customOutcomes[i % customOutcomes.length] 
                 });
             }
+        }
+
+        // Logic array management
+        function addOutcome() {
+            cacheCurrentOutcomes();
+            customOutcomes.push("+10");
+            buildOutcomesSetup();
+            buildSetup();
+        }
+
+        function removeOutcome(idx) {
+            cacheCurrentOutcomes();
+            customOutcomes.splice(idx, 1);
+            if(customOutcomes.length === 0) customOutcomes.push("+10"); // ensure minimum 1
+            buildOutcomesSetup();
+            buildSetup();
+        }
+
+        function cacheCurrentOutcomes() {
+            let inputs = document.querySelectorAll('.custom-out-input');
+            inputs.forEach(inp => {
+                let idx = parseInt(inp.dataset.idx);
+                customOutcomes[idx] = inp.value;
+            });
+        }
+
+        function buildOutcomesSetup() {
+            const list = document.getElementById('outcomesSetupList'); list.innerHTML = '';
+            customOutcomes.forEach((out, i) => {
+                list.insertAdjacentHTML('beforeend', `
+                    <div style="background: var(--input-bg); padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); display: flex; gap: 5px; align-items:center;">
+                        <input type="text" class="custom-out-input" data-idx="${i}" value="${out}" style="flex:1;">
+                        <button class="btn btn-outline" style="padding: 5px 10px; color: var(--social-red); border-color: var(--social-red);" onclick="removeOutcome(${i})">X</button>
+                    </div>
+                `);
+            });
         }
 
         function selectOutcome(questionIdx, val, element) {
@@ -790,18 +855,6 @@
             });
         }
 
-        function buildOutcomesSetup() {
-            const list = document.getElementById('outcomesSetupList'); list.innerHTML = '';
-            for(let i = 0; i < 12; i++) {
-                list.insertAdjacentHTML('beforeend', `
-                    <div style="background: var(--input-bg); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
-                        <label class="label-text">Logic ${i+1}</label>
-                        <input type="text" id="customOut_${i}" value="${customOutcomes[i] || ""}" style="margin-top: 5px;">
-                    </div>
-                `);
-            }
-        }
-
         function clearTileImage(i, e) { e.stopPropagation(); questions[i].tileImage = ''; buildSetup(); }
         function clearQuestionImage(i, e) { e.stopPropagation(); questions[i].image = ''; buildSetup(); }
         
@@ -830,55 +883,139 @@
             }
         }
 
+        function extractYouTubeID(url) {
+            let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            let match = url.match(regExp);
+            return (match && match[2].length == 11) ? match[2] : null;
+        }
+
+        function updateMusicSource() {
+            let ytUrl = document.getElementById('ytMusicInput').value;
+            let ytIframe = document.getElementById('ytIframePlayer');
+            let htmlAudio = document.getElementById('bgMusic');
+            
+            if (ytUrl) {
+                let vid = extractYouTubeID(ytUrl);
+                if (vid) {
+                    htmlAudio.pause();
+                    if(!ytIframe.src.includes(vid)) {
+                        ytIframe.src = `https://www.youtube.com/embed/${vid}?autoplay=0&loop=1&playlist=${vid}&enablejsapi=1`;
+                    }
+                }
+            } else {
+                ytIframe.src = "";
+                if(isMusicPlaying && ['screenRandomizer', 'screenMain', 'screenQuestion', 'screenOutcome'].includes(document.querySelector('.screen.active').id)) {
+                    htmlAudio.play().catch(()=>{});
+                }
+            }
+        }
+
         function toggleMusic() {
-            const music = document.getElementById('bgMusic'); const btn = document.getElementById('btnMusicToggle');
-            if (isMusicPlaying) { music.pause(); btn.innerText = "🎵 Music: OFF"; isMusicPlaying = false; } 
-            else { music.play().catch(()=>{}); btn.innerText = "🎵 Music: ON"; isMusicPlaying = true; }
+            isMusicPlaying = !isMusicPlaying;
+            document.getElementById('btnMusicToggle').innerText = isMusicPlaying ? "🎵 Music: ON" : "🎵 Music: OFF";
+            
+            let ytUrl = document.getElementById('ytMusicInput').value;
+            if(ytUrl && extractYouTubeID(ytUrl)) {
+                let iframe = document.getElementById('ytIframePlayer');
+                if(isMusicPlaying) {
+                    iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                } else {
+                    iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                }
+            } else {
+                let audio = document.getElementById('bgMusic');
+                if(isMusicPlaying) audio.play().catch(()=>{}); else audio.pause();
+            }
         }
 
         function updateVolumes() {
             document.getElementById('bgMusic').volume = document.getElementById('volMusic').value;
             let sfxV = document.getElementById('volSFX').value;
             ['sndClick','sndAdd','sndMinus','sndSwap','sndLose','sndReveal'].forEach(id => { document.getElementById(id).volume = sfxV; });
+            
+            // Send volume command to YT iframe
+            let iframe = document.getElementById('ytIframePlayer');
+            if(iframe && iframe.src) {
+                let vol = Math.floor(document.getElementById('volMusic').value * 100);
+                iframe.contentWindow.postMessage(`{"event":"command","func":"setVolume","args":[${vol}]}`, '*');
+            }
         }
 
         function saveData() {
-            for(let i = 0; i < 12; i++) { customOutcomes[i] = document.getElementById(`customOut_${i}`).value.trim() || customOutcomes[i]; }
-            questions.forEach((q, i) => {
-                q.tileLabel = document.getElementById(`qTileLabel_${i}`).value;
-                q.text = document.getElementById(`qText_${i}`).value; q.type = document.getElementById(`qType_${i}`).value;
-                q.outcome = document.getElementById(`qOut_${i}`).value; q.answer = document.getElementById(`qAns_${i}`).value;
-                q.options = [0,1,2,3].map(oi => document.getElementById(`q${i}_o${oi}`).value);
-                let radios = document.getElementsByName(`correct_radio_${i}`);
-                for(let r = 0; r < radios.length; r++) { if(radios[r].checked) { q.correct = parseInt(radios[r].value); break; } }
-            });
+            try {
+                cacheCurrentOutcomes(); // saves the logic array dynamically
+                
+                questions.forEach((q, i) => {
+                    q.tileLabel = document.getElementById(`qTileLabel_${i}`).value;
+                    q.text = document.getElementById(`qText_${i}`).value; q.type = document.getElementById(`qType_${i}`).value;
+                    q.outcome = document.getElementById(`qOut_${i}`).value; q.answer = document.getElementById(`qAns_${i}`).value;
+                    q.options = [0,1,2,3].map(oi => document.getElementById(`q${i}_o${oi}`).value);
+                    let radios = document.getElementsByName(`correct_radio_${i}`);
+                    for(let r = 0; r < radios.length; r++) { if(radios[r].checked) { q.correct = parseInt(radios[r].value); break; } }
+                });
 
-            gameGridSize = parseInt(document.getElementById('gridSizeSelect').value) || 26;
-            numTeams = parseInt(document.getElementById('numTeamsSelect').value);
-            wrongPenalty = parseInt(document.getElementById('wrongPenaltyInput').value) || 0;
-            activeTheme = document.getElementById('themeSelect').value;
-            activeFont = document.getElementById('fontSelect').value;
-            activeTileSize = document.getElementById('tileSizeSelect').value;
-            
-            gameTitleText = document.getElementById('gameTitleInput').value || "LIKE OR FOLLOW";
-            gameTitleColor = document.getElementById('gameTitleColorInput').value || "#ffffff";
-            activeTitleFont = document.getElementById('titleFontSelect').value;
-            activeTitleSize = document.getElementById('titleSizeInput').value;
-            activeTitleMargin = document.getElementById('titleMarginInput').value;
-            activeTitleOutlineColor = document.getElementById('gameOutlineColorInput').value;
-            activeTitleOutlineThickness = document.getElementById('gameOutlineThickInput').value;
-            
-            applySavedSettings();
+                gameGridSize = parseInt(document.getElementById('gridSizeSelect').value) || 26;
+                numTeams = parseInt(document.getElementById('numTeamsSelect').value);
+                wrongPenalty = parseInt(document.getElementById('wrongPenaltyInput').value) || 0;
+                activeTheme = document.getElementById('themeSelect').value;
+                activeFont = document.getElementById('fontSelect').value;
+                activeTileSize = document.getElementById('tileSizeSelect').value;
+                
+                gameTitleText = document.getElementById('gameTitleInput').value || "LIKE OR FOLLOW";
+                gameTitleColor = document.getElementById('gameTitleColorInput').value || "#ffffff";
+                activeTitleFont = document.getElementById('titleFontSelect').value;
+                activeTitleSize = document.getElementById('titleSizeInput').value;
+                activeTitleMargin = document.getElementById('titleMarginInput').value;
+                activeTitleOutlineColor = document.getElementById('gameOutlineColorInput').value;
+                activeTitleOutlineThickness = document.getElementById('gameOutlineThickInput').value;
+                
+                let ytUrl = document.getElementById('ytMusicInput').value;
+                
+                applySavedSettings();
 
+                let payload = { 
+                    questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, 
+                    theme: activeTheme, font: activeFont, tileSize: activeTileSize, 
+                    titleText: gameTitleText, titleColor: gameTitleColor, titleFont: activeTitleFont, titleSize: activeTitleSize,
+                    titleMargin: activeTitleMargin, titleOutlineColor: activeTitleOutlineColor, titleOutlineThickness: activeTitleOutlineThickness,
+                    ytMusicUrl: ytUrl
+                };
+                localStorage.setItem('social_edition_master', JSON.stringify(payload));
+                
+                buildSetup(); shuffle(); alert("Dashboard Saved!"); changeScreen(previousScreen);
+            } catch (error) {
+                alert("Error saving data. Please check inputs.");
+                console.error(error);
+            }
+        }
+
+        function exportData() {
+            cacheCurrentOutcomes();
+            let ytUrl = document.getElementById('ytMusicInput').value;
             let payload = { 
                 questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, 
                 theme: activeTheme, font: activeFont, tileSize: activeTileSize, 
                 titleText: gameTitleText, titleColor: gameTitleColor, titleFont: activeTitleFont, titleSize: activeTitleSize,
-                titleMargin: activeTitleMargin, titleOutlineColor: activeTitleOutlineColor, titleOutlineThickness: activeTitleOutlineThickness
+                titleMargin: activeTitleMargin, titleOutlineColor: activeTitleOutlineColor, titleOutlineThickness: activeTitleOutlineThickness,
+                ytMusicUrl: ytUrl
             };
-            localStorage.setItem('social_edition_master', JSON.stringify(payload));
-            
-            buildSetup(); shuffle(); alert("Dashboard Saved!"); changeScreen(previousScreen);
+            const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload));
+            const dl = document.createElement('a'); dl.setAttribute("href", str); dl.setAttribute("download", "follow.json");
+            document.body.appendChild(dl); dl.click(); dl.remove();
+        }
+
+        function importData(e) {
+            const fr = new FileReader();
+            fr.onload = (event) => {
+                try {
+                    const parsed = JSON.parse(event.target.result);
+                    if (parsed.questions && Array.isArray(parsed.questions)) {
+                        localStorage.setItem('social_edition_master', JSON.stringify(parsed));
+                        loadData(); buildOutcomesSetup(); buildSetup(); applySavedSettings(); alert("Data Imported!");
+                    } else { alert("Data mismatch. Please check file."); }
+                } catch(err) { alert("Failed to parse file."); }
+            };
+            fr.readAsText(e.target.files[0]);
         }
 
         function shuffle() { mapping = Array.from({length: 26}, (_, i) => i).sort(() => Math.random() - 0.5); buildGrid(); }
@@ -947,7 +1084,16 @@
             document.getElementById('btnContinueGame').style.display = 'none';
             document.getElementById('randomNumDisplay').innerText = '?';
             changeScreen('screenRandomizer');
-            if (isMusicPlaying) { document.getElementById('bgMusic').play().catch(()=>{}); }
+            
+            // Trigger music
+            if (isMusicPlaying) {
+                let ytUrl = document.getElementById('ytMusicInput').value;
+                if(ytUrl && extractYouTubeID(ytUrl)) {
+                    document.getElementById('ytIframePlayer').contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                } else {
+                    document.getElementById('bgMusic').play().catch(()=>{}); 
+                }
+            }
         }
 
         function spinRandomizer() {
