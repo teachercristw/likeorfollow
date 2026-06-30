@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Like or Follow - Social Edition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&family=Bangers&family=Boogaloo&family=Carter+One&family=Chewy&family=Comic+Neue:wght@400;700&family=DynaPuff:wght@400;700&family=Fredoka+One&family=Jua&family=Luckiest+Guy&family=Nunito:wght@400;700&family=Poppins:wght@400;700&family=Press+Start+2P&family=Righteous&family=Sigmar+One&family=Sniglet&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Social Media Theme Colors */
+            --primary-bg: #f0f2f5; 
+            --social-blue: #1877f2;
+            --social-red: #ff4757;
+            --social-green: #2ecc71;
+            --social-dark: #1c1e21;
+            --main-font: 'Nunito', sans-serif; 
+        }
+
+        /* THEME CLASSES */
+        body.theme-default { 
+            background-image: url('Classic.png'); 
+            background-color: #000; 
+        }
+        body.theme-space {
+            background-image: url('neon.png'); 
+            background-color: #0f0c29;
+        }
+        body.theme-jungle {
+            background-image: url('jungle.png'); 
+            background-color: #134e5e;
+        }
+        body.theme-ocean {
+            background-image: url('ocean.png'); 
+            background-color: #0083b0;
+        }
+
+        * { box-sizing: border-box; font-family: var(--main-font) !important; margin: 0; padding: 0; }
+
+        html, body {
+            width: 100%; height: 100%; overflow: hidden; 
+            background-size: cover; background-position: center; background-repeat: no-repeat; 
+            transition: background 0.5s ease;
+        }
+
+        /* Glassmorphism Panels */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .game-wrapper {
+            position: relative; width: 100%; height: 100%; display: flex; flex-direction: column;
+            justify-content: flex-start; align-items: center; padding: 15px;
+        }
+
+        .screen {
+            display: none; width: 100%; height: 100%; flex-direction: column;
+            justify-content: center; align-items: center; position: relative; z-index: 2; text-align: center;
+        }
+        .screen.active { display: flex; }
+
+        #screenTitle.screen.active { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px); }
+
+        h2 { font-size: 2.8rem; color: #ffffff; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin: 10px 0; font-weight: 800; }
+        
+        .developer-credit {
+            color: #ffffff; font-size: 1.1rem; margin-top: 30px; text-shadow: 1px 1px 2px #000; 
+            letter-spacing: 1px; animation: pulse 2s infinite alternate; font-weight: bold;
+        }
+        @keyframes pulse { 0% { opacity: 0.7; } 100% { opacity: 1; text-shadow: 0 0 8px #fff; } }
+
+        /* Modern App Buttons */
+        .btn {
+            background: var(--social-blue); color: white; border: none; padding: 15px 30px; 
+            font-size: 1.2rem; font-weight: bold; border-radius: 12px; cursor: pointer; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.15s ease; display: inline-flex;
+            align-items: center; justify-content: center; gap: 8px; text-decoration: none;
+        }
+        .btn:active { transform: scale(0.96); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .btn-green { background: var(--social-green); }
+        .btn-orange { background: #ff9f43; }
+        .btn-outline { background: transparent; border: 2px solid var(--social-dark); color: var(--social-dark); box-shadow: none; }
+        
+        /* SOCIAL MEDIA SPECIFIC BUTTONS */
+        .btn-like { background: var(--social-red); width: 100%; font-size: 1.4rem; padding: 18px; border-radius: 20px; }
+        .btn-follow { background: var(--social-blue); width: 100%; font-size: 1.4rem; padding: 18px; border-radius: 20px; }
+
+        .btn-home { position: absolute; top: 15px; left: 15px; padding: 8px 15px; font-size: 1rem; border-radius: 20px; background: rgba(0,0,0,0.6); color: white; backdrop-filter: blur(5px); }
+
+        .title-image-box { width: 100%; height: 60%; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
+        .title-image-box img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 20px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
+        .title-action-panel { display: flex; gap: 20px; align-items: center; }
+        .title-action-panel .btn { font-size: 1.8rem; padding: 20px 50px; border-radius: 50px; }
+
+        /* Social Media Stats Bar (Scoreboard) */
+        .scoreboard { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; width: 98%; 
+            padding: 10px; border-radius: 20px; margin-bottom: 15px; z-index: 5;
+        }
+        .team-box { 
+            background: rgba(255,255,255,0.9); padding: 8px 15px; border-radius: 15px; 
+            display: flex; flex-direction: column; align-items: center; min-width: 110px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-bottom: 4px solid #ccc;
+        }
+        .team-box .team-name { font-size: 0.9rem; color: #65676b; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+        .team-box .team-score { font-size: 1.8rem; font-weight: 800; color: var(--social-dark); line-height: 1; margin-top: 3px; }
+        .team-box.active-turn { transform: translateY(-5px) scale(1.05); }
+
+        /* "Live" Turn Indicator */
+        .turn-container { 
+            display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 20px; 
+            background: rgba(0, 0, 0, 0.8); padding: 8px 20px; border-radius: 30px; color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2);
+        }
+        .turn-dot { height: 12px; width: 12px; border-radius: 50%; display: inline-block; animation: blink 1.5s infinite; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+        .turn-container h2 { font-size: 1.2rem; margin: 0; text-shadow: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;}
+
+        /* Image Grid Style */
+        .grid-az { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 12px; 
+            width: 95%; max-width: 1000px; justify-content: center; align-content: center; 
+        }
+        .letter-box {
+            background: rgba(255,255,255,0.9); border-radius: 18px; aspect-ratio: 1/1;
+            display: flex; justify-content: center; align-items: center; font-size: 3rem; font-weight: 800; 
+            color: var(--social-dark); cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
+            transition: all 0.2s ease; border: 2px solid transparent;
+        }
+        .letter-box:not(.disabled):hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); border-color: var(--social-blue); color: var(--social-blue); }
+        .letter-box.disabled { background: rgba(255,255,255,0.3) !important; color: rgba(0,0,0,0.2) !important; box-shadow: none !important; cursor: not-allowed; transform: scale(0.95); }
+
+        /* Social Post Card (The Question UI) */
+        .content-card { 
+            width: 95%; max-width: 800px; height: 82vh; border-radius: 20px; padding: 0; 
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+        
+        .post-header {
+            display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid #e4e6eb; background: #fff;
+        }
+        .post-avatar { width: 45px; height: 45px; border-radius: 50%; background: linear-gradient(135deg, #a29bfe, #6c5ce7); display: flex; justify-content: center; align-items: center; font-size: 1.5rem; margin-right: 12px; }
+        .post-user-info { text-align: left; line-height: 1.2; }
+        .post-user-info .username { font-weight: 800; font-size: 1.1rem; color: var(--social-dark); display: flex; align-items: center; gap: 5px; }
+        .post-user-info .time { font-size: 0.85rem; color: #65676b; }
+
+        .q-scroll-body { width: 100%; flex: 1; overflow-y: auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 25px 20px; gap: 20px; background: #fff; }
+        .question-text { font-size: 2rem; color: #050505; font-weight: 800; margin: 0; word-break: break-word; text-align: left; width: 100%; }
+        
+        /* Poll Options */
+        .options-container { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 10px; }
+        .options-container .poll-btn { 
+            background: #f0f2f5; color: #050505; border: 2px solid transparent; padding: 15px 20px; 
+            font-size: 1.2rem; font-weight: bold; border-radius: 12px; text-align: left; cursor: pointer; transition: all 0.2s;
+        }
+        .options-container .poll-btn:hover { background: #e4e6eb; }
+        .options-container .poll-btn.selected { border-color: var(--social-blue); background: #e7f3ff; color: var(--social-blue); }
+        .options-container .poll-btn.correct-ans { background: #e6f4ea; border-color: var(--social-green); color: #137333; }
+        .options-container .poll-btn.wrong-ans { background: #fce8e6; border-color: var(--social-red); color: #c5221f; }
+
+        .post-action-bar { padding: 15px 20px; background: #fff; border-top: 1px solid #e4e6eb; display: flex; gap: 15px; width: 100%; }
+
+        /* Modals and Overlays */
+        .overlay-window { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10; display: none; flex-direction: column; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
+        .random-number-display { font-size: 8rem; font-weight: 800; color: #fff; text-shadow: 0 4px 15px rgba(0,0,0,0.5); margin: 30px 0; min-height: 150px; display: flex; align-items: center; justify-content: center;}
+        
+        /* Modern Target Selection */
+        .target-grid { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; max-width: 90%; }
+        .target-grid .target-user-btn { 
+            display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.1); 
+            border: 2px solid rgba(255,255,255,0.3); border-radius: 15px; padding: 20px; color: white; 
+            cursor: pointer; transition: all 0.2s; min-width: 120px;
+        }
+        .target-grid .target-user-btn:hover { background: rgba(255,255,255,0.2); transform: translateY(-5px); }
+        .target-grid .target-user-btn .avatar-lg { width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; border: 3px solid #fff; }
+
+        /* Settings Panel Compact UI */
+        .settings-panel { 
+            background: #fff; border-radius: 20px; padding: 25px; width: 95%; max-width: 800px; 
+            height: 85vh; overflow-y: auto; color: var(--social-dark); text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .settings-tabs { display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 2px solid #e4e6eb; padding-bottom: 0; }
+        .tab-btn { background: transparent; border: none; padding: 12px 20px; font-size: 1.1rem; font-weight: bold; color: #65676b; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: color 0.2s; }
+        .tab-btn.active { color: var(--social-blue); border-bottom-color: var(--social-blue); }
+        .tab-content { display: none; padding: 10px 0; }
+        .tab-content.active { display: block; }
+        
+        .q-row { border: 1px solid #e4e6eb; padding: 15px; margin-bottom: 15px; border-radius: 12px; background: #f8f9fa; }
+        input[type="text"], select, input[type="number"] { padding: 10px 12px; font-size: 1rem; border-radius: 8px; border: 1px solid #ccd0d5; width: 100%; box-sizing: border-box; background: #fff; color: #050505;}
+        input[type="text"]:focus, select:focus { border-color: var(--social-blue); outline: none; }
+        
+        .gif-box-wrapper { height: 40vh; width: 100%; max-width: 300px; cursor: pointer; margin-bottom: 20px; animation: floatAnim 2s ease-in-out infinite alternate; display: flex; justify-content: center; align-items: center; }
+        .gif-box-wrapper img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
+        @keyframes floatAnim { 0% { transform: translateY(0px); } 100% { transform: translateY(-15px); } }
+        
+        .box-reward-reveal { font-size: 4rem; font-weight: 900; color: #fff; text-shadow: 0 4px 15px rgba(0,0,0,0.5); display: none; text-align: center; line-height: 1.2; }
+    </style>
+</head>
+<body class="theme-default">
+
+    <div class="game-wrapper">
+        <audio id="bgMusic" loop src="background music.mp3"></audio>
+        <audio id="sndClick" src="click.wav"></audio>
+        <audio id="sndAdd" src="add.wav"></audio>
+        <audio id="sndMinus" src="minus.wav"></audio>
+        <audio id="sndSwap" src="swap points.wav"></audio>
+        <audio id="sndLose" src="lose all points.wav"></audio>
+        <audio id="sndReveal" src="reveal.wav"></audio>
+
+        <div id="globalScoreboard" class="scoreboard glass-panel" style="display:none;">
+            </div>
+
+        <button id="btnHome" class="btn-home" style="display:none;" onclick="confirmGoHome()">🏠 Feed</button>
+
+        <div id="screenTitle" class="screen active">
+            <div class="title-image-box">
+                <img src="titlepage.gif" alt="Game Logo Graphic">
+            </div>
+            <div class="title-action-panel">
+                <button class="btn btn-blue" style="font-size: 1.8rem; padding: 20px 50px; border-radius: 50px;" onclick="changeScreen('screenRules')">▶️ Start Challenge</button>
+                <button class="btn btn-outline" style="font-size: 1.8rem; padding: 20px 50px; border-radius: 50px; background: rgba(255,255,255,0.9);" onclick="changeScreen('screenSettings')">⚙️ Settings</button>
+            </div>
+            <div class="developer-credit">Created by Teacher Cris Saranza</div>
+        </div>
+
+        <div id="screenRules" class="screen">
+            <div class="glass-panel" style="padding:40px; border-radius:25px; max-width:800px; color:#1c1e21; background: rgba(255,255,255,0.95);">
+                <h2 style="color:var(--social-dark); text-shadow: none; margin-top:0;">📱 Community Guidelines</h2>
+                <ul style="text-align:left; font-size:1.4rem; line-height: 1.8; padding-left: 25px; margin-bottom: 30px;">
+                    <li>Answer the challenge post correctly to unlock the <strong>Viral Mystery Box!</strong></li>
+                    <li>Choose <strong>👍 LIKE</strong> to keep the mystery points for your team.</li>
+                    <li>Choose <strong>👤 FOLLOW</strong> to send the mystery points to a rival team!</li>
+                    <li>If you answer <strong>WRONG</strong>, your team loses followers (points) and your turn ends!</li>
+                </ul>
+                <button class="btn btn-blue" style="font-size: 1.5rem; border-radius: 50px;" onclick="initGame()">Let's Go! 🚀</button>
+            </div>
+        </div>
+
+        <div id="screenRandomizer" class="screen">
+            <div class="glass-panel" style="background:rgba(0,0,0,0.7); padding:50px; border-radius:30px; border: 1px solid rgba(255,255,255,0.2); max-width:800px;">
+                <h2 style="font-size: 3rem;">Who is trending first?</h2>
+                <div class="random-number-display" id="randomNumDisplay">?</div>
+                <button class="btn btn-orange" id="btnSpin" style="font-size: 1.8rem; border-radius: 50px; padding: 20px 50px;" onclick="spinRandomizer()">🎲 Spin Wheel</button>
+                <button class="btn btn-green" id="btnContinueGame" style="display:none; font-size: 1.8rem; border-radius: 50px; padding: 20px 50px;" onclick="startGameGrid()">Enter Grid ➡️</button>
+            </div>
+        </div>
+
+        <div id="screenMain" class="screen">
+            <div class="turn-container">
+                <span id="turnDot" class="turn-dot"></span>
+                <h2 id="turnIndicator">Team 1 is Live</h2>
+            </div>
+            <div id="azGrid" class="grid-az"></div>
+        </div>
+
+        <div id="screenQuestion" class="screen">
+            <div class="content-card glass-panel" id="qCardShell" style="background: #fff;">
+                
+                <div class="post-header">
+                    <button class="nav-icon-btn" onclick="goToGridScreen()" title="Go Back" style="font-size: 1.5rem; margin-right: 15px; color: #65676b; border: none; background: none; cursor: pointer;">⬅️</button>
+                    <div class="post-avatar">🤖</div>
+                    <div class="post-user-info">
+                        <div class="username">Challenge_Bot <span style="color:var(--social-blue); font-size: 1rem;">✔️</span></div>
+                        <div class="time">Sponsored • Just now</div>
+                    </div>
+                </div>
+
+                <div id="qScrollArea" class="q-scroll-body">
+                    <div id="qText" class="question-text"></div>
+                    <img id="qImg" src="" style="width:100%; border-radius:10px; display:none; object-fit: cover; max-height: 35vh;">
+                    
+                    <div id="qOptions" class="options-container"></div>
+                    
+                    <div id="qIdArea" style="display:none; width:100%; text-align: left; margin-top: 15px;">
+                        <button id="btnRevealId" class="btn btn-outline" onclick="revealIdAnswer()">💬 View Answer</button>
+                        <p id="idAns" style="font-size:1.8rem; color:var(--social-green); font-weight:800; margin: 15px 0 0 0; text-transform: none;"></p>
+                    </div>
+                </div>
+
+                <div id="decisionPhase1" class="post-action-bar">
+                    <button class="btn btn-green" style="flex:1;" onclick="handleAnswer('correct')">✔️ Correct</button>
+                    <button class="btn btn-outline" style="flex:1; border-color: var(--social-red); color: var(--social-red);" onclick="handleAnswer('wrong')">❌ Wrong</button>
+                </div>
+
+                <div id="decisionPhase2" class="post-action-bar" style="display:none; flex-direction: column; align-items: center; background: #f8f9fa;">
+                    <div style="font-weight: bold; color: var(--social-dark); margin-bottom: 5px;">Viral Box Unlocked! What will you do?</div>
+                    <div style="display: flex; gap: 15px; width: 100%;">
+                        <button class="btn btn-like" onclick="handleDecision('keep')">👍 LIKE (Keep)</button>
+                        <button class="btn btn-follow" onclick="handleDecision('give')">👤 FOLLOW (Send)</button>
+                    </div>
+                </div>
+
+                <div id="targetOverlay" class="overlay-window">
+                    <h2 style="font-size:2.5rem; margin-bottom:30px;">Share with who?</h2>
+                    <div id="targetGrid" class="target-grid">
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="screenOutcome" class="screen">
+            <div class="glass-panel" style="padding: 40px; border-radius: 25px; max-width: 600px; background: rgba(255,255,255,0.95);">
+                <div style="font-size: 3rem; margin-bottom: 15px;">🔔</div>
+                <h2 style="color:var(--social-dark); text-shadow:none; font-size:2rem; margin:0;">New Notification</h2>
+                <div id="outcomeText" style="font-size:3rem; color:var(--social-blue); font-weight:900; margin:25px 0; line-height: 1.3;"></div>
+                <button class="btn btn-blue" style="border-radius: 50px; font-size: 1.2rem; padding: 12px 30px;" onclick="nextTurn()">Continue ➡️</button>
+            </div>
+        </div>
+
+        <div id="screenSettings" class="screen">
+            <div class="settings-panel">
+                <h2 style="font-size: 2rem; margin-bottom: 20px;">⚙️ Admin Dashboard</h2>
+                
+                <div class="settings-tabs">
+                    <button class="tab-btn active" onclick="switchTab('tab-questions', this)">Posts (Q&A)</button>
+                    <button class="tab-btn" onclick="switchTab('tab-outcomes', this)">Viral Logic</button>
+                    <button class="tab-btn" onclick="switchTab('tab-system', this)">System</button>
+                </div>
+
+                <div id="tab-questions" class="tab-content active">
+                    <p style="color: #65676b; font-size: 0.9rem; margin-bottom: 15px;">Fill your content feed. Game uses only the needed slots based on Grid Size.</p>
+                    <div id="setupList"></div>
+                </div>
+
+                <div id="tab-outcomes" class="tab-content">
+                    <p style="color: #65676b; font-size: 0.9rem; margin-bottom: 15px;">Set the mystery box contents. Use math (+10, -10), 'swap score', or 'lose all points'.</p>
+                    <div id="outcomesSetupList" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                        </div>
+                </div>
+
+                <div id="tab-system" class="tab-content">
+                    <div class="q-row">
+                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Game Rules & Visuals</h3>
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 150px;">
+                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Number of Teams:</label>
+                                <select id="numTeamsSelect">
+                                    <option value="2">2 Teams</option> <option value="3">3 Teams</option>
+                                    <option value="4">4 Teams</option> <option value="5">5 Teams</option>
+                                    <option value="6">6 Teams</option> <option value="7">7 Teams</option>
+                                    <option value="8">8 Teams</option>
+                                </select>
+                            </div>
+                            <div style="flex: 1; min-width: 150px;">
+                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Grid Size:</label>
+                                <select id="gridSizeSelect">
+                                    <option value="10">10 Posts (A-J)</option>
+                                    <option value="16">16 Posts (A-P)</option>
+                                    <option value="26">26 Posts (A-Z)</option>
+                                </select>
+                            </div>
+                            <div style="flex: 1; min-width: 150px;">
+                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Wrong Answer Penalty:</label>
+                                <input type="number" id="wrongPenaltyInput" value="10" min="0">
+                            </div>
+                            <div style="flex: 1; min-width: 150px;">
+                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Background Theme:</label>
+                                <select id="themeSelect" onchange="previewTheme()">
+                                    <option value="theme-default">Classic Desk</option>
+                                    <option value="theme-space">Neon Space</option>
+                                    <option value="theme-jungle">Jungle Safari</option>
+                                    <option value="theme-ocean">Deep Ocean</option>
+                                </select>
+                            </div>
+                            <div style="flex: 1; min-width: 150px;">
+                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Global Font Style:</label>
+                                <select id="fontSelect" onchange="previewFont()">
+                                    <option value="'Nunito', sans-serif">Nunito (Modern App)</option>
+                                    <option value="'Poppins', sans-serif">Poppins (Clean)</option>
+                                    <option value="'Comic Neue', cursive">Comic Neue (Playful)</option>
+                                    <option value="'Fredoka One', cursive">Fredoka One</option>
+                                    <option value="'Chewy', cursive">Chewy</option>
+                                    <option value="'Bangers', cursive">Bangers</option>
+                                    <option value="'Luckiest Guy', cursive">Luckiest Guy</option>
+                                    <option value="'Righteous', cursive">Righteous</option>
+                                    <option value="'Sigmar One', cursive">Sigmar One</option>
+                                    <option value="'DynaPuff', cursive">DynaPuff</option>
+                                    <option value="'Balsamiq Sans', cursive">Balsamiq Sans</option>
+                                    <option value="'Sniglet', cursive">Sniglet</option>
+                                    <option value="'Boogaloo', cursive">Boogaloo</option>
+                                    <option value="'Carter One', cursive">Carter One</option>
+                                    <option value="'Jua', sans-serif">Jua</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="q-row">
+                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Database & Audio</h3>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
+                            <button class="btn btn-green" style="font-size:0.9rem; padding: 10px 15px;" onclick="exportData()">📥 Export Data</button>
+                            <button class="btn btn-blue" style="font-size:0.9rem; padding: 10px 15px;" onclick="document.getElementById('fileIn').click()">📤 Import Data</button>
+                            <input type="file" id="fileIn" style="display:none;" accept=".json" onchange="importData(event)">
+                            <button id="btnMusicToggle" class="btn btn-orange" style="font-size:0.9rem; padding: 10px 15px;" onclick="toggleMusic()">🎵 Music: ON</button>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: bold;">
+                                <span>Music Vol:</span> <input type="range" id="volMusic" min="0" max="1" step="0.1" value="0.3" oninput="updateVolumes()" style="flex:1;">
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: bold;">
+                                <span>SFX Vol:</span> <input type="range" id="volSFX" min="0" max="1" step="0.1" value="0.9" oninput="updateVolumes()" style="flex:1;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align:right; padding-top:15px; border-top: 1px solid #e4e6eb; margin-top: 20px;">
+                    <button class="btn btn-outline" style="margin-right: 10px;" onclick="closeSettings()">Cancel</button>
+                    <button class="btn btn-blue" onclick="saveData()">💾 Save Dashboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const TEAM_COLORS = ['#1877f2', '#ff4757', '#2ecc71', '#f1c40f', '#9b59b6', '#e67e22', '#1abc9c', '#e84393'];
+        
+        let numTeams = 2;
+        let scores = [];
+        let currentTeamIdx = 0;
+        let wrongPenalty = 10;
+        
+        let questions = [];
+        let mapping = [];
+        let used = new Array(26).fill(false);
+        let activeIdx = null;
+        let isMusicPlaying = true;
+        let isAnswerLocked = false; 
+
+        let customOutcomes = ["+5", "+10", "+20", "+30", "+50", "-5", "-10", "-25", "-20", "-30", "swap score", "lose all points"];
+        let gameGridSize = 26;
+        let activeTheme = "theme-default";
+        let activeFont = "'Nunito', sans-serif";
+
+        window.onload = () => {
+            loadData(); buildSetup(); buildOutcomesSetup(); applySavedThemeAndFont(); shuffle(); updateVolumes();
+        };
+
+        function confirmGoHome() {
+            if(confirm("Exit feed and return to home screen? Current game progress will be lost.")) {
+                document.getElementById('globalScoreboard').style.display = 'none';
+                document.getElementById('btnHome').style.display = 'none';
+                changeScreen('screenTitle');
+                if (isMusicPlaying) { document.getElementById('bgMusic').pause(); }
+            }
+        }
+
+        function switchTab(tabId, btnElement) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            btnElement.classList.add('active');
+        }
+
+        function changeScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            let isGameActive = ['screenMain', 'screenQuestion', 'screenOutcome'].includes(id);
+            document.getElementById('globalScoreboard').style.display = isGameActive ? 'flex' : 'none';
+            document.getElementById('btnHome').style.display = isGameActive ? 'block' : 'none';
+        }
+
+        function closeSettings() { applySavedThemeAndFont(); changeScreen('screenTitle'); }
+
+        function previewTheme() { document.body.className = document.getElementById('themeSelect').value; }
+        function previewFont() { document.documentElement.style.setProperty('--main-font', document.getElementById('fontSelect').value); }
+        function applySavedThemeAndFont() {
+            document.body.className = activeTheme; document.getElementById('themeSelect').value = activeTheme;
+            document.documentElement.style.setProperty('--main-font', activeFont); document.getElementById('fontSelect').value = activeFont;
+        }
+
+        function loadData() {
+            let data = localStorage.getItem('social_edition_v2');
+            if (data) {
+                let parsed = JSON.parse(data);
+                questions = parsed.questions || [];
+                customOutcomes = parsed.outcomes || customOutcomes;
+                gameGridSize = parsed.gridSize || 26;
+                numTeams = parsed.numTeams || 2;
+                wrongPenalty = parsed.wrongPenalty !== undefined ? parsed.wrongPenalty : 10;
+                activeTheme = parsed.theme || "theme-default";
+                activeFont = parsed.font || "'Nunito', sans-serif";
+                
+                document.getElementById('gridSizeSelect').value = gameGridSize;
+                document.getElementById('numTeamsSelect').value = numTeams;
+                document.getElementById('wrongPenaltyInput').value = wrongPenalty;
+            } else {
+                questions = [];
+                for (let i = 0; i < 26; i++) {
+                    questions.push({ 
+                        text: `Content Post #${i+1}?`, type: 'id', options: ['A', 'B', 'C', 'D'], 
+                        correct: 0, answer: 'Answer Key', image: '', outcome: customOutcomes[i % customOutcomes.length] 
+                    });
+                }
+            }
+        }
+
+        function buildSetup() {
+            const list = document.getElementById('setupList'); list.innerHTML = '';
+            questions.forEach((q, i) => {
+                let optsHTML = [0,1,2,3].map(oi => `
+                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
+                        <input type="radio" name="correct_radio_${i}" style="transform: scale(1.3); cursor: pointer;" ${q.correct == oi ? 'checked' : ''} value="${oi}">
+                        <input type="text" id="q${i}_o${oi}" value="${q.options[oi] || ''}" placeholder="Option ${oi+1}">
+                    </div>
+                `).join('');
+
+                list.insertAdjacentHTML('beforeend', `
+                    <div class="q-row">
+                        <strong style="color:var(--social-blue);">Post #${i+1}</strong>
+                        <input type="text" id="qText_${i}" value="${q.text}" style="margin: 10px 0; font-weight:bold;">
+                        <div style="display:flex; gap:10px; margin-bottom:10px;">
+                            <select id="qType_${i}" onchange="toggleType(${i}, this.value)" style="flex: 1;">
+                                <option value="id" ${q.type=='id'?'selected':''}>Identification</option>
+                                <option value="multiple" ${q.type=='multiple'?'selected':''}>Multiple Choice</option>
+                            </select>
+                            <select id="qOut_${i}" style="flex: 1;">${customOutcomes.map(o => `<option value="${o}" ${q.outcome==o?'selected':''}>${o}</option>`).join('')}</select>
+                        </div>
+                        <div id="paste_${i}" style="border:2px dashed #ccd0d5; padding:15px; text-align:center; background:#fff; border-radius: 8px; color:#65676b; cursor: pointer; font-size:0.9rem;" onpaste="handlePaste(event, ${i})">
+                            ${q.image ? `<img src="${q.image}" style="height:60px; border-radius:5px;"> <br><button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.8rem; margin-top:5px;" onclick="clearImage(${i})">Remove Image</button>` : '📸 Paste Image Here (Ctrl+V)'}
+                        </div>
+                        <div id="mc_${i}" style="display:${q.type=='multiple'?'block':'none'}; background:#fff; padding:10px; border-radius:8px; border:1px solid #e4e6eb; margin-top: 10px;">
+                            <span style="font-size:0.85rem; font-weight:bold; color:#65676b;">Select the correct option dot:</span>
+                            ${optsHTML}
+                        </div>
+                        <input type="text" id="qAns_${i}" value="${q.answer}" style="display:${q.type=='id'?'block':'none'}; margin-top: 10px;" placeholder="Answer Key">
+                    </div>
+                `);
+            });
+        }
+
+        function buildOutcomesSetup() {
+            const list = document.getElementById('outcomesSetupList'); list.innerHTML = '';
+            for(let i = 0; i < 12; i++) {
+                list.insertAdjacentHTML('beforeend', `
+                    <div style="background: #f8f9fa; padding: 12px; border-radius: 8px; border: 1px solid #e4e6eb;">
+                        <label style="font-size: 0.85rem; color: #65676b; font-weight: bold;">Logic Slot ${i+1}</label>
+                        <input type="text" id="customOut_${i}" value="${customOutcomes[i] || ""}" style="margin-top: 5px;">
+                    </div>
+                `);
+            }
+        }
+
+        function clearImage(i) { questions[i].image = ''; buildSetup(); }
+        function toggleType(i, type) {
+            document.getElementById(`mc_${i}`).style.display = type == 'multiple' ? 'block' : 'none';
+            document.getElementById(`qAns_${i}`).style.display = type == 'id' ? 'block' : 'none';
+        }
+
+        function handlePaste(e, i) {
+            const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            for (let item of items) {
+                if (item.type.indexOf("image") !== -1) {
+                    const reader = new FileReader(); reader.onload = (event) => { questions[i].image = event.target.result; buildSetup(); };
+                    reader.readAsDataURL(item.getAsFile());
+                }
+            }
+        }
+
+        function toggleMusic() {
+            const music = document.getElementById('bgMusic'); const btn = document.getElementById('btnMusicToggle');
+            if (isMusicPlaying) { music.pause(); btn.innerText = "🎵 Music: OFF"; isMusicPlaying = false; } 
+            else { music.play().catch(()=>{}); btn.innerText = "🎵 Music: ON"; isMusicPlaying = true; }
+        }
+
+        function updateVolumes() {
+            document.getElementById('bgMusic').volume = document.getElementById('volMusic').value;
+            let sfxV = document.getElementById('volSFX').value;
+            ['sndClick','sndAdd','sndMinus','sndSwap','sndLose','sndReveal'].forEach(id => { document.getElementById(id).volume = sfxV; });
+        }
+
+        function saveData() {
+            for(let i = 0; i < 12; i++) { customOutcomes[i] = document.getElementById(`customOut_${i}`).value.trim() || customOutcomes[i]; }
+            questions.forEach((q, i) => {
+                q.text = document.getElementById(`qText_${i}`).value; q.type = document.getElementById(`qType_${i}`).value;
+                q.outcome = document.getElementById(`qOut_${i}`).value; q.answer = document.getElementById(`qAns_${i}`).value;
+                q.options = [0,1,2,3].map(oi => document.getElementById(`q${i}_o${oi}`).value);
+                let radios = document.getElementsByName(`correct_radio_${i}`);
+                for(let r = 0; r < radios.length; r++) { if(radios[r].checked) { q.correct = parseInt(radios[r].value); break; } }
+            });
+
+            gameGridSize = parseInt(document.getElementById('gridSizeSelect').value);
+            numTeams = parseInt(document.getElementById('numTeamsSelect').value);
+            wrongPenalty = parseInt(document.getElementById('wrongPenaltyInput').value) || 0;
+            activeTheme = document.getElementById('themeSelect').value;
+            activeFont = document.getElementById('fontSelect').value;
+            
+            applySavedThemeAndFont();
+
+            let payload = { questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, theme: activeTheme, font: activeFont };
+            localStorage.setItem('social_edition_v2', JSON.stringify(payload));
+            
+            buildSetup(); shuffle(); alert("Dashboard Saved!"); changeScreen('screenTitle');
+        }
+
+        function exportData() {
+            let payload = { questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, theme: activeTheme, font: activeFont };
+            const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload));
+            const dl = document.createElement('a'); dl.setAttribute("href", str); dl.setAttribute("download", "social_feed_backup.json");
+            document.body.appendChild(dl); dl.click(); dl.remove();
+        }
+
+        function importData(e) {
+            const fr = new FileReader();
+            fr.onload = (event) => {
+                try {
+                    const parsed = JSON.parse(event.target.result);
+                    if (parsed.questions && Array.isArray(parsed.questions)) {
+                        localStorage.setItem('social_edition_v2', JSON.stringify(parsed));
+                        loadData(); buildSetup(); buildOutcomesSetup(); applySavedThemeAndFont(); alert("Data Imported!");
+                    } else { alert("Data mismatch. Please check file."); }
+                } catch(err) { alert("Failed to parse file."); }
+            };
+            fr.readAsText(e.target.files[0]);
+        }
+
+        function shuffle() { mapping = Array.from({length: 26}, (_, i) => i).sort(() => Math.random() - 0.5); buildGrid(); }
+
+        function buildGrid() {
+            const grid = document.getElementById('azGrid'); grid.innerHTML = '';
+            const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            for (let i = 0; i < gameGridSize; i++) {
+                let qi = mapping[i]; let div = document.createElement('div');
+                div.className = `letter-box ${used[qi] ? 'disabled' : ''}`; div.innerText = alphabet[i];
+                if (!used[qi]) { div.onclick = () => launch(alphabet[i], qi); }
+                grid.appendChild(div);
+            }
+        }
+
+        function buildScoreboard() {
+            let sb = document.getElementById('globalScoreboard'); sb.innerHTML = '';
+            for(let i=0; i<numTeams; i++) {
+                let div = document.createElement('div'); div.id = `boxTeam${i}`; div.className = 'team-box';
+                div.innerHTML = `<div class="team-name" style="color:${TEAM_COLORS[i]}">Team ${i+1}</div><div class="team-score" id="scoreTeam${i}">0</div>`;
+                sb.appendChild(div);
+            }
+        }
+
+        function updateScores() {
+            for(let i=0; i<numTeams; i++) {
+                document.getElementById(`scoreTeam${i}`).innerText = scores[i] + (scores[i] === 1 ? " pt" : " pts");
+                let box = document.getElementById(`boxTeam${i}`);
+                if(i === currentTeamIdx) {
+                    box.classList.add('active-turn');
+                    box.style.borderBottomColor = TEAM_COLORS[i];
+                } else {
+                    box.classList.remove('active-turn');
+                    box.style.borderBottomColor = '#ccc';
+                }
+            }
+            let dot = document.getElementById('turnDot'); let ind = document.getElementById('turnIndicator');
+            dot.style.background = TEAM_COLORS[currentTeamIdx];
+            ind.innerText = `Team ${currentTeamIdx + 1} is Live`;
+        }
+
+        function initGame() {
+            scores = new Array(numTeams).fill(0); used.fill(false); buildScoreboard(); 
+            document.getElementById('btnSpin').style.display = 'inline-block';
+            document.getElementById('btnContinueGame').style.display = 'none';
+            document.getElementById('randomNumDisplay').innerText = '?';
+            changeScreen('screenRandomizer');
+            if (isMusicPlaying) { document.getElementById('bgMusic').play().catch(()=>{}); }
+        }
+
+        function spinRandomizer() {
+            playSound('sndClick');
+            document.getElementById('btnSpin').style.display = 'none';
+            let display = document.getElementById('randomNumDisplay');
+            let counter = 0;
+            let spinInterval = setInterval(() => {
+                display.innerText = Math.floor(Math.random() * numTeams) + 1;
+                counter++;
+                if(counter > 20) {
+                    clearInterval(spinInterval); playSound('sndReveal');
+                    currentTeamIdx = Math.floor(Math.random() * numTeams);
+                    display.innerText = `TEAM ${currentTeamIdx + 1}`;
+                    display.style.color = TEAM_COLORS[currentTeamIdx];
+                    document.getElementById('btnContinueGame').style.display = 'inline-block';
+                }
+            }, 80);
+        }
+
+        function startGameGrid() { playSound('sndClick'); updateScores(); buildGrid(); changeScreen('screenMain'); }
+
+        function launch(l, qi) {
+            playSound('sndClick'); activeIdx = qi; let q = questions[qi]; isAnswerLocked = false; 
+            
+            document.getElementById('targetOverlay').style.display = 'none';
+            document.getElementById('decisionPhase1').style.display = 'flex';
+            document.getElementById('decisionPhase2').style.display = 'none';
+
+            document.getElementById('qText').innerText = q.text;
+            
+            let img = document.getElementById('qImg');
+            if(q.image) { img.src = q.image; img.style.display = 'block'; } else { img.style.display = 'none'; }
+            
+            let opts = document.getElementById('qOptions'); let idArea = document.getElementById('qIdArea');
+            opts.innerHTML = ''; document.getElementById('idAns').innerText = '';
+
+            if (q.type == 'multiple') {
+                idArea.style.display = 'block'; document.getElementById('btnRevealId').innerHTML = "💬 View Answer"; opts.style.display = 'flex';
+                q.options.forEach((o, oi) => {
+                    if (o.trim()) {
+                        let b = document.createElement('button'); b.className = 'poll-btn'; b.innerText = o;
+                        b.onclick = () => { 
+                            if (isAnswerLocked) return; playSound('sndClick');
+                            Array.from(opts.children).forEach(child => child.classList.remove('selected'));
+                            b.classList.add('selected'); b.dataset.selectedIdx = oi; 
+                        }; opts.appendChild(b);
+                    }
+                });
+            } else {
+                opts.style.display = 'none'; idArea.style.display = 'block'; document.getElementById('btnRevealId').innerHTML = "💬 View Answer";
+                document.getElementById('idAns').innerText = q.answer; document.getElementById('idAns').style.display = 'none';
+            }
+            changeScreen('screenQuestion');
+        }
+
+        function revealIdAnswer() { 
+            playSound('sndClick'); let q = questions[activeIdx];
+            if (q.type == 'multiple') {
+                if (isAnswerLocked) return; isAnswerLocked = true; 
+                let opts = document.getElementById('qOptions'); let selectedBtn = Array.from(opts.children).find(btn => btn.dataset.selectedIdx !== undefined);
+                Array.from(opts.children).forEach((btn, oi) => {
+                    if (oi == q.correct) { btn.classList.add('correct-ans'); } 
+                    else if (btn === selectedBtn) { btn.classList.add('wrong-ans'); }
+                });
+            } else { document.getElementById('idAns').style.display = 'block'; }
+        }
+
+        function goToGridScreen() { playSound('sndClick'); changeScreen('screenMain'); }
+
+        function handleAnswer(status) {
+            if (status === 'correct') {
+                playSound('sndClick');
+                document.getElementById('decisionPhase1').style.display = 'none';
+                document.getElementById('decisionPhase2').style.display = 'flex';
+            } else {
+                playSound('sndMinus'); 
+                scores[currentTeamIdx] -= wrongPenalty;
+                used[activeIdx] = true;
+                
+                document.getElementById('outcomeText').innerText = `Oof. You lost ${wrongPenalty} followers.`;
+                document.getElementById('outcomeText').style.color = 'var(--social-red)';
+                
+                updateScores();
+                changeScreen('screenOutcome');
+            }
+        }
+
+        function openTargetSelection(callback) {
+            let overlay = document.getElementById('targetOverlay');
+            let grid = document.getElementById('targetGrid');
+            grid.innerHTML = '';
+            for(let i=0; i<numTeams; i++) {
+                if(i !== currentTeamIdx) {
+                    let btn = document.createElement('div');
+                    btn.className = 'target-user-btn'; 
+                    btn.innerHTML = `<div class="avatar-lg" style="background:${TEAM_COLORS[i]}"></div><strong style="font-size:1.2rem;">Team ${i+1}</strong>`;
+                    btn.onclick = () => { overlay.style.display = 'none'; callback(i); };
+                    grid.appendChild(btn);
+                }
+            }
+            overlay.style.display = 'flex';
+        }
+
+        function handleDecision(choice) {
+            if (choice === 'keep') { applyDecisionLogic('keep', currentTeamIdx); } 
+            else { openTargetSelection((targetIdx) => { applyDecisionLogic('give', targetIdx); }); }
+        }
+
+        function applyDecisionLogic(choice, targetIdx) {
+            let q = questions[activeIdx]; used[activeIdx] = true; 
+            let val = q.outcome.toString().toLowerCase(); let chosenSound = 'sndAdd';
+
+            if (val.includes('+')) { scores[targetIdx] += parseInt(val.replace(/[^\d]/g, '')); chosenSound = 'sndAdd'; } 
+            else if (val.includes('-')) { scores[targetIdx] -= parseInt(val.replace(/[^\d]/g, '')); chosenSound = 'sndMinus'; } 
+            else if (val.includes('swap score')) { let temp = scores[currentTeamIdx]; scores[currentTeamIdx] = scores[targetIdx]; scores[targetIdx] = temp; chosenSound = 'sndSwap'; } 
+            else if (val.includes('lose all')) { scores[targetIdx] = 0; chosenSound = 'sndLose'; }
+
+            playSound(chosenSound);
+            let targetName = (targetIdx === currentTeamIdx) ? "your team" : `@Team${targetIdx+1}`;
+            
+            let displayColor = (val.includes('-') || val.includes('lose')) ? 'var(--social-red)' : 'var(--social-blue)';
+            document.getElementById('outcomeText').style.color = displayColor;
+            document.getElementById('outcomeText').innerHTML = choice == 'keep' ? `👍 You LIKED this.<br>Result: ${q.outcome} for you!` : `👤 You sent this to ${targetName}.<br>Result: ${q.outcome}`;
+            
+            updateScores(); changeScreen('screenOutcome');
+        }
+
+        function nextTurn() {
+            playSound('sndClick'); currentTeamIdx = (currentTeamIdx + 1) % numTeams;
+            updateScores(); buildGrid(); 
+            let allUsed = true;
+            for(let i=0; i<gameGridSize; i++) { if(!used[mapping[i]]) allUsed = false; }
+
+            if(allUsed) { 
+                let winnerText = scores.map((s,i) => `Team ${i+1}: ${s}`).join(" | ");
+                alert(`Game Over! Final Followers -> ${winnerText}`); 
+                document.getElementById('globalScoreboard').style.display = 'none';
+                document.getElementById('btnHome').style.display = 'none';
+                changeScreen('screenTitle'); 
+            } else { changeScreen('screenMain'); }
+        }
+        
+        function playSound(id) { let audio = document.getElementById(id); audio.currentTime = 0; audio.play().catch(()=>{}); }
+    </script>
+</body>
+</html>
