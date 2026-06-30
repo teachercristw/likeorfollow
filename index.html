@@ -55,7 +55,8 @@
         }
         .screen.active { display: flex; }
 
-        /* REMOVED HOMEPAGE GRAY BOX OVERLAY */
+        /* Homepage specific layout to avoid covering background */
+        #screenTitle { justify-content: space-between; padding-bottom: 80px; }
         #screenTitle.screen.active { background: transparent; backdrop-filter: none; }
         
         /* DIM THE GRID SCREEN SO TILES POP */
@@ -64,28 +65,40 @@
         h2 { font-size: 2.8rem; color: #ffffff; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin: 10px 0; font-weight: 800; }
         
         .developer-credit {
-            color: #ffffff; font-size: 1.1rem; margin-top: 30px; text-shadow: 1px 1px 2px #000; 
-            letter-spacing: 1px; animation: pulse 2s infinite alternate; font-weight: bold;
+            position: absolute; bottom: 15px; width: 100%; text-align: center;
+            color: #ffffff; font-size: 1.1rem; text-shadow: 1px 1px 3px #000, 0 0 10px rgba(255,255,255,0.5); 
+            letter-spacing: 1px; animation: pulse 2s infinite alternate; font-weight: bold; z-index: 10;
         }
-        @keyframes pulse { 0% { opacity: 0.7; } 100% { opacity: 1; text-shadow: 0 0 8px #fff; } }
+        @keyframes pulse { 0% { opacity: 0.7; } 100% { opacity: 1; text-shadow: 0 0 12px #fff; } }
 
-        /* Modern App Buttons */
+        /* Modern App Buttons with Glows */
         .btn {
-            background: var(--social-blue); color: white; border: none; padding: 15px 30px; 
+            color: white; border: none; padding: 15px 30px; 
             font-size: 1.2rem; font-weight: bold; border-radius: 12px; cursor: pointer; 
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.15s ease; display: inline-flex;
+            transition: all 0.2s ease; display: inline-flex;
             align-items: center; justify-content: center; gap: 8px; text-decoration: none;
         }
-        .btn:active { transform: scale(0.96); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        .btn-green { background: var(--social-green); }
-        .btn-orange { background: #ff9f43; }
-        .btn-outline { background: transparent; border: 2px solid var(--social-dark); color: var(--social-dark); box-shadow: none; }
+        .btn:hover { transform: translateY(-3px); }
+        .btn:active { transform: scale(0.96); }
         
-        /* SOCIAL MEDIA SPECIFIC BUTTONS */
-        .btn-like { background: var(--social-red); width: 100%; font-size: 1.4rem; padding: 18px; border-radius: 20px; }
-        .btn-follow { background: var(--social-blue); width: 100%; font-size: 1.4rem; padding: 18px; border-radius: 20px; }
+        .btn-blue { background: linear-gradient(135deg, #1877f2, #0984e3); box-shadow: 0 8px 0 #075eb0, 0 0 20px rgba(24, 119, 242, 0.6); }
+        .btn-blue:active { box-shadow: 0 2px 0 #075eb0, 0 0 10px rgba(24, 119, 242, 0.4); }
+        
+        .btn-green { background: linear-gradient(135deg, #2ecc71, #27ae60); box-shadow: 0 8px 0 #1e7e43, 0 0 20px rgba(46, 204, 113, 0.6); }
+        .btn-green:active { box-shadow: 0 2px 0 #1e7e43, 0 0 10px rgba(46, 204, 113, 0.4); }
+        
+        .btn-orange { background: linear-gradient(135deg, #ff9f43, #f39c12); box-shadow: 0 8px 0 #d68910, 0 0 20px rgba(255, 159, 67, 0.6); }
+        .btn-orange:active { box-shadow: 0 2px 0 #d68910, 0 0 10px rgba(255, 159, 67, 0.4); }
+        
+        .btn-outline { background: rgba(255,255,255,0.9); border: 2px solid var(--social-dark); color: var(--social-dark); box-shadow: 0 0 15px rgba(255,255,255,0.5); }
+        .btn-outline:hover { background: #fff; box-shadow: 0 0 25px rgba(255,255,255,0.8); }
 
-        /* Upgraded Home & Settings Buttons */
+        .btn-like { background: linear-gradient(135deg, #ff4757, #e84118); width: 100%; font-size: 1.4rem; padding: 18px; border-radius: 20px; box-shadow: 0 8px 0 #c23616, 0 0 20px rgba(255, 71, 87, 0.6); }
+        .btn-like:active { box-shadow: 0 2px 0 #c23616, 0 0 10px rgba(255, 71, 87, 0.4); }
+        
+        .btn-follow { background: linear-gradient(135deg, #1877f2, #0984e3); width: 100%; font-size: 1.4rem; padding: 18px; border-radius: 20px; box-shadow: 0 8px 0 #075eb0, 0 0 20px rgba(24, 119, 242, 0.6); }
+        .btn-follow:active { box-shadow: 0 2px 0 #075eb0, 0 0 10px rgba(24, 119, 242, 0.4); }
+
         .btn-home { 
             position: absolute; bottom: 25px; right: 25px; padding: 12px 22px; font-size: 1.2rem; 
             border-radius: 30px; background: rgba(0,0,0,0.75); color: white; backdrop-filter: blur(8px); 
@@ -102,16 +115,25 @@
         }
         .btn-settings-ingame:hover { transform: scale(1.1) rotate(45deg); background: rgba(0,0,0,0.9); border-color: rgba(255,255,255,0.7); }
 
-        /* Title Screen Elements */
-        .title-text-box { width: 100%; height: auto; display: flex; justify-content: center; align-items: center; margin-bottom: 40px; margin-top: 5vh; padding: 0 20px; }
+        /* Jumping Title Animation */
+        .title-text-box { width: 100%; margin-top: 10vh; display: flex; justify-content: center; align-items: center; padding: 0 20px; text-align: center;}
         #displayGameTitle { 
             font-family: var(--title-font) !important;
-            font-size: clamp(3rem, 10vw, var(--title-size)); /* Auto scales down if too long */
-            font-weight: 900; text-shadow: 4px 4px 15px rgba(0,0,0,0.8), -2px -2px 0px rgba(0,0,0,0.5); 
-            text-transform: uppercase; margin: 0; line-height: 1.1; text-align: center; 
+            font-size: clamp(3rem, 10vw, var(--title-size)); 
+            font-weight: 900; text-transform: uppercase; margin: 0; line-height: 1.2; 
+        }
+        
+        .jump-letter {
+            display: inline-block;
+            text-shadow: 4px 4px 15px rgba(0,0,0,0.8), -2px -2px 0px rgba(0,0,0,0.5);
+            animation: jumpAnim 2s infinite cubic-bezier(0.28, 0.84, 0.42, 1);
+        }
+        @keyframes jumpAnim {
+            0%, 20%, 100% { transform: translateY(0) scale(1); }
+            10% { transform: translateY(-25px) scale(1.1); }
         }
 
-        .title-action-panel { display: flex; gap: 20px; align-items: center; }
+        .title-action-panel { display: flex; gap: 20px; align-items: center; margin-bottom: 5vh; }
         .title-action-panel .btn { font-size: 1.8rem; padding: 20px 50px; border-radius: 50px; }
 
         /* Scoreboard */
@@ -222,11 +244,12 @@
                 <h1 id="displayGameTitle">LIKE OR FOLLOW</h1>
             </div>
             <div class="title-action-panel">
-                <button class="btn btn-blue" style="font-size: 1.8rem; padding: 20px 50px; border-radius: 50px;" onclick="changeScreen('screenRules')">▶️ Start Challenge</button>
-                <button class="btn btn-outline" style="font-size: 1.8rem; padding: 20px 50px; border-radius: 50px; background: rgba(255,255,255,0.9);" onclick="openSettings('screenTitle')">⚙️ Settings</button>
+                <button class="btn btn-blue" onclick="changeScreen('screenRules')">▶️ Start Challenge</button>
+                <button class="btn btn-outline" onclick="openSettings('screenTitle')">⚙️ Settings</button>
             </div>
-            <div class="developer-credit">Created by Teacher Cris Saranza</div>
         </div>
+
+        <div class="developer-credit">Developed by Teacher Cris Saranza</div>
 
         <!-- Rules Screen -->
         <div id="screenRules" class="screen">
@@ -417,7 +440,7 @@
                                 </select>
                             </div>
                             <div style="flex: 1; min-width: 150px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Global Font Style:</label>
+                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Global Game Font:</label>
                                 <select id="fontSelect" onchange="previewFont()">
                                     <option value="'Nunito', sans-serif">Nunito (Modern App)</option>
                                     <option value="'Poppins', sans-serif">Poppins (Clean)</option>
@@ -440,11 +463,8 @@
                     </div>
 
                     <div class="q-row">
-                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Database & Audio</h3>
+                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Audio Control</h3>
                         <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
-                            <button class="btn btn-green" style="font-size:0.9rem; padding: 10px 15px;" onclick="exportData()">📥 Export Data</button>
-                            <button class="btn btn-blue" style="font-size:0.9rem; padding: 10px 15px;" onclick="document.getElementById('fileIn').click()">📤 Import Data</button>
-                            <input type="file" id="fileIn" style="display:none;" accept=".json" onchange="importData(event)">
                             <button id="btnMusicToggle" class="btn btn-orange" style="font-size:0.9rem; padding: 10px 15px;" onclick="toggleMusic()">🎵 Music: ON</button>
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 10px;">
@@ -497,9 +517,16 @@
         let activeTitleFont = "'Nunito', sans-serif";
         let activeTitleSize = "8"; // in rem
 
-        window.onload = () => {
-            loadData(); buildSetup(); buildOutcomesSetup(); applySavedSettings(); shuffle(); updateVolumes();
-        };
+        window.onload = initApp;
+
+        async function initApp() {
+            await loadData(); 
+            buildSetup(); 
+            buildOutcomesSetup(); 
+            applySavedSettings(); 
+            shuffle(); 
+            updateVolumes();
+        }
 
         function confirmGoHome() {
             if(confirm("Exit feed and return to home screen? Current game progress will be lost.")) {
@@ -527,8 +554,8 @@
             document.getElementById('globalScoreboard').style.display = isGameActive ? 'flex' : 'none';
             document.getElementById('btnHome').style.display = isGameActive ? 'block' : 'none';
             
-            // In-game Settings Gear should only appear on the Main Grid or Question screen to prevent logic overlaps
-            document.getElementById('btnSettingsIngame').style.display = (id === 'screenMain') ? 'flex' : 'none';
+            // In-game Settings Gear should only appear on the Main Grid or Question screen
+            document.getElementById('btnSettingsIngame').style.display = (id === 'screenMain' || id === 'screenQuestion') ? 'flex' : 'none';
         }
 
         function openSettings(fromScreen) {
@@ -546,10 +573,12 @@
         function previewTileSize() { document.documentElement.style.setProperty('--grid-tile-min', document.getElementById('tileSizeSelect').value); }
         
         function previewTitle() {
-            document.getElementById('displayGameTitle').innerText = document.getElementById('gameTitleInput').value;
-            document.getElementById('displayGameTitle').style.color = document.getElementById('gameTitleColorInput').value;
             document.documentElement.style.setProperty('--title-font', document.getElementById('titleFontSelect').value);
             document.documentElement.style.setProperty('--title-size', document.getElementById('titleSizeInput').value + 'rem');
+            
+            let tempText = document.getElementById('gameTitleInput').value;
+            let tempColor = document.getElementById('gameTitleColorInput').value;
+            renderJumpingTitle(tempText, tempColor);
         }
         
         function applySavedSettings() {
@@ -561,46 +590,77 @@
             // Title Specific Settings
             document.documentElement.style.setProperty('--title-font', activeTitleFont);
             document.documentElement.style.setProperty('--title-size', activeTitleSize + 'rem');
-            document.getElementById('displayGameTitle').innerText = gameTitleText;
-            document.getElementById('displayGameTitle').style.color = gameTitleColor;
-
+            
             document.getElementById('gameTitleInput').value = gameTitleText;
             document.getElementById('gameTitleColorInput').value = gameTitleColor;
             document.getElementById('titleFontSelect').value = activeTitleFont;
             document.getElementById('titleSizeInput').value = activeTitleSize;
+            
+            renderJumpingTitle(gameTitleText, gameTitleColor);
         }
 
-        function loadData() {
-            let data = localStorage.getItem('social_edition_v6');
-            if (data) {
-                let parsed = JSON.parse(data);
-                questions = parsed.questions || [];
-                customOutcomes = parsed.outcomes || customOutcomes;
-                gameGridSize = parsed.gridSize || 26;
-                numTeams = parsed.numTeams || 2;
-                wrongPenalty = parsed.wrongPenalty !== undefined ? parsed.wrongPenalty : 10;
-                activeTheme = parsed.theme || "theme-default";
-                activeFont = parsed.font || "'Nunito', sans-serif";
-                activeTileSize = parsed.tileSize || "100px";
-                
-                gameTitleText = parsed.titleText || "LIKE OR FOLLOW";
-                gameTitleColor = parsed.titleColor || "#ffffff";
-                activeTitleFont = parsed.titleFont || "'Nunito', sans-serif";
-                activeTitleSize = parsed.titleSize || "8";
-                
-                document.getElementById('gridSizeSelect').value = gameGridSize;
-                document.getElementById('numTeamsSelect').value = numTeams;
-                document.getElementById('wrongPenaltyInput').value = wrongPenalty;
-                document.getElementById('tileSizeSelect').value = activeTileSize;
-            } else {
-                questions = [];
-                for (let i = 0; i < 26; i++) {
-                    questions.push({ 
-                        tileLabel: alphabet[i], tileImage: '',
-                        text: `Content Post #${i+1}?`, type: 'id', options: ['A', 'B', 'C', 'D'], 
-                        correct: 0, answer: 'Answer Key', image: '', outcome: customOutcomes[i % customOutcomes.length] 
-                    });
+        function renderJumpingTitle(text, color) {
+            let container = document.getElementById('displayGameTitle');
+            container.style.color = color;
+            let html = '';
+            for(let i=0; i < text.length; i++) {
+                let char = text[i] === ' ' ? '&nbsp;' : text[i];
+                html += `<span class="jump-letter" style="animation-delay: ${i * 0.1}s">${char}</span>`;
+            }
+            container.innerHTML = html;
+        }
+
+        async function loadData() {
+            // Attempt to load default JSON file hosted on GitHub
+            try {
+                let res = await fetch('follow.json');
+                if (res.ok) {
+                    let parsed = await res.json();
+                    applyParsedData(parsed);
+                    return;
                 }
+            } catch(e) {
+                console.log("No follow.json found, checking local storage...");
+            }
+
+            // Fallback to local storage
+            let data = localStorage.getItem('social_edition_v7');
+            if (data) {
+                applyParsedData(JSON.parse(data));
+            } else {
+                generateDefaultData();
+            }
+        }
+        
+        function applyParsedData(parsed) {
+            questions = parsed.questions || [];
+            customOutcomes = parsed.outcomes || customOutcomes;
+            gameGridSize = parsed.gridSize || 26;
+            numTeams = parsed.numTeams || 2;
+            wrongPenalty = parsed.wrongPenalty !== undefined ? parsed.wrongPenalty : 10;
+            activeTheme = parsed.theme || "theme-default";
+            activeFont = parsed.font || "'Nunito', sans-serif";
+            activeTileSize = parsed.tileSize || "100px";
+            
+            gameTitleText = parsed.titleText || "LIKE OR FOLLOW";
+            gameTitleColor = parsed.titleColor || "#ffffff";
+            activeTitleFont = parsed.titleFont || "'Nunito', sans-serif";
+            activeTitleSize = parsed.titleSize || "8";
+            
+            if(document.getElementById('gridSizeSelect')) document.getElementById('gridSizeSelect').value = gameGridSize;
+            if(document.getElementById('numTeamsSelect')) document.getElementById('numTeamsSelect').value = numTeams;
+            if(document.getElementById('wrongPenaltyInput')) document.getElementById('wrongPenaltyInput').value = wrongPenalty;
+            if(document.getElementById('tileSizeSelect')) document.getElementById('tileSizeSelect').value = activeTileSize;
+        }
+
+        function generateDefaultData() {
+            questions = [];
+            for (let i = 0; i < 26; i++) {
+                questions.push({ 
+                    tileLabel: alphabet[i], tileImage: '',
+                    text: `Content Post #${i+1}?`, type: 'id', options: ['A', 'B', 'C', 'D'], 
+                    correct: 0, answer: 'Answer Key', image: '', outcome: customOutcomes[i % customOutcomes.length] 
+                });
             }
         }
 
@@ -736,34 +796,9 @@
                 theme: activeTheme, font: activeFont, tileSize: activeTileSize, 
                 titleText: gameTitleText, titleColor: gameTitleColor, titleFont: activeTitleFont, titleSize: activeTitleSize 
             };
-            localStorage.setItem('social_edition_v6', JSON.stringify(payload));
+            localStorage.setItem('social_edition_v7', JSON.stringify(payload));
             
             buildSetup(); shuffle(); alert("Dashboard Saved!"); changeScreen(previousScreen);
-        }
-
-        function exportData() {
-            let payload = { 
-                questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, 
-                theme: activeTheme, font: activeFont, tileSize: activeTileSize, 
-                titleText: gameTitleText, titleColor: gameTitleColor, titleFont: activeTitleFont, titleSize: activeTitleSize 
-            };
-            const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload));
-            const dl = document.createElement('a'); dl.setAttribute("href", str); dl.setAttribute("download", "social_feed_backup.json");
-            document.body.appendChild(dl); dl.click(); dl.remove();
-        }
-
-        function importData(e) {
-            const fr = new FileReader();
-            fr.onload = (event) => {
-                try {
-                    const parsed = JSON.parse(event.target.result);
-                    if (parsed.questions && Array.isArray(parsed.questions)) {
-                        localStorage.setItem('social_edition_v6', JSON.stringify(parsed));
-                        loadData(); buildSetup(); buildOutcomesSetup(); applySavedSettings(); alert("Data Imported!");
-                    } else { alert("Data mismatch. Please check file."); }
-                } catch(err) { alert("Failed to parse file."); }
-            };
-            fr.readAsText(e.target.files[0]);
         }
 
         function shuffle() { mapping = Array.from({length: 26}, (_, i) => i).sort(() => Math.random() - 0.5); buildGrid(); }
