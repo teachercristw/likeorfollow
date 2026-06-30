@@ -16,7 +16,12 @@
             --social-red: #ff4757;
             --social-green: #2ecc71;
             --social-dark: #1c1e21;
+            
+            /* Dynamic Fonts & Sizes */
             --main-font: 'Nunito', sans-serif; 
+            --title-font: 'Nunito', sans-serif;
+            --title-size: 8rem;
+            --grid-tile-min: 100px; 
         }
 
         /* THEME CLASSES */
@@ -50,7 +55,8 @@
         }
         .screen.active { display: flex; }
 
-        #screenTitle.screen.active { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(5px); }
+        /* REMOVED HOMEPAGE GRAY BOX OVERLAY */
+        #screenTitle.screen.active { background: transparent; backdrop-filter: none; }
         
         /* DIM THE GRID SCREEN SO TILES POP */
         #screenMain { background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(4px); }
@@ -79,7 +85,7 @@
         .btn-like { background: var(--social-red); width: 100%; font-size: 1.4rem; padding: 18px; border-radius: 20px; }
         .btn-follow { background: var(--social-blue); width: 100%; font-size: 1.4rem; padding: 18px; border-radius: 20px; }
 
-        /* Upgraded Home Button - Bottom Right */
+        /* Upgraded Home & Settings Buttons */
         .btn-home { 
             position: absolute; bottom: 25px; right: 25px; padding: 12px 22px; font-size: 1.2rem; 
             border-radius: 30px; background: rgba(0,0,0,0.75); color: white; backdrop-filter: blur(8px); 
@@ -88,8 +94,22 @@
         }
         .btn-home:hover { background: rgba(0,0,0,0.9); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.7); }
 
+        .btn-settings-ingame {
+            position: absolute; top: 20px; right: 25px; width: 55px; height: 55px; font-size: 1.8rem; 
+            border-radius: 50%; background: rgba(0,0,0,0.75); color: white; border: 2px solid rgba(255,255,255,0.4);
+            backdrop-filter: blur(8px); cursor: pointer; z-index: 100; transition: all 0.2s ease;
+            display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .btn-settings-ingame:hover { transform: scale(1.1) rotate(45deg); background: rgba(0,0,0,0.9); border-color: rgba(255,255,255,0.7); }
+
+        /* Title Screen Elements */
         .title-text-box { width: 100%; height: auto; display: flex; justify-content: center; align-items: center; margin-bottom: 40px; margin-top: 5vh; padding: 0 20px; }
-        #displayGameTitle { font-size: clamp(4rem, 8vw, 8rem); font-weight: 900; text-shadow: 4px 4px 15px rgba(0,0,0,0.8), -2px -2px 0px rgba(0,0,0,0.5); text-transform: uppercase; margin: 0; line-height: 1.1; text-align: center; }
+        #displayGameTitle { 
+            font-family: var(--title-font) !important;
+            font-size: clamp(3rem, 10vw, var(--title-size)); /* Auto scales down if too long */
+            font-weight: 900; text-shadow: 4px 4px 15px rgba(0,0,0,0.8), -2px -2px 0px rgba(0,0,0,0.5); 
+            text-transform: uppercase; margin: 0; line-height: 1.1; text-align: center; 
+        }
 
         .title-action-panel { display: flex; gap: 20px; align-items: center; }
         .title-action-panel .btn { font-size: 1.8rem; padding: 20px 50px; border-radius: 50px; }
@@ -120,9 +140,7 @@
 
         /* Auto-Adjusting, Non-Scrolling Grid Style */
         .grid-az { 
-            display: grid; 
-            gap: 15px; 
-            width: 95%; max-width: 1400px; 
+            display: grid; gap: 15px; width: 95%; max-width: 1400px; 
             height: 70vh; /* Fixed height locks it to one screen */
             justify-content: center; align-content: center; 
         }
@@ -194,8 +212,9 @@
         <!-- Social Media Scoreboard -->
         <div id="globalScoreboard" class="scoreboard glass-panel" style="display:none;"></div>
 
-        <!-- Upgraded Home Button -->
+        <!-- Floating Action Buttons -->
         <button id="btnHome" class="btn-home" style="display:none;" onclick="confirmGoHome()">🏠 Return to Feed</button>
+        <button id="btnSettingsIngame" class="btn-settings-ingame" style="display:none;" onclick="openSettings('screenMain')" title="Admin Dashboard">⚙️</button>
 
         <!-- Title Screen -->
         <div id="screenTitle" class="screen active">
@@ -204,7 +223,7 @@
             </div>
             <div class="title-action-panel">
                 <button class="btn btn-blue" style="font-size: 1.8rem; padding: 20px 50px; border-radius: 50px;" onclick="changeScreen('screenRules')">▶️ Start Challenge</button>
-                <button class="btn btn-outline" style="font-size: 1.8rem; padding: 20px 50px; border-radius: 50px; background: rgba(255,255,255,0.9);" onclick="changeScreen('screenSettings')">⚙️ Settings</button>
+                <button class="btn btn-outline" style="font-size: 1.8rem; padding: 20px 50px; border-radius: 50px; background: rgba(255,255,255,0.9);" onclick="openSettings('screenTitle')">⚙️ Settings</button>
             </div>
             <div class="developer-credit">Created by Teacher Cris Saranza</div>
         </div>
@@ -319,15 +338,39 @@
                 <div id="tab-system" class="tab-content">
                     
                     <div class="q-row">
-                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Homepage Branding</h3>
+                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Homepage Branding (Separate from Game)</h3>
                         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                             <div style="flex: 2; min-width: 200px;">
                                 <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Game Title Text:</label>
-                                <input type="text" id="gameTitleInput" value="LIKE OR FOLLOW">
+                                <input type="text" id="gameTitleInput" value="LIKE OR FOLLOW" oninput="previewTitle()">
+                            </div>
+                            <div style="flex: 1; min-width: 150px;">
+                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Title Font Style:</label>
+                                <select id="titleFontSelect" onchange="previewTitle()">
+                                    <option value="'Nunito', sans-serif">Nunito (Modern App)</option>
+                                    <option value="'Poppins', sans-serif">Poppins (Clean)</option>
+                                    <option value="'Comic Neue', cursive">Comic Neue (Playful)</option>
+                                    <option value="'Fredoka One', cursive">Fredoka One</option>
+                                    <option value="'Chewy', cursive">Chewy</option>
+                                    <option value="'Bangers', cursive">Bangers</option>
+                                    <option value="'Luckiest Guy', cursive">Luckiest Guy</option>
+                                    <option value="'Righteous', cursive">Righteous</option>
+                                    <option value="'Sigmar One', cursive">Sigmar One</option>
+                                    <option value="'DynaPuff', cursive">DynaPuff</option>
+                                    <option value="'Balsamiq Sans', cursive">Balsamiq Sans</option>
+                                    <option value="'Sniglet', cursive">Sniglet</option>
+                                    <option value="'Boogaloo', cursive">Boogaloo</option>
+                                    <option value="'Carter One', cursive">Carter One</option>
+                                    <option value="'Jua', sans-serif">Jua</option>
+                                </select>
+                            </div>
+                            <div style="flex: 1; min-width: 100px;">
+                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Title Size (rem):</label>
+                                <input type="number" id="titleSizeInput" value="8" step="0.5" oninput="previewTitle()">
                             </div>
                             <div style="flex: 1; min-width: 100px;">
                                 <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Title Font Color:</label>
-                                <input type="color" id="gameTitleColorInput" value="#ffffff">
+                                <input type="color" id="gameTitleColorInput" value="#ffffff" onchange="previewTitle()">
                             </div>
                         </div>
                     </div>
@@ -350,6 +393,14 @@
                                     <option value="10">10 Posts (Fast)</option>
                                     <option value="16">16 Posts (Medium)</option>
                                     <option value="26">26 Posts (Full)</option>
+                                </select>
+                            </div>
+                            <div style="flex: 1; min-width: 150px;">
+                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Tile Size (Auto-Adjusts):</label>
+                                <select id="tileSizeSelect" onchange="previewTileSize()">
+                                    <option value="70px">Small Tiles</option>
+                                    <option value="100px" selected>Medium Tiles</option>
+                                    <option value="140px">Large Tiles</option>
                                 </select>
                             </div>
                             <div style="flex: 1; min-width: 150px;">
@@ -430,13 +481,21 @@
         let activeIdx = null;
         let isMusicPlaying = true;
         let isAnswerLocked = false; 
+        
+        // Navigation tracking
+        let previousScreen = 'screenTitle';
 
         let customOutcomes = ["+5", "+10", "+20", "+30", "+50", "-5", "-10", "-25", "-20", "-30", "swap score", "lose all points"];
         let gameGridSize = 26;
         let activeTheme = "theme-default";
         let activeFont = "'Nunito', sans-serif";
+        let activeTileSize = "100px";
+        
+        // Title specific variables
         let gameTitleText = "LIKE OR FOLLOW";
         let gameTitleColor = "#ffffff";
+        let activeTitleFont = "'Nunito', sans-serif";
+        let activeTitleSize = "8"; // in rem
 
         window.onload = () => {
             loadData(); buildSetup(); buildOutcomesSetup(); applySavedSettings(); shuffle(); updateVolumes();
@@ -446,6 +505,7 @@
             if(confirm("Exit feed and return to home screen? Current game progress will be lost.")) {
                 document.getElementById('globalScoreboard').style.display = 'none';
                 document.getElementById('btnHome').style.display = 'none';
+                document.getElementById('btnSettingsIngame').style.display = 'none';
                 changeScreen('screenTitle');
                 if (isMusicPlaying) { document.getElementById('bgMusic').pause(); }
             }
@@ -461,28 +521,57 @@
         function changeScreen(id) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
+            
+            // UI toggles based on screen
             let isGameActive = ['screenMain', 'screenQuestion', 'screenOutcome'].includes(id);
             document.getElementById('globalScoreboard').style.display = isGameActive ? 'flex' : 'none';
             document.getElementById('btnHome').style.display = isGameActive ? 'block' : 'none';
+            
+            // In-game Settings Gear should only appear on the Main Grid or Question screen to prevent logic overlaps
+            document.getElementById('btnSettingsIngame').style.display = (id === 'screenMain') ? 'flex' : 'none';
         }
 
-        function closeSettings() { applySavedSettings(); changeScreen('screenTitle'); }
+        function openSettings(fromScreen) {
+            previousScreen = fromScreen;
+            changeScreen('screenSettings');
+        }
+
+        function closeSettings() { 
+            applySavedSettings(); 
+            changeScreen(previousScreen); 
+        }
 
         function previewTheme() { document.body.className = document.getElementById('themeSelect').value; }
         function previewFont() { document.documentElement.style.setProperty('--main-font', document.getElementById('fontSelect').value); }
+        function previewTileSize() { document.documentElement.style.setProperty('--grid-tile-min', document.getElementById('tileSizeSelect').value); }
+        
+        function previewTitle() {
+            document.getElementById('displayGameTitle').innerText = document.getElementById('gameTitleInput').value;
+            document.getElementById('displayGameTitle').style.color = document.getElementById('gameTitleColorInput').value;
+            document.documentElement.style.setProperty('--title-font', document.getElementById('titleFontSelect').value);
+            document.documentElement.style.setProperty('--title-size', document.getElementById('titleSizeInput').value + 'rem');
+        }
         
         function applySavedSettings() {
+            // Global Settings
             document.body.className = activeTheme; document.getElementById('themeSelect').value = activeTheme;
             document.documentElement.style.setProperty('--main-font', activeFont); document.getElementById('fontSelect').value = activeFont;
+            document.documentElement.style.setProperty('--grid-tile-min', activeTileSize); document.getElementById('tileSizeSelect').value = activeTileSize;
             
+            // Title Specific Settings
+            document.documentElement.style.setProperty('--title-font', activeTitleFont);
+            document.documentElement.style.setProperty('--title-size', activeTitleSize + 'rem');
             document.getElementById('displayGameTitle').innerText = gameTitleText;
             document.getElementById('displayGameTitle').style.color = gameTitleColor;
+
             document.getElementById('gameTitleInput').value = gameTitleText;
             document.getElementById('gameTitleColorInput').value = gameTitleColor;
+            document.getElementById('titleFontSelect').value = activeTitleFont;
+            document.getElementById('titleSizeInput').value = activeTitleSize;
         }
 
         function loadData() {
-            let data = localStorage.getItem('social_edition_v5');
+            let data = localStorage.getItem('social_edition_v6');
             if (data) {
                 let parsed = JSON.parse(data);
                 questions = parsed.questions || [];
@@ -492,12 +581,17 @@
                 wrongPenalty = parsed.wrongPenalty !== undefined ? parsed.wrongPenalty : 10;
                 activeTheme = parsed.theme || "theme-default";
                 activeFont = parsed.font || "'Nunito', sans-serif";
+                activeTileSize = parsed.tileSize || "100px";
+                
                 gameTitleText = parsed.titleText || "LIKE OR FOLLOW";
                 gameTitleColor = parsed.titleColor || "#ffffff";
+                activeTitleFont = parsed.titleFont || "'Nunito', sans-serif";
+                activeTitleSize = parsed.titleSize || "8";
                 
                 document.getElementById('gridSizeSelect').value = gameGridSize;
                 document.getElementById('numTeamsSelect').value = numTeams;
                 document.getElementById('wrongPenaltyInput').value = wrongPenalty;
+                document.getElementById('tileSizeSelect').value = activeTileSize;
             } else {
                 questions = [];
                 for (let i = 0; i < 26; i++) {
@@ -628,20 +722,31 @@
             wrongPenalty = parseInt(document.getElementById('wrongPenaltyInput').value) || 0;
             activeTheme = document.getElementById('themeSelect').value;
             activeFont = document.getElementById('fontSelect').value;
+            activeTileSize = document.getElementById('tileSizeSelect').value;
             
             gameTitleText = document.getElementById('gameTitleInput').value || "LIKE OR FOLLOW";
             gameTitleColor = document.getElementById('gameTitleColorInput').value || "#ffffff";
+            activeTitleFont = document.getElementById('titleFontSelect').value;
+            activeTitleSize = document.getElementById('titleSizeInput').value;
             
             applySavedSettings();
 
-            let payload = { questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, theme: activeTheme, font: activeFont, titleText: gameTitleText, titleColor: gameTitleColor };
-            localStorage.setItem('social_edition_v5', JSON.stringify(payload));
+            let payload = { 
+                questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, 
+                theme: activeTheme, font: activeFont, tileSize: activeTileSize, 
+                titleText: gameTitleText, titleColor: gameTitleColor, titleFont: activeTitleFont, titleSize: activeTitleSize 
+            };
+            localStorage.setItem('social_edition_v6', JSON.stringify(payload));
             
-            buildSetup(); shuffle(); alert("Dashboard Saved!"); changeScreen('screenTitle');
+            buildSetup(); shuffle(); alert("Dashboard Saved!"); changeScreen(previousScreen);
         }
 
         function exportData() {
-            let payload = { questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, theme: activeTheme, font: activeFont, titleText: gameTitleText, titleColor: gameTitleColor };
+            let payload = { 
+                questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, 
+                theme: activeTheme, font: activeFont, tileSize: activeTileSize, 
+                titleText: gameTitleText, titleColor: gameTitleColor, titleFont: activeTitleFont, titleSize: activeTitleSize 
+            };
             const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload));
             const dl = document.createElement('a'); dl.setAttribute("href", str); dl.setAttribute("download", "social_feed_backup.json");
             document.body.appendChild(dl); dl.click(); dl.remove();
@@ -653,7 +758,7 @@
                 try {
                     const parsed = JSON.parse(event.target.result);
                     if (parsed.questions && Array.isArray(parsed.questions)) {
-                        localStorage.setItem('social_edition_v5', JSON.stringify(parsed));
+                        localStorage.setItem('social_edition_v6', JSON.stringify(parsed));
                         loadData(); buildSetup(); buildOutcomesSetup(); applySavedSettings(); alert("Data Imported!");
                     } else { alert("Data mismatch. Please check file."); }
                 } catch(err) { alert("Failed to parse file."); }
@@ -868,6 +973,7 @@
                 alert(`Game Over! Final Followers -> ${winnerText}`); 
                 document.getElementById('globalScoreboard').style.display = 'none';
                 document.getElementById('btnHome').style.display = 'none';
+                document.getElementById('btnSettingsIngame').style.display = 'none';
                 changeScreen('screenTitle'); 
             } else { changeScreen('screenMain'); }
         }
