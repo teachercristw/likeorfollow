@@ -6,7 +6,6 @@
     <title>Like or Follow - Social Edition</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Top 15 Child-Friendly Classroom Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:wght@400;700&family=Bangers&family=Boogaloo&family=Carter+One&family=Chewy&family=Comic+Neue:wght@400;700&family=DynaPuff:wght@400;700&family=Fredoka+One&family=Jua&family=Luckiest+Guy&family=Nunito:wght@400;700&family=Poppins:wght@400;700&family=Press+Start+2P&family=Righteous&family=Sigmar+One&family=Sniglet&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -17,25 +16,14 @@
             --social-green: #2ecc71;
             --social-dark: #1c1e21;
             --main-font: 'Nunito', sans-serif; 
+            --grid-tile-min: 100px; /* Dynamic Grid Sizing Variable */
         }
 
         /* THEME CLASSES */
-        body.theme-default { 
-            background-image: url('Classic.png'); 
-            background-color: #000; 
-        }
-        body.theme-space {
-            background-image: url('neon.png'); 
-            background-color: #0f0c29;
-        }
-        body.theme-jungle {
-            background-image: url('jungle.png'); 
-            background-color: #134e5e;
-        }
-        body.theme-ocean {
-            background-image: url('ocean.png'); 
-            background-color: #0083b0;
-        }
+        body.theme-default { background-image: url('Classic.png'); background-color: #000; }
+        body.theme-space { background-image: url('neon.png'); background-color: #0f0c29; }
+        body.theme-jungle { background-image: url('jungle.png'); background-color: #134e5e; }
+        body.theme-ocean { background-image: url('ocean.png'); background-color: #0083b0; }
 
         * { box-sizing: border-box; font-family: var(--main-font) !important; margin: 0; padding: 0; }
 
@@ -47,11 +35,8 @@
 
         /* Glassmorphism Panels */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
         }
 
         .game-wrapper {
@@ -93,34 +78,19 @@
 
         /* Upgraded Home Button - Bottom Right */
         .btn-home { 
-            position: absolute; 
-            bottom: 25px; 
-            right: 25px; 
-            padding: 12px 22px; 
-            font-size: 1.2rem; 
-            border-radius: 30px; 
-            background: rgba(0,0,0,0.75); 
-            color: white; 
-            backdrop-filter: blur(8px); 
-            z-index: 100;
-            border: 2px solid rgba(255,255,255,0.4);
-            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
-            transition: all 0.2s ease;
-            cursor: pointer;
+            position: absolute; bottom: 25px; right: 25px; padding: 12px 22px; font-size: 1.2rem; 
+            border-radius: 30px; background: rgba(0,0,0,0.75); color: white; backdrop-filter: blur(8px); 
+            z-index: 100; border: 2px solid rgba(255,255,255,0.4); box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+            transition: all 0.2s ease; cursor: pointer;
         }
-        .btn-home:hover {
-            background: rgba(0,0,0,0.9);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-            border-color: rgba(255,255,255,0.7);
-        }
+        .btn-home:hover { background: rgba(0,0,0,0.9); transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.5); border-color: rgba(255,255,255,0.7); }
 
         .title-image-box { width: 100%; height: 60%; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
         .title-image-box img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 20px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
         .title-action-panel { display: flex; gap: 20px; align-items: center; }
         .title-action-panel .btn { font-size: 1.8rem; padding: 20px 50px; border-radius: 50px; }
 
-        /* Social Media Stats Bar (Scoreboard) */
+        /* Scoreboard */
         .scoreboard { 
             display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; width: 98%; 
             padding: 10px; border-radius: 20px; margin-bottom: 15px; z-index: 5;
@@ -135,7 +105,6 @@
         .team-box .team-score { font-size: 1.8rem; font-weight: 800; color: var(--social-dark); line-height: 1; margin-top: 3px; }
         .team-box.active-turn { transform: translateY(-5px) scale(1.05); }
 
-        /* "Live" Turn Indicator */
         .turn-container { 
             display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 20px; 
             background: rgba(0, 0, 0, 0.8); padding: 8px 20px; border-radius: 30px; color: white;
@@ -145,29 +114,26 @@
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
         .turn-container h2 { font-size: 1.2rem; margin: 0; text-shadow: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;}
 
-        /* Image Grid Style */
+        /* Fully Responsive Grid Style */
         .grid-az { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 12px; 
-            width: 95%; max-width: 1000px; justify-content: center; align-content: center; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(var(--grid-tile-min), 1fr)); 
+            gap: 12px; width: 95%; max-width: 1000px; justify-content: center; align-content: center; 
         }
         .letter-box {
             background: rgba(255,255,255,0.9); border-radius: 18px; aspect-ratio: 1/1;
-            display: flex; justify-content: center; align-items: center; font-size: 3rem; font-weight: 800; 
-            color: var(--social-dark); cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
-            transition: all 0.2s ease; border: 2px solid transparent;
+            display: flex; justify-content: center; align-items: center; text-align: center;
+            font-size: 2.2rem; font-weight: 800; color: var(--social-dark); cursor: pointer; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: all 0.2s ease; border: 2px solid transparent;
+            overflow: hidden; padding: 5px; word-wrap: break-word; line-height: 1.1;
         }
         .letter-box:not(.disabled):hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0,0,0,0.2); border-color: var(--social-blue); color: var(--social-blue); }
         .letter-box.disabled { background: rgba(255,255,255,0.3) !important; color: rgba(0,0,0,0.2) !important; box-shadow: none !important; cursor: not-allowed; transform: scale(0.95); }
+        .letter-box img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
 
-        /* Social Post Card (The Question UI) */
-        .content-card { 
-            width: 95%; max-width: 800px; height: 82vh; border-radius: 20px; padding: 0; 
-            display: flex; flex-direction: column; overflow: hidden;
-        }
-        
-        .post-header {
-            display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid #e4e6eb; background: #fff;
-        }
+        /* Social Post Card */
+        .content-card { width: 95%; max-width: 800px; height: 82vh; border-radius: 20px; padding: 0; display: flex; flex-direction: column; overflow: hidden; }
+        .post-header { display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid #e4e6eb; background: #fff; }
         .post-avatar { width: 45px; height: 45px; border-radius: 50%; background: linear-gradient(135deg, #a29bfe, #6c5ce7); display: flex; justify-content: center; align-items: center; font-size: 1.5rem; margin-right: 12px; }
         .post-user-info { text-align: left; line-height: 1.2; }
         .post-user-info .username { font-weight: 800; font-size: 1.1rem; color: var(--social-dark); display: flex; align-items: center; gap: 5px; }
@@ -176,12 +142,8 @@
         .q-scroll-body { width: 100%; flex: 1; overflow-y: auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 25px 20px; gap: 20px; background: #fff; }
         .question-text { font-size: 2rem; color: #050505; font-weight: 800; margin: 0; word-break: break-word; text-align: left; width: 100%; }
         
-        /* Poll Options */
         .options-container { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 10px; }
-        .options-container .poll-btn { 
-            background: #f0f2f5; color: #050505; border: 2px solid transparent; padding: 15px 20px; 
-            font-size: 1.2rem; font-weight: bold; border-radius: 12px; text-align: left; cursor: pointer; transition: all 0.2s;
-        }
+        .options-container .poll-btn { background: #f0f2f5; color: #050505; border: 2px solid transparent; padding: 15px 20px; font-size: 1.2rem; font-weight: bold; border-radius: 12px; text-align: left; cursor: pointer; transition: all 0.2s; }
         .options-container .poll-btn:hover { background: #e4e6eb; }
         .options-container .poll-btn.selected { border-color: var(--social-blue); background: #e7f3ff; color: var(--social-blue); }
         .options-container .poll-btn.correct-ans { background: #e6f4ea; border-color: var(--social-green); color: #137333; }
@@ -189,25 +151,16 @@
 
         .post-action-bar { padding: 15px 20px; background: #fff; border-top: 1px solid #e4e6eb; display: flex; gap: 15px; width: 100%; }
 
-        /* Modals and Overlays */
         .overlay-window { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10; display: none; flex-direction: column; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
         .random-number-display { font-size: 8rem; font-weight: 800; color: #fff; text-shadow: 0 4px 15px rgba(0,0,0,0.5); margin: 30px 0; min-height: 150px; display: flex; align-items: center; justify-content: center;}
         
-        /* Modern Target Selection */
         .target-grid { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; max-width: 90%; }
-        .target-grid .target-user-btn { 
-            display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.1); 
-            border: 2px solid rgba(255,255,255,0.3); border-radius: 15px; padding: 20px; color: white; 
-            cursor: pointer; transition: all 0.2s; min-width: 120px;
-        }
+        .target-grid .target-user-btn { display: flex; flex-direction: column; align-items: center; background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.3); border-radius: 15px; padding: 20px; color: white; cursor: pointer; transition: all 0.2s; min-width: 120px; }
         .target-grid .target-user-btn:hover { background: rgba(255,255,255,0.2); transform: translateY(-5px); }
         .target-grid .target-user-btn .avatar-lg { width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; border: 3px solid #fff; }
 
         /* Settings Panel Compact UI */
-        .settings-panel { 
-            background: #fff; border-radius: 20px; padding: 25px; width: 95%; max-width: 800px; 
-            height: 85vh; overflow-y: auto; color: var(--social-dark); text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
+        .settings-panel { background: #fff; border-radius: 20px; padding: 25px; width: 95%; max-width: 800px; height: 85vh; overflow-y: auto; color: var(--social-dark); text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
         .settings-tabs { display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 2px solid #e4e6eb; padding-bottom: 0; }
         .tab-btn { background: transparent; border: none; padding: 12px 20px; font-size: 1.1rem; font-weight: bold; color: #65676b; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: color 0.2s; }
         .tab-btn.active { color: var(--social-blue); border-bottom-color: var(--social-blue); }
@@ -218,17 +171,11 @@
         input[type="text"], select, input[type="number"] { padding: 10px 12px; font-size: 1rem; border-radius: 8px; border: 1px solid #ccd0d5; width: 100%; box-sizing: border-box; background: #fff; color: #050505;}
         input[type="text"]:focus, select:focus { border-color: var(--social-blue); outline: none; }
         
-        .gif-box-wrapper { height: 40vh; width: 100%; max-width: 300px; cursor: pointer; margin-bottom: 20px; animation: floatAnim 2s ease-in-out infinite alternate; display: flex; justify-content: center; align-items: center; }
-        .gif-box-wrapper img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); }
-        @keyframes floatAnim { 0% { transform: translateY(0px); } 100% { transform: translateY(-15px); } }
-        
-        .box-reward-reveal { font-size: 4rem; font-weight: 900; color: #fff; text-shadow: 0 4px 15px rgba(0,0,0,0.5); display: none; text-align: center; line-height: 1.2; }
     </style>
 </head>
 <body class="theme-default">
 
     <div class="game-wrapper">
-        <!-- Audio Elements -->
         <audio id="bgMusic" loop src="background music.mp3"></audio>
         <audio id="sndClick" src="click.wav"></audio>
         <audio id="sndAdd" src="add.wav"></audio>
@@ -237,15 +184,10 @@
         <audio id="sndLose" src="lose all points.wav"></audio>
         <audio id="sndReveal" src="reveal.wav"></audio>
 
-        <!-- Social Media Scoreboard (Top) -->
-        <div id="globalScoreboard" class="scoreboard glass-panel" style="display:none;">
-            <!-- Dynamically generated based on team count -->
-        </div>
+        <div id="globalScoreboard" class="scoreboard glass-panel" style="display:none;"></div>
 
-        <!-- Upgraded Home Button -->
         <button id="btnHome" class="btn-home" style="display:none;" onclick="confirmGoHome()">🏠 Return to Feed</button>
 
-        <!-- Title Screen -->
         <div id="screenTitle" class="screen active">
             <div class="title-image-box">
                 <img src="titlepage.gif" alt="Game Logo Graphic">
@@ -257,7 +199,6 @@
             <div class="developer-credit">Created by Teacher Cris Saranza</div>
         </div>
 
-        <!-- Rules Screen -->
         <div id="screenRules" class="screen">
             <div class="glass-panel" style="padding:40px; border-radius:25px; max-width:800px; color:#1c1e21; background: rgba(255,255,255,0.95);">
                 <h2 style="color:var(--social-dark); text-shadow: none; margin-top:0;">📱 Community Guidelines</h2>
@@ -271,7 +212,6 @@
             </div>
         </div>
 
-        <!-- Randomizer Screen -->
         <div id="screenRandomizer" class="screen">
             <div class="glass-panel" style="background:rgba(0,0,0,0.7); padding:50px; border-radius:30px; border: 1px solid rgba(255,255,255,0.2); max-width:800px;">
                 <h2 style="font-size: 3rem;">Who is trending first?</h2>
@@ -281,7 +221,6 @@
             </div>
         </div>
 
-        <!-- Main Grid Screen -->
         <div id="screenMain" class="screen">
             <div class="turn-container">
                 <span id="turnDot" class="turn-dot"></span>
@@ -290,11 +229,8 @@
             <div id="azGrid" class="grid-az"></div>
         </div>
 
-        <!-- The "Post" (Question Screen) -->
         <div id="screenQuestion" class="screen">
             <div class="content-card glass-panel" id="qCardShell" style="background: #fff;">
-                
-                <!-- Mock Social Media Header -->
                 <div class="post-header">
                     <button class="nav-icon-btn" onclick="goToGridScreen()" title="Go Back" style="font-size: 1.5rem; margin-right: 15px; color: #65676b; border: none; background: none; cursor: pointer;">⬅️</button>
                     <div class="post-avatar">🤖</div>
@@ -304,11 +240,9 @@
                     </div>
                 </div>
 
-                <!-- Post Content -->
                 <div id="qScrollArea" class="q-scroll-body">
                     <div id="qText" class="question-text"></div>
                     <img id="qImg" src="" style="width:100%; border-radius:10px; display:none; object-fit: cover; max-height: 35vh;">
-                    
                     <div id="qOptions" class="options-container"></div>
                     
                     <div id="qIdArea" style="display:none; width:100%; text-align: left; margin-top: 15px;">
@@ -317,13 +251,11 @@
                     </div>
                 </div>
 
-                <!-- Action Bar Phase 1: Evaluation -->
                 <div id="decisionPhase1" class="post-action-bar">
                     <button class="btn btn-green" style="flex:1;" onclick="handleAnswer('correct')">✔️ Correct</button>
                     <button class="btn btn-outline" style="flex:1; border-color: var(--social-red); color: var(--social-red);" onclick="handleAnswer('wrong')">❌ Wrong</button>
                 </div>
 
-                <!-- Action Bar Phase 2: Like or Follow -->
                 <div id="decisionPhase2" class="post-action-bar" style="display:none; flex-direction: column; align-items: center; background: #f8f9fa;">
                     <div style="font-weight: bold; color: var(--social-dark); margin-bottom: 5px;">Viral Box Unlocked! What will you do?</div>
                     <div style="display: flex; gap: 15px; width: 100%;">
@@ -332,17 +264,13 @@
                     </div>
                 </div>
 
-                <!-- Overlay for choosing a target to Follow (Send points) -->
                 <div id="targetOverlay" class="overlay-window">
                     <h2 style="font-size:2.5rem; margin-bottom:30px;">Share with who?</h2>
-                    <div id="targetGrid" class="target-grid">
-                        <!-- Target buttons added via JS -->
-                    </div>
+                    <div id="targetGrid" class="target-grid"></div>
                 </div>
             </div>
         </div>
 
-        <!-- Notification / Outcome Screen -->
         <div id="screenOutcome" class="screen">
             <div class="glass-panel" style="padding: 40px; border-radius: 25px; max-width: 600px; background: rgba(255,255,255,0.95);">
                 <div style="font-size: 3rem; margin-bottom: 15px;">🔔</div>
@@ -352,7 +280,6 @@
             </div>
         </div>
 
-        <!-- Settings Screen -->
         <div id="screenSettings" class="screen">
             <div class="settings-panel">
                 <h2 style="font-size: 2rem; margin-bottom: 20px;">⚙️ Admin Dashboard</h2>
@@ -364,15 +291,13 @@
                 </div>
 
                 <div id="tab-questions" class="tab-content active">
-                    <p style="color: #65676b; font-size: 0.9rem; margin-bottom: 15px;">Fill your content feed. Game uses only the needed slots based on Grid Size.</p>
+                    <p style="color: #65676b; font-size: 0.9rem; margin-bottom: 15px;">Configure your grid. You can type a custom Tile Name or Paste an Image for the grid face.</p>
                     <div id="setupList"></div>
                 </div>
 
                 <div id="tab-outcomes" class="tab-content">
                     <p style="color: #65676b; font-size: 0.9rem; margin-bottom: 15px;">Set the mystery box contents. Use math (+10, -10), 'swap score', or 'lose all points'.</p>
-                    <div id="outcomesSetupList" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                        <!-- Generated via JS -->
-                    </div>
+                    <div id="outcomesSetupList" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;"></div>
                 </div>
 
                 <div id="tab-system" class="tab-content">
@@ -389,11 +314,15 @@
                                 </select>
                             </div>
                             <div style="flex: 1; min-width: 150px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Grid Size:</label>
-                                <select id="gridSizeSelect">
-                                    <option value="10">10 Posts (A-J)</option>
-                                    <option value="16">16 Posts (A-P)</option>
-                                    <option value="26">26 Posts (A-Z)</option>
+                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Number of Posts (Grid Count):</label>
+                                <input type="number" id="gridSizeSelect" value="26" min="1" max="26">
+                            </div>
+                            <div style="flex: 1; min-width: 150px;">
+                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Tile Size (Auto-Adjusts):</label>
+                                <select id="tileSizeSelect" onchange="previewTileSize()">
+                                    <option value="70px">Small Tiles</option>
+                                    <option value="100px" selected>Medium Tiles</option>
+                                    <option value="140px">Large Tiles</option>
                                 </select>
                             </div>
                             <div style="flex: 1; min-width: 150px;">
@@ -461,6 +390,7 @@
 
     <script>
         const TEAM_COLORS = ['#1877f2', '#ff4757', '#2ecc71', '#f1c40f', '#9b59b6', '#e67e22', '#1abc9c', '#e84393'];
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         
         let numTeams = 2;
         let scores = [];
@@ -478,9 +408,10 @@
         let gameGridSize = 26;
         let activeTheme = "theme-default";
         let activeFont = "'Nunito', sans-serif";
+        let activeTileSize = "100px";
 
         window.onload = () => {
-            loadData(); buildSetup(); buildOutcomesSetup(); applySavedThemeAndFont(); shuffle(); updateVolumes();
+            loadData(); buildSetup(); buildOutcomesSetup(); applySavedSettings(); shuffle(); updateVolumes();
         };
 
         function confirmGoHome() {
@@ -507,17 +438,20 @@
             document.getElementById('btnHome').style.display = isGameActive ? 'block' : 'none';
         }
 
-        function closeSettings() { applySavedThemeAndFont(); changeScreen('screenTitle'); }
+        function closeSettings() { applySavedSettings(); changeScreen('screenTitle'); }
 
         function previewTheme() { document.body.className = document.getElementById('themeSelect').value; }
         function previewFont() { document.documentElement.style.setProperty('--main-font', document.getElementById('fontSelect').value); }
-        function applySavedThemeAndFont() {
+        function previewTileSize() { document.documentElement.style.setProperty('--grid-tile-min', document.getElementById('tileSizeSelect').value); }
+        
+        function applySavedSettings() {
             document.body.className = activeTheme; document.getElementById('themeSelect').value = activeTheme;
             document.documentElement.style.setProperty('--main-font', activeFont); document.getElementById('fontSelect').value = activeFont;
+            document.documentElement.style.setProperty('--grid-tile-min', activeTileSize); document.getElementById('tileSizeSelect').value = activeTileSize;
         }
 
         function loadData() {
-            let data = localStorage.getItem('social_edition_v3');
+            let data = localStorage.getItem('social_edition_v4');
             if (data) {
                 let parsed = JSON.parse(data);
                 questions = parsed.questions || [];
@@ -527,14 +461,17 @@
                 wrongPenalty = parsed.wrongPenalty !== undefined ? parsed.wrongPenalty : 10;
                 activeTheme = parsed.theme || "theme-default";
                 activeFont = parsed.font || "'Nunito', sans-serif";
+                activeTileSize = parsed.tileSize || "100px";
                 
                 document.getElementById('gridSizeSelect').value = gameGridSize;
                 document.getElementById('numTeamsSelect').value = numTeams;
                 document.getElementById('wrongPenaltyInput').value = wrongPenalty;
+                document.getElementById('tileSizeSelect').value = activeTileSize;
             } else {
                 questions = [];
                 for (let i = 0; i < 26; i++) {
                     questions.push({ 
+                        tileLabel: alphabet[i], tileImage: '',
                         text: `Content Post #${i+1}?`, type: 'id', options: ['A', 'B', 'C', 'D'], 
                         correct: 0, answer: 'Answer Key', image: '', outcome: customOutcomes[i % customOutcomes.length] 
                     });
@@ -554,8 +491,20 @@
 
                 list.insertAdjacentHTML('beforeend', `
                     <div class="q-row">
-                        <strong style="color:var(--social-blue);">Post #${i+1}</strong>
-                        <input type="text" id="qText_${i}" value="${q.text}" style="margin: 10px 0; font-weight:bold;">
+                        <strong style="color:var(--social-blue); font-size:1.2rem;">Post Slot #${i+1}</strong>
+                        
+                        <div style="display:flex; gap:15px; margin: 15px 0; align-items:center; background:#fff; padding:10px; border-radius:8px; border:1px solid #e4e6eb;">
+                            <div style="flex: 1;">
+                                <label style="font-size: 0.85rem; color: #65676b; font-weight: bold;">Grid Tile Name/Number:</label>
+                                <input type="text" id="qTileLabel_${i}" value="${q.tileLabel || alphabet[i]}" placeholder="e.g. 1, Math, A">
+                            </div>
+                            <div style="flex: 1; border: 2px dashed #ccd0d5; border-radius: 8px; text-align: center; padding: 10px; cursor: pointer; position: relative;" onpaste="handleTilePaste(event, ${i})">
+                                ${q.tileImage ? `<img src="${q.tileImage}" style="height:45px; border-radius:5px;"><br><button class="btn btn-outline" style="padding: 2px 8px; font-size: 0.7rem; margin-top:5px;" onclick="clearTileImage(${i}, event)">Clear Tile Image</button>` : '📸 Paste Grid Tile Image Here (Overrides Text)'}
+                            </div>
+                        </div>
+
+                        <input type="text" id="qText_${i}" value="${q.text}" style="margin: 10px 0; font-weight:bold;" placeholder="Type Question Here...">
+                        
                         <div style="display:flex; gap:10px; margin-bottom:10px;">
                             <select id="qType_${i}" onchange="toggleType(${i}, this.value)" style="flex: 1;">
                                 <option value="id" ${q.type=='id'?'selected':''}>Identification</option>
@@ -563,9 +512,11 @@
                             </select>
                             <select id="qOut_${i}" style="flex: 1;">${customOutcomes.map(o => `<option value="${o}" ${q.outcome==o?'selected':''}>${o}</option>`).join('')}</select>
                         </div>
-                        <div id="paste_${i}" style="border:2px dashed #ccd0d5; padding:15px; text-align:center; background:#fff; border-radius: 8px; color:#65676b; cursor: pointer; font-size:0.9rem;" onpaste="handlePaste(event, ${i})">
-                            ${q.image ? `<img src="${q.image}" style="height:60px; border-radius:5px;"> <br><button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.8rem; margin-top:5px;" onclick="clearImage(${i})">Remove Image</button>` : '📸 Paste Image Here (Ctrl+V)'}
+                        
+                        <div id="paste_${i}" style="border:2px dashed #ccd0d5; padding:15px; text-align:center; background:#fff; border-radius: 8px; color:#65676b; cursor: pointer; font-size:0.9rem;" onpaste="handleQuestionPaste(event, ${i})">
+                            ${q.image ? `<img src="${q.image}" style="height:60px; border-radius:5px;"> <br><button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.8rem; margin-top:5px;" onclick="clearQuestionImage(${i}, event)">Remove Question Image</button>` : '📸 Paste Question Image Here (Ctrl+V)'}
                         </div>
+                        
                         <div id="mc_${i}" style="display:${q.type=='multiple'?'block':'none'}; background:#fff; padding:10px; border-radius:8px; border:1px solid #e4e6eb; margin-top: 10px;">
                             <span style="font-size:0.85rem; font-weight:bold; color:#65676b;">Select the correct option dot:</span>
                             ${optsHTML}
@@ -588,13 +539,25 @@
             }
         }
 
-        function clearImage(i) { questions[i].image = ''; buildSetup(); }
+        function clearTileImage(i, e) { e.stopPropagation(); questions[i].tileImage = ''; buildSetup(); }
+        function clearQuestionImage(i, e) { e.stopPropagation(); questions[i].image = ''; buildSetup(); }
+        
         function toggleType(i, type) {
             document.getElementById(`mc_${i}`).style.display = type == 'multiple' ? 'block' : 'none';
             document.getElementById(`qAns_${i}`).style.display = type == 'id' ? 'block' : 'none';
         }
 
-        function handlePaste(e, i) {
+        function handleTilePaste(e, i) {
+            const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+            for (let item of items) {
+                if (item.type.indexOf("image") !== -1) {
+                    const reader = new FileReader(); reader.onload = (event) => { questions[i].tileImage = event.target.result; buildSetup(); };
+                    reader.readAsDataURL(item.getAsFile());
+                }
+            }
+        }
+
+        function handleQuestionPaste(e, i) {
             const items = (e.clipboardData || e.originalEvent.clipboardData).items;
             for (let item of items) {
                 if (item.type.indexOf("image") !== -1) {
@@ -619,6 +582,7 @@
         function saveData() {
             for(let i = 0; i < 12; i++) { customOutcomes[i] = document.getElementById(`customOut_${i}`).value.trim() || customOutcomes[i]; }
             questions.forEach((q, i) => {
+                q.tileLabel = document.getElementById(`qTileLabel_${i}`).value;
                 q.text = document.getElementById(`qText_${i}`).value; q.type = document.getElementById(`qType_${i}`).value;
                 q.outcome = document.getElementById(`qOut_${i}`).value; q.answer = document.getElementById(`qAns_${i}`).value;
                 q.options = [0,1,2,3].map(oi => document.getElementById(`q${i}_o${oi}`).value);
@@ -626,22 +590,23 @@
                 for(let r = 0; r < radios.length; r++) { if(radios[r].checked) { q.correct = parseInt(radios[r].value); break; } }
             });
 
-            gameGridSize = parseInt(document.getElementById('gridSizeSelect').value);
+            gameGridSize = parseInt(document.getElementById('gridSizeSelect').value) || 26;
             numTeams = parseInt(document.getElementById('numTeamsSelect').value);
             wrongPenalty = parseInt(document.getElementById('wrongPenaltyInput').value) || 0;
             activeTheme = document.getElementById('themeSelect').value;
             activeFont = document.getElementById('fontSelect').value;
+            activeTileSize = document.getElementById('tileSizeSelect').value;
             
-            applySavedThemeAndFont();
+            applySavedSettings();
 
-            let payload = { questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, theme: activeTheme, font: activeFont };
-            localStorage.setItem('social_edition_v3', JSON.stringify(payload));
+            let payload = { questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, theme: activeTheme, font: activeFont, tileSize: activeTileSize };
+            localStorage.setItem('social_edition_v4', JSON.stringify(payload));
             
             buildSetup(); shuffle(); alert("Dashboard Saved!"); changeScreen('screenTitle');
         }
 
         function exportData() {
-            let payload = { questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, theme: activeTheme, font: activeFont };
+            let payload = { questions, outcomes: customOutcomes, gridSize: gameGridSize, numTeams, wrongPenalty, theme: activeTheme, font: activeFont, tileSize: activeTileSize };
             const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(payload));
             const dl = document.createElement('a'); dl.setAttribute("href", str); dl.setAttribute("download", "social_feed_backup.json");
             document.body.appendChild(dl); dl.click(); dl.remove();
@@ -653,8 +618,8 @@
                 try {
                     const parsed = JSON.parse(event.target.result);
                     if (parsed.questions && Array.isArray(parsed.questions)) {
-                        localStorage.setItem('social_edition_v3', JSON.stringify(parsed));
-                        loadData(); buildSetup(); buildOutcomesSetup(); applySavedThemeAndFont(); alert("Data Imported!");
+                        localStorage.setItem('social_edition_v4', JSON.stringify(parsed));
+                        loadData(); buildSetup(); buildOutcomesSetup(); applySavedSettings(); alert("Data Imported!");
                     } else { alert("Data mismatch. Please check file."); }
                 } catch(err) { alert("Failed to parse file."); }
             };
@@ -665,11 +630,19 @@
 
         function buildGrid() {
             const grid = document.getElementById('azGrid'); grid.innerHTML = '';
-            const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
             for (let i = 0; i < gameGridSize; i++) {
-                let qi = mapping[i]; let div = document.createElement('div');
-                div.className = `letter-box ${used[qi] ? 'disabled' : ''}`; div.innerText = alphabet[i];
-                if (!used[qi]) { div.onclick = () => launch(alphabet[i], qi); }
+                let qi = mapping[i]; 
+                let q = questions[qi];
+                let div = document.createElement('div');
+                div.className = `letter-box ${used[qi] ? 'disabled' : ''}`; 
+                
+                if (q.tileImage) {
+                    div.innerHTML = `<img src="${q.tileImage}" alt="Tile">`;
+                } else {
+                    div.innerText = q.tileLabel || alphabet[i];
+                }
+                
+                if (!used[qi]) { div.onclick = () => launch(qi); }
                 grid.appendChild(div);
             }
         }
@@ -729,7 +702,7 @@
 
         function startGameGrid() { playSound('sndClick'); updateScores(); buildGrid(); changeScreen('screenMain'); }
 
-        function launch(l, qi) {
+        function launch(qi) {
             playSound('sndClick'); activeIdx = qi; let q = questions[qi]; isAnswerLocked = false; 
             
             document.getElementById('targetOverlay').style.display = 'none';
