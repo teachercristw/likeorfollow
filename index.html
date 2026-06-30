@@ -29,13 +29,28 @@
             --title-outline-thickness: 3px;
         }
 
-        /* THEME CLASSES */
-        body.theme-default { background-image: url('Classic.png'); background-color: #000; }
-        body.theme-space { background-image: url('neon.png'); background-color: #0f0c29; }
-        body.theme-jungle { background-image: url('jungle.png'); background-color: #134e5e; }
-        body.theme-ocean { background-image: url('ocean.png'); background-color: #0083b0; }
+        /* THEMES & DYNAMIC DASHBOARD COLORS */
+        body.theme-default { 
+            background-image: url('Classic.png'); background-color: #000; 
+            --panel-bg: #ffffff; --panel-text: #1c1e21; --row-bg: #f8f9fa; --input-bg: #ffffff; --input-text: #050505;
+        }
+        body.theme-space { 
+            background-image: url('neon.png'); background-color: #0f0c29; 
+            --panel-bg: rgba(20, 20, 45, 0.95); --panel-text: #ffffff; --row-bg: rgba(255,255,255,0.1); --input-bg: #302b63; --input-text: #ffffff;
+        }
+        body.theme-jungle { 
+            background-image: url('jungle.png'); background-color: #134e5e; 
+            --panel-bg: rgba(19, 78, 94, 0.95); --panel-text: #ffffff; --row-bg: rgba(255,255,255,0.1); --input-bg: #1e3c45; --input-text: #ffffff;
+        }
+        body.theme-ocean { 
+            background-image: url('ocean.png'); background-color: #0083b0; 
+            --panel-bg: rgba(0, 131, 176, 0.95); --panel-text: #ffffff; --row-bg: rgba(255,255,255,0.1); --input-bg: #005f80; --input-text: #ffffff;
+        }
 
-        * { box-sizing: border-box; font-family: var(--main-font) !important; margin: 0; padding: 0; }
+        /* FONT FIX: Removed universal !important so Title can use its own font */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body, button, input, select, textarea { font-family: var(--main-font); }
+        #displayGameTitle, #displayGameTitle * { font-family: var(--title-font) !important; }
 
         html, body {
             width: 100%; height: 100%; overflow: hidden; 
@@ -43,7 +58,6 @@
             transition: background 0.5s ease;
         }
 
-        /* Glassmorphism Panels */
         .glass-panel {
             background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
@@ -60,11 +74,8 @@
         }
         .screen.active { display: flex; }
 
-        /* Homepage Layout */
         #screenTitle { justify-content: flex-start; padding-bottom: 80px; }
         #screenTitle.screen.active { background: transparent; backdrop-filter: none; }
-        
-        /* DIM THE GRID SCREEN SO TILES POP */
         #screenMain { background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(4px); }
 
         h2 { font-size: 2.8rem; color: #ffffff; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); margin: 10px 0; font-weight: 800; }
@@ -76,7 +87,6 @@
         }
         @keyframes pulse { 0% { opacity: 0.7; } 100% { opacity: 1; text-shadow: 0 0 12px #fff; } }
 
-        /* General Buttons */
         .btn {
             color: white; border: none; padding: 15px 30px; 
             font-size: 1.2rem; font-weight: bold; border-radius: 12px; cursor: pointer; 
@@ -108,7 +118,7 @@
                 0 15px 25px rgba(0,0,0,0.6) !important;
         }
         .btn-title-primary { background: linear-gradient(135deg, #1877f2, #0984e3); }
-        .btn-title-secondary { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .btn-title-red { background: linear-gradient(135deg, #ff4757, #c0392b); }
         .btn-title:active {
             transform: translateY(8px);
             box-shadow: 
@@ -137,7 +147,6 @@
         /* Jumping Title Animation */
         .title-text-box { width: 100%; margin-top: var(--title-margin-top); margin-bottom: 5vh; display: flex; justify-content: center; align-items: center; padding: 0 20px; text-align: center;}
         #displayGameTitle { 
-            font-family: var(--title-font) !important;
             font-size: clamp(3rem, 10vw, var(--title-size)); 
             font-weight: 900; text-transform: uppercase; margin: 0; line-height: 1.2;
             -webkit-text-stroke: var(--title-outline-thickness) var(--title-outline-color); 
@@ -224,26 +233,33 @@
         .target-grid .target-user-btn:hover { background: rgba(255,255,255,0.2); transform: translateY(-5px); }
         .target-grid .target-user-btn .avatar-lg { width: 60px; height: 60px; border-radius: 50%; margin-bottom: 10px; border: 3px solid #fff; }
 
-        /* Settings Panel Compact UI */
-        .settings-panel { background: #fff; border-radius: 20px; padding: 25px; width: 95%; max-width: 900px; height: 85vh; overflow-y: auto; color: var(--social-dark); text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
-        .settings-tabs { display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 2px solid #e4e6eb; padding-bottom: 0; }
-        .tab-btn { background: transparent; border: none; padding: 12px 20px; font-size: 1.1rem; font-weight: bold; color: #65676b; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: color 0.2s; }
-        .tab-btn.active { color: var(--social-blue); border-bottom-color: var(--social-blue); }
+        /* DYNAMIC SETTINGS DASHBOARD */
+        .settings-panel { 
+            background: var(--panel-bg); border-radius: 20px; padding: 25px; width: 95%; max-width: 900px; 
+            height: 85vh; overflow-y: auto; color: var(--panel-text); text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+        .settings-panel h2, .settings-panel h3 { text-shadow: none; margin-top: 0; color: var(--panel-text); }
+        .settings-tabs { display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 2px solid rgba(255,255,255,0.2); padding-bottom: 0; }
+        .tab-btn { background: transparent; border: none; padding: 12px 20px; font-size: 1.1rem; font-weight: bold; color: var(--panel-text); opacity: 0.6; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
+        .tab-btn.active { opacity: 1; border-bottom-color: var(--social-blue); color: var(--social-blue); }
         .tab-content { display: none; padding: 10px 0; }
         .tab-content.active { display: block; }
         
-        .q-row { border: 1px solid #e4e6eb; padding: 15px; margin-bottom: 15px; border-radius: 12px; background: #f8f9fa; }
-        input[type="text"], select, input[type="number"] { padding: 10px 12px; font-size: 1rem; border-radius: 8px; border: 1px solid #ccd0d5; width: 100%; box-sizing: border-box; background: #fff; color: #050505;}
-        input[type="color"] { padding: 2px; height: 42px; border-radius: 8px; border: 1px solid #ccd0d5; width: 100%; cursor: pointer;}
+        .q-row { border: 1px solid rgba(255,255,255,0.2); padding: 15px; margin-bottom: 15px; border-radius: 12px; background: var(--row-bg); }
+        input[type="text"], select, input[type="number"] { padding: 10px 12px; font-size: 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.3); width: 100%; box-sizing: border-box; background: var(--input-bg); color: var(--input-text);}
+        input[type="color"] { padding: 2px; height: 42px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.3); width: 100%; cursor: pointer; background: var(--input-bg);}
         input[type="text"]:focus, select:focus, input[type="number"]:focus { border-color: var(--social-blue); outline: none; }
         
+        .label-text { font-size: 0.85rem; font-weight: bold; opacity: 0.8; margin-bottom: 5px; display: block; }
+
         /* Outcome Selection Grid (Replaces Dropdown) */
         .outcome-box-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
         .outcome-box { 
-            padding: 8px 12px; background: #e4e6eb; border: 2px solid transparent; border-radius: 8px; 
-            cursor: pointer; font-size: 0.9rem; font-weight: bold; color: #65676b; transition: all 0.2s;
+            padding: 8px 12px; background: var(--input-bg); border: 2px solid rgba(255,255,255,0.2); border-radius: 8px; 
+            cursor: pointer; font-size: 0.9rem; font-weight: bold; color: var(--input-text); transition: all 0.2s;
         }
-        .outcome-box:hover { background: #d8dadf; }
+        .outcome-box:hover { opacity: 0.8; }
         .outcome-box.active { background: var(--social-blue); color: white; border-color: #075eb0; box-shadow: 0 3px 8px rgba(24,119,242,0.4); }
 
     </style>
@@ -251,7 +267,12 @@
 <body class="theme-default">
 
     <div class="game-wrapper">
-        <audio id="bgMusic" loop src="background music.mp3"></audio>
+        <!-- Kid Friendly Royalty-Free Background Music Default -->
+        <audio id="bgMusic" loop>
+            <source src="background music.mp3" type="audio/mpeg">
+            <source src="https://upload.wikimedia.org/wikipedia/commons/3/34/Kevin_MacLeod_-_Monkeys_Spinning_Monkeys.ogg" type="audio/ogg">
+        </audio>
+        
         <audio id="sndClick" src="click.wav"></audio>
         <audio id="sndAdd" src="add.wav"></audio>
         <audio id="sndMinus" src="minus.wav"></audio>
@@ -263,7 +284,7 @@
         <div id="globalScoreboard" class="scoreboard glass-panel" style="display:none;"></div>
 
         <!-- Floating Action Buttons -->
-        <button id="btnHome" class="btn-home" style="display:none;" onclick="confirmGoHome()">🏠 Feed</button>
+        <button id="btnHome" class="btn-home" style="display:none;" onclick="confirmGoHome()">🏠 Return to Feed</button>
         <button id="btnSettingsIngame" class="btn-settings-ingame" style="display:none;" onclick="openSettings('screenMain')" title="Admin Dashboard">⚙️</button>
 
         <!-- Title Screen -->
@@ -273,7 +294,7 @@
             </div>
             <div class="title-action-panel">
                 <button class="btn btn-title btn-title-primary" onclick="changeScreen('screenRules')">▶️ Start Game</button>
-                <button class="btn btn-title btn-title-secondary" onclick="openSettings('screenTitle')">⚙️ Settings</button>
+                <button class="btn btn-title btn-title-red" onclick="openSettings('screenTitle')">⚙️ Settings</button>
             </div>
         </div>
 
@@ -373,38 +394,37 @@
                 <div class="settings-tabs">
                     <button class="tab-btn active" onclick="switchTab('tab-questions', this)">Posts (Q&A)</button>
                     <button class="tab-btn" onclick="switchTab('tab-outcomes', this)">Viral Logic</button>
-                    <button class="tab-btn" onclick="switchTab('tab-system', this)">System</button>
+                    <button class="tab-btn" onclick="switchTab('tab-system', this)">System Configuration</button>
                 </div>
 
                 <div id="tab-questions" class="tab-content active">
-                    <p style="color: #65676b; font-size: 0.9rem; margin-bottom: 15px;">Configure your grid and questions. Click an outcome box to assign logic.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 15px; opacity: 0.8;">Configure your grid and questions. Click an outcome box to assign logic.</p>
                     <div id="setupList"></div>
                 </div>
 
                 <div id="tab-outcomes" class="tab-content">
-                    <p style="color: #65676b; font-size: 0.9rem; margin-bottom: 15px;">Define 12 possible outcomes for the boxes. Use math (+10, -10, *2, /2) or 'swap score'.</p>
-                    <div id="outcomesSetupList" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;"></div>
+                    <p style="font-size: 0.9rem; margin-bottom: 15px; opacity: 0.8;">Define 12 possible outcomes for the boxes. Use math (+10, -10, *2, /2) or 'swap score' / 'lose all points'.</p>
+                    <div id="outcomesSetupList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px;"></div>
                 </div>
 
                 <div id="tab-system" class="tab-content">
-                    
                     <div class="q-row">
-                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Homepage Branding</h3>
+                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Homepage Title Design</h3>
                         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                             <div style="flex: 2; min-width: 200px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Game Title Text:</label>
+                                <label class="label-text">Game Title Text:</label>
                                 <input type="text" id="gameTitleInput" value="LIKE OR FOLLOW" oninput="previewTitle()">
                             </div>
                             <div style="flex: 1; min-width: 150px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Vertical Position (vh):</label>
+                                <label class="label-text">Vertical Position (vh):</label>
                                 <input type="number" id="titleMarginInput" value="10" step="1" oninput="previewTitle()">
                             </div>
                             <div style="flex: 1; min-width: 150px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Title Font Style:</label>
+                                <label class="label-text">Title Font Style:</label>
                                 <select id="titleFontSelect" onchange="previewTitle()">
-                                    <option value="'Nunito', sans-serif">Nunito (Modern App)</option>
-                                    <option value="'Poppins', sans-serif">Poppins (Clean)</option>
-                                    <option value="'Comic Neue', cursive">Comic Neue (Playful)</option>
+                                    <option value="'Nunito', sans-serif">Nunito</option>
+                                    <option value="'Poppins', sans-serif">Poppins</option>
+                                    <option value="'Comic Neue', cursive">Comic Neue</option>
                                     <option value="'Fredoka One', cursive">Fredoka One</option>
                                     <option value="'Chewy', cursive">Chewy</option>
                                     <option value="'Bangers', cursive">Bangers</option>
@@ -420,19 +440,19 @@
                                 </select>
                             </div>
                             <div style="flex: 1; min-width: 100px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Title Size (rem):</label>
+                                <label class="label-text">Size (rem):</label>
                                 <input type="number" id="titleSizeInput" value="8" step="0.5" oninput="previewTitle()">
                             </div>
                             <div style="flex: 1; min-width: 100px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Title Font Color:</label>
+                                <label class="label-text">Text Color:</label>
                                 <input type="color" id="gameTitleColorInput" value="#ffffff" onchange="previewTitle()">
                             </div>
                             <div style="flex: 1; min-width: 100px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Outline Color:</label>
+                                <label class="label-text">Outline Color:</label>
                                 <input type="color" id="gameOutlineColorInput" value="#ffffff" onchange="previewTitle()">
                             </div>
                             <div style="flex: 1; min-width: 100px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Outline Thick (px):</label>
+                                <label class="label-text">Outline Thick (px):</label>
                                 <input type="number" id="gameOutlineThickInput" value="3" step="1" oninput="previewTitle()">
                             </div>
                         </div>
@@ -442,7 +462,7 @@
                         <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Game Rules & Visuals</h3>
                         <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                             <div style="flex: 1; min-width: 150px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Number of Teams:</label>
+                                <label class="label-text">Number of Teams:</label>
                                 <select id="numTeamsSelect">
                                     <option value="2">2 Teams</option> <option value="3">3 Teams</option>
                                     <option value="4">4 Teams</option> <option value="5">5 Teams</option>
@@ -451,7 +471,7 @@
                                 </select>
                             </div>
                             <div style="flex: 1; min-width: 150px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Number of Posts (Grid Size):</label>
+                                <label class="label-text">Grid Size (Posts):</label>
                                 <select id="gridSizeSelect">
                                     <option value="10">10 Posts (Fast)</option>
                                     <option value="16">16 Posts (Medium)</option>
@@ -459,7 +479,7 @@
                                 </select>
                             </div>
                             <div style="flex: 1; min-width: 150px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Tile Size (Auto-Adjusts):</label>
+                                <label class="label-text">Tile Auto-Adjust Size:</label>
                                 <select id="tileSizeSelect" onchange="previewTileSize()">
                                     <option value="70px">Small Tiles</option>
                                     <option value="100px" selected>Medium Tiles</option>
@@ -467,11 +487,11 @@
                                 </select>
                             </div>
                             <div style="flex: 1; min-width: 150px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Wrong Penalty:</label>
+                                <label class="label-text">Wrong Penalty:</label>
                                 <input type="number" id="wrongPenaltyInput" value="10" min="0">
                             </div>
                             <div style="flex: 1; min-width: 150px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Background Theme:</label>
+                                <label class="label-text">Background Theme:</label>
                                 <select id="themeSelect" onchange="previewTheme()">
                                     <option value="theme-default">Classic Desk</option>
                                     <option value="theme-space">Neon Space</option>
@@ -480,11 +500,11 @@
                                 </select>
                             </div>
                             <div style="flex: 1; min-width: 150px;">
-                                <label style="font-size: 0.85rem; font-weight: bold; color: #65676b;">Global Game Font:</label>
+                                <label class="label-text">Global Game Font:</label>
                                 <select id="fontSelect" onchange="previewFont()">
-                                    <option value="'Nunito', sans-serif">Nunito (Modern App)</option>
-                                    <option value="'Poppins', sans-serif">Poppins (Clean)</option>
-                                    <option value="'Comic Neue', cursive">Comic Neue (Playful)</option>
+                                    <option value="'Nunito', sans-serif">Nunito</option>
+                                    <option value="'Poppins', sans-serif">Poppins</option>
+                                    <option value="'Comic Neue', cursive">Comic Neue</option>
                                     <option value="'Fredoka One', cursive">Fredoka One</option>
                                     <option value="'Chewy', cursive">Chewy</option>
                                     <option value="'Bangers', cursive">Bangers</option>
@@ -518,7 +538,7 @@
                     </div>
                 </div>
 
-                <div style="text-align:right; padding-top:15px; border-top: 1px solid #e4e6eb; margin-top: 20px;">
+                <div style="text-align:right; padding-top:15px; border-top: 1px solid rgba(255,255,255,0.2); margin-top: 20px;">
                     <button class="btn btn-outline" style="margin-right: 10px;" onclick="closeSettings()">Cancel</button>
                     <button class="btn btn-blue" onclick="saveData()">💾 Save Dashboard</button>
                 </div>
@@ -727,26 +747,29 @@
                     <div class="q-row">
                         <strong style="color:var(--social-blue); font-size:1.2rem;">Post Slot #${i+1}</strong>
                         
-                        <div style="display:flex; gap:15px; margin: 15px 0; align-items:center; background:#fff; padding:10px; border-radius:8px; border:1px solid #e4e6eb;">
+                        <div style="display:flex; gap:15px; margin: 15px 0; align-items:center; background:var(--input-bg); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.2);">
                             <div style="flex: 1;">
-                                <label style="font-size: 0.85rem; color: #65676b; font-weight: bold;">Grid Tile Name/Number:</label>
+                                <label class="label-text">Grid Tile Name/Number:</label>
                                 <input type="text" id="qTileLabel_${i}" value="${q.tileLabel || alphabet[i]}" placeholder="e.g. 1, Math, A">
                             </div>
-                            <div style="flex: 1; border: 2px dashed #ccd0d5; border-radius: 8px; text-align: center; padding: 10px; cursor: pointer; position: relative;" onpaste="handleTilePaste(event, ${i})">
+                            <div style="flex: 1; border: 2px dashed rgba(255,255,255,0.4); border-radius: 8px; text-align: center; padding: 10px; cursor: pointer; position: relative;" onpaste="handleTilePaste(event, ${i})">
                                 ${q.tileImage ? `<img src="${q.tileImage}" style="height:45px; border-radius:5px;"><br><button class="btn btn-outline" style="padding: 2px 8px; font-size: 0.7rem; margin-top:5px;" onclick="clearTileImage(${i}, event)">Clear Tile Image</button>` : '📸 Paste Grid Tile Image Here'}
                             </div>
                         </div>
 
                         <input type="text" id="qText_${i}" value="${q.text}" style="margin: 10px 0; font-weight:bold;" placeholder="Type Question Here...">
                         
-                        <div style="display:flex; gap:10px; margin-bottom:10px;">
-                            <select id="qType_${i}" onchange="toggleType(${i}, this.value)" style="flex: 1; max-width: 200px;">
-                                <option value="id" ${q.type=='id'?'selected':''}>Identification</option>
-                                <option value="multiple" ${q.type=='multiple'?'selected':''}>Multiple Choice</option>
-                            </select>
+                        <div style="display:flex; gap:15px; margin-bottom:10px; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 150px;">
+                                <label class="label-text">Question Type:</label>
+                                <select id="qType_${i}" onchange="toggleType(${i}, this.value)">
+                                    <option value="id" ${q.type=='id'?'selected':''}>Identification</option>
+                                    <option value="multiple" ${q.type=='multiple'?'selected':''}>Multiple Choice</option>
+                                </select>
+                            </div>
                             
-                            <div style="flex: 2;">
-                                <label style="font-size: 0.85rem; color: #65676b; font-weight: bold;">Assign Mystery Logic:</label>
+                            <div style="flex: 3; min-width: 300px;">
+                                <label class="label-text">Assign Mystery Logic:</label>
                                 <div class="outcome-box-grid" id="qOutContainer_${i}">
                                     ${customOutcomes.map(o => `<div class="outcome-box ${q.outcome == o ? 'active' : ''}" onclick="selectOutcome(${i}, '${o}', this)">${o}</div>`).join('')}
                                 </div>
@@ -754,12 +777,12 @@
                             </div>
                         </div>
                         
-                        <div id="paste_${i}" style="border:2px dashed #ccd0d5; padding:15px; text-align:center; background:#fff; border-radius: 8px; color:#65676b; cursor: pointer; font-size:0.9rem;" onpaste="handleQuestionPaste(event, ${i})">
+                        <div id="paste_${i}" style="border:2px dashed rgba(255,255,255,0.4); padding:15px; text-align:center; background:var(--input-bg); border-radius: 8px; cursor: pointer; font-size:0.9rem;" onpaste="handleQuestionPaste(event, ${i})">
                             ${q.image ? `<img src="${q.image}" style="height:60px; border-radius:5px;"> <br><button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.8rem; margin-top:5px;" onclick="clearQuestionImage(${i}, event)">Remove Question Image</button>` : '📸 Paste Question Image Here (Ctrl+V)'}
                         </div>
                         
-                        <div id="mc_${i}" style="display:${q.type=='multiple'?'block':'none'}; background:#fff; padding:10px; border-radius:8px; border:1px solid #e4e6eb; margin-top: 10px;">
-                            <span style="font-size:0.85rem; font-weight:bold; color:#65676b;">Select the correct option dot:</span>
+                        <div id="mc_${i}" style="display:${q.type=='multiple'?'block':'none'}; background:var(--input-bg); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.2); margin-top: 10px;">
+                            <span class="label-text">Select the correct option dot:</span>
                             ${optsHTML}
                         </div>
                         <input type="text" id="qAns_${i}" value="${q.answer}" style="display:${q.type=='id'?'block':'none'}; margin-top: 10px;" placeholder="Answer Key">
@@ -772,8 +795,8 @@
             const list = document.getElementById('outcomesSetupList'); list.innerHTML = '';
             for(let i = 0; i < 12; i++) {
                 list.insertAdjacentHTML('beforeend', `
-                    <div style="background: #f8f9fa; padding: 10px; border-radius: 8px; border: 1px solid #e4e6eb;">
-                        <label style="font-size: 0.85rem; color: #65676b; font-weight: bold;">Logic ${i+1}</label>
+                    <div style="background: var(--input-bg); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);">
+                        <label class="label-text">Logic ${i+1}</label>
                         <input type="text" id="customOut_${i}" value="${customOutcomes[i] || ""}" style="margin-top: 5px;">
                     </div>
                 `);
@@ -1045,11 +1068,12 @@
             else if (val.includes('*') || val.includes('x')) { scores[targetIdx] *= parseInt(val.replace(/[^\d]/g, '')); chosenSound = 'sndAdd'; } 
             else if (val.includes('/') || val.includes('÷')) { scores[targetIdx] = Math.floor(scores[targetIdx] / parseInt(val.replace(/[^\d]/g, ''))); chosenSound = 'sndMinus'; } 
             else if (val.includes('swap score')) { let temp = scores[currentTeamIdx]; scores[currentTeamIdx] = scores[targetIdx]; scores[targetIdx] = temp; chosenSound = 'sndSwap'; } 
+            else if (val.includes('lose all')) { scores[targetIdx] = 0; chosenSound = 'sndLose'; }
 
             playSound(chosenSound);
             let targetName = (targetIdx === currentTeamIdx) ? "your team" : `@Team${targetIdx+1}`;
             
-            let displayColor = (val.includes('-') || val.includes('/') || val.includes('÷')) ? 'var(--social-red)' : 'var(--social-blue)';
+            let displayColor = (val.includes('-') || val.includes('/') || val.includes('÷') || val.includes('lose')) ? 'var(--social-red)' : 'var(--social-blue)';
             document.getElementById('outcomeText').style.color = displayColor;
             document.getElementById('outcomeText').innerHTML = choice == 'keep' ? `👍 You LIKED this.<br>Result: ${q.outcome} for you!` : `👤 You sent this to ${targetName}.<br>Result: ${q.outcome}`;
             
