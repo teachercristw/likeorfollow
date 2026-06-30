@@ -99,32 +99,22 @@
         .btn-green { background: linear-gradient(135deg, #2ecc71, #27ae60); box-shadow: 0 8px 0 #1e7e43, 0 0 20px rgba(46, 204, 113, 0.6); }
         .btn-orange { background: linear-gradient(135deg, #ff9f43, #f39c12); box-shadow: 0 8px 0 #d68910, 0 0 20px rgba(255, 159, 67, 0.6); }
         .btn-outline { background: rgba(255,255,255,0.9); border: 2px solid var(--social-dark); color: var(--social-dark); box-shadow: 0 0 15px rgba(255,255,255,0.5); }
+        .btn-outline:hover { background: #fff; box-shadow: 0 0 25px rgba(255,255,255,0.8); }
 
         .btn-like { background: linear-gradient(135deg, #ff4757, #e84118); width: 100%; font-size: 1.4rem; padding: 18px; border-radius: 20px; box-shadow: 0 8px 0 #c23616, 0 0 20px rgba(255, 71, 87, 0.6); }
         .btn-follow { background: linear-gradient(135deg, #1877f2, #0984e3); width: 100%; font-size: 1.4rem; padding: 18px; border-radius: 20px; box-shadow: 0 8px 0 #075eb0, 0 0 20px rgba(24, 119, 242, 0.6); }
 
         /* TITLE SCREEN EMBOSSED BUTTONS */
         .btn-title {
-            border: 4px solid #fff !important;
-            border-radius: 50px;
-            font-size: 1.8rem; 
-            padding: 20px 45px;
+            border: 4px solid #fff !important; border-radius: 50px; font-size: 1.8rem; padding: 20px 45px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            box-shadow: 
-                inset 0 5px 8px rgba(255,255,255,0.6), 
-                inset 0 -5px 8px rgba(0,0,0,0.3), 
-                0 10px 0 rgba(0,0,0,0.5), 
-                0 15px 25px rgba(0,0,0,0.6) !important;
+            box-shadow: inset 0 5px 8px rgba(255,255,255,0.6), inset 0 -5px 8px rgba(0,0,0,0.3), 0 10px 0 rgba(0,0,0,0.5), 0 15px 25px rgba(0,0,0,0.6) !important;
         }
         .btn-title-primary { background: linear-gradient(135deg, #1877f2, #0984e3); }
         .btn-title-red { background: linear-gradient(135deg, #ff4757, #c0392b); }
         .btn-title:active {
             transform: translateY(8px);
-            box-shadow: 
-                inset 0 3px 6px rgba(255,255,255,0.6), 
-                inset 0 -3px 6px rgba(0,0,0,0.3), 
-                0 2px 0 rgba(0,0,0,0.5), 
-                0 5px 10px rgba(0,0,0,0.6) !important;
+            box-shadow: inset 0 3px 6px rgba(255,255,255,0.6), inset 0 -3px 6px rgba(0,0,0,0.3), 0 2px 0 rgba(0,0,0,0.5), 0 5px 10px rgba(0,0,0,0.6) !important;
         }
 
         .btn-home { 
@@ -156,48 +146,27 @@
             text-shadow: 6px 6px 15px rgba(0,0,0,0.8), -2px -2px 0px rgba(0,0,0,0.5);
             animation: jumpAnim 2.5s infinite cubic-bezier(0.28, 0.84, 0.42, 1);
         }
-        @keyframes jumpAnim {
-            0%, 20%, 100% { transform: translateY(0) scale(1); }
-            10% { transform: translateY(-25px) scale(1.05); }
-        }
+        @keyframes jumpAnim { 0%, 20%, 100% { transform: translateY(0) scale(1); } 10% { transform: translateY(-25px) scale(1.05); } }
 
         .title-action-panel { display: flex; gap: 25px; align-items: center; }
 
         /* Scoreboard */
-        .scoreboard { 
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; width: 98%; 
-            padding: 10px; border-radius: 20px; margin-bottom: 15px; z-index: 5;
-        }
-        .team-box { 
-            background: rgba(255,255,255,0.9); padding: 8px 15px; border-radius: 15px; 
-            display: flex; flex-direction: column; align-items: center; min-width: 110px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border-bottom: 4px solid #ccc;
-        }
+        .scoreboard { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; width: 98%; padding: 10px; border-radius: 20px; margin-bottom: 15px; z-index: 5; }
+        .team-box { background: rgba(255,255,255,0.9); padding: 8px 15px; border-radius: 15px; display: flex; flex-direction: column; align-items: center; min-width: 110px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); border-bottom: 4px solid #ccc; }
         .team-box .team-name { font-size: 0.9rem; color: #65676b; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
         .team-box .team-score { font-size: 1.8rem; font-weight: 800; color: var(--social-dark); line-height: 1; margin-top: 3px; }
         .team-box.active-turn { transform: translateY(-5px) scale(1.05); }
 
-        .turn-container { 
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 15px; 
-            background: rgba(0, 0, 0, 0.8); padding: 8px 20px; border-radius: 30px; color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2);
-        }
+        .turn-container { display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 15px; background: rgba(0, 0, 0, 0.8); padding: 8px 20px; border-radius: 30px; color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.2); }
         .turn-dot { height: 12px; width: 12px; border-radius: 50%; display: inline-block; animation: blink 1.5s infinite; }
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
         .turn-container h2 { font-size: 1.2rem; margin: 0; text-shadow: none; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;}
 
         /* Auto-Adjusting, Non-Scrolling Grid Style */
-        .grid-az { 
-            display: grid; gap: 15px; width: 95%; max-width: 1400px; 
-            height: 70vh; /* Fixed height locks it to one screen */
-            justify-content: center; align-content: center; 
-        }
+        .grid-az { display: grid; gap: 15px; width: 95%; max-width: 1400px; height: 70vh; justify-content: center; align-content: center; }
         .letter-box {
-            background: rgba(255,255,255,0.95); border-radius: 18px; 
-            display: flex; justify-content: center; align-items: center; text-align: center;
-            font-size: clamp(1.5rem, 5vh, 4rem); font-weight: 800; color: var(--social-dark); cursor: pointer; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3); transition: all 0.2s ease; border: 3px solid transparent;
+            background: rgba(255,255,255,0.95); border-radius: 18px; display: flex; justify-content: center; align-items: center; text-align: center;
+            font-size: clamp(1.5rem, 5vh, 4rem); font-weight: 800; color: var(--social-dark); cursor: pointer; box-shadow: 0 8px 20px rgba(0,0,0,0.3); transition: all 0.2s ease; border: 3px solid transparent;
             overflow: hidden; padding: 5px; word-wrap: break-word; line-height: 1.1; width: 100%; height: 100%;
         }
         .letter-box:not(.disabled):hover { transform: translateY(-5px); box-shadow: 0 12px 25px rgba(0,0,0,0.5); border-color: var(--social-blue); color: var(--social-blue); }
@@ -205,7 +174,7 @@
         .letter-box img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
 
         /* Social Post Card */
-        .content-card { width: 95%; max-width: 800px; height: 82vh; border-radius: 20px; padding: 0; display: flex; flex-direction: column; overflow: hidden; }
+        .content-card { width: 95%; max-width: 800px; height: 82vh; border-radius: 20px; padding: 0; display: flex; flex-direction: column; overflow: hidden; background: #fff;}
         .post-header { display: flex; align-items: center; padding: 15px 20px; border-bottom: 1px solid #e4e6eb; background: #fff; }
         .post-avatar { width: 45px; height: 45px; border-radius: 50%; background: linear-gradient(135deg, #a29bfe, #6c5ce7); display: flex; justify-content: center; align-items: center; font-size: 1.5rem; margin-right: 12px; }
         .post-user-info { text-align: left; line-height: 1.2; }
@@ -215,8 +184,8 @@
         .q-scroll-body { width: 100%; flex: 1; overflow-y: auto; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding: 25px 20px; gap: 20px; background: #fff; }
         .question-text { font-size: 2rem; color: #050505; font-weight: 800; margin: 0; word-break: break-word; text-align: left; width: 100%; }
         
-        /* Auto-fit Question Images */
-        #qImg { width: 100%; max-height: 35vh; object-fit: contain; border-radius: 10px; display: none; margin: 0 auto; }
+        /* FIXED: Autofit Question Images properly */
+        #qImg { width: 100%; max-height: 35vh; object-fit: contain; border-radius: 10px; display: none; margin: 0 auto; background: #f0f2f5; padding: 5px; border: 1px solid #e4e6eb;}
 
         .options-container { display: flex; flex-direction: column; gap: 10px; width: 100%; margin-top: 10px; }
         .options-container .poll-btn { background: #f0f2f5; color: #050505; border: 2px solid transparent; padding: 15px 20px; font-size: 1.2rem; font-weight: bold; border-radius: 12px; text-align: left; cursor: pointer; transition: all 0.2s; }
@@ -242,28 +211,27 @@
             border: 2px solid var(--border-color);
         }
         .settings-panel h2, .settings-panel h3 { text-shadow: none; margin-top: 0; color: var(--panel-text); }
-        .settings-tabs { display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 2px solid var(--border-color); padding-bottom: 0; }
+        .settings-tabs { display: flex; gap: 5px; margin-bottom: 15px; border-bottom: 2px solid var(--border-color); padding-bottom: 0; }
         .tab-btn { background: transparent; border: none; padding: 12px 20px; font-size: 1.1rem; font-weight: bold; color: var(--panel-text); opacity: 0.6; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; transition: all 0.2s; }
         .tab-btn.active { opacity: 1; border-bottom-color: var(--social-blue); color: var(--social-blue); }
-        .tab-content { display: none; padding: 10px 0; }
+        .tab-content { display: none; padding: 5px 0; }
         .tab-content.active { display: block; }
         
-        .q-row { border: 1px solid var(--border-color); padding: 15px; margin-bottom: 15px; border-radius: 12px; background: var(--row-bg); }
-        input[type="text"], select, input[type="number"] { padding: 10px 12px; font-size: 1rem; border-radius: 8px; border: 1px solid var(--border-color); width: 100%; box-sizing: border-box; background: var(--input-bg); color: var(--input-text);}
-        input[type="color"] { padding: 2px; height: 42px; border-radius: 8px; border: 1px solid var(--border-color); width: 100%; cursor: pointer; background: var(--input-bg);}
+        .q-row { border: 1px solid var(--border-color); padding: 12px; margin-bottom: 12px; border-radius: 12px; background: var(--row-bg); }
+        input[type="text"], select, input[type="number"] { padding: 8px 12px; font-size: 0.95rem; border-radius: 8px; border: 1px solid var(--border-color); width: 100%; box-sizing: border-box; background: var(--input-bg); color: var(--input-text);}
+        input[type="color"] { padding: 2px; height: 38px; border-radius: 8px; border: 1px solid var(--border-color); width: 100%; cursor: pointer; background: var(--input-bg);}
         input[type="text"]:focus, select:focus, input[type="number"]:focus { border-color: var(--social-blue); outline: none; }
         
-        .label-text { font-size: 0.85rem; font-weight: bold; opacity: 0.8; margin-bottom: 5px; display: block; color: var(--panel-text); }
+        .label-text { font-size: 0.85rem; font-weight: bold; opacity: 0.85; margin-bottom: 5px; display: block; color: var(--panel-text); }
 
-        /* Outcome Selection Grid (Replaces Dropdown) */
+        /* Compact Organized Outcome Selection Grid */
         .outcome-box-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
         .outcome-box { 
-            padding: 8px 12px; background: var(--input-bg); border: 2px solid var(--border-color); border-radius: 8px; 
-            cursor: pointer; font-size: 0.9rem; font-weight: bold; color: var(--input-text); transition: all 0.2s;
+            padding: 6px 10px; background: var(--input-bg); border: 2px solid var(--border-color); border-radius: 6px; 
+            cursor: pointer; font-size: 0.85rem; font-weight: bold; color: var(--input-text); transition: all 0.2s;
         }
         .outcome-box:hover { opacity: 0.8; }
         .outcome-box.active { background: var(--social-blue); color: white; border-color: #075eb0; box-shadow: 0 3px 8px rgba(24,119,242,0.4); }
-
     </style>
 </head>
 <body class="theme-default">
@@ -272,7 +240,7 @@
         <!-- Audio Elements -->
         <audio id="bgMusic" loop>
             <source src="background music.mp3" type="audio/mpeg">
-            <!-- Fallback royalty free fun track -->
+            <!-- Fallback fun track -->
             <source src="https://upload.wikimedia.org/wikipedia/commons/3/34/Kevin_MacLeod_-_Monkeys_Spinning_Monkeys.ogg" type="audio/ogg">
         </audio>
         
@@ -290,7 +258,7 @@
         <div id="globalScoreboard" class="scoreboard glass-panel" style="display:none;"></div>
 
         <!-- Floating Action Buttons -->
-        <button id="btnHome" class="btn-home" style="display:none;" onclick="confirmGoHome()">🏠 Feed</button>
+        <button id="btnHome" class="btn-home" style="display:none;" onclick="confirmGoHome()">🏠 Return to Feed</button>
         <button id="btnSettingsIngame" class="btn-settings-ingame" style="display:none;" onclick="openSettings('screenMain')" title="Admin Dashboard">⚙️</button>
 
         <!-- Title Screen -->
@@ -341,7 +309,7 @@
 
         <!-- The "Post" (Question Screen) -->
         <div id="screenQuestion" class="screen">
-            <div class="content-card glass-panel" id="qCardShell" style="background: #fff;">
+            <div class="content-card glass-panel" id="qCardShell">
                 <div class="post-header">
                     <button class="nav-icon-btn" onclick="goToGridScreen()" title="Go Back" style="font-size: 1.5rem; margin-right: 15px; color: #65676b; border: none; background: none; cursor: pointer;">⬅️</button>
                     <div class="post-avatar">🤖</div>
@@ -405,35 +373,34 @@
                 </div>
 
                 <div id="tab-questions" class="tab-content active">
-                    <p style="font-size: 0.9rem; margin-bottom: 15px; opacity: 0.8;">Configure your grid and questions. Click an outcome box to assign logic to that specific tile.</p>
+                    <p style="font-size: 0.9rem; margin-bottom: 10px; opacity: 0.8;">Configure your grid. Click an outcome box to easily assign logic to that tile.</p>
                     <div id="setupList"></div>
                 </div>
 
                 <div id="tab-outcomes" class="tab-content">
-                    <p style="font-size: 0.9rem; margin-bottom: 15px; opacity: 0.8;">Define the master list of logic outcomes. Use math (+10, -10, *2, /2) or 'swap score' / 'lose all points'.</p>
-                    <div id="outcomesSetupList" style="display: flex; flex-direction: column; gap: 10px;"></div>
-                    <button class="btn btn-outline" style="margin-top: 15px; border-color: var(--social-blue); color: var(--social-blue);" onclick="addOutcome()">➕ Add Logic Item</button>
+                    <p style="font-size: 0.9rem; margin-bottom: 10px; opacity: 0.8;">Add or remove logic blocks. You can use math (+10, -50, *2, /2) or 'swap score' / 'lose all points'.</p>
+                    <div id="outcomesSetupList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 8px;"></div>
+                    <button class="btn btn-outline" style="margin-top: 15px; padding: 10px 15px; border-color: var(--social-blue); color: var(--social-blue);" onclick="addOutcome()">➕ Add Logic Item</button>
                 </div>
 
                 <div id="tab-system" class="tab-content">
-                    
                     <div class="q-row">
-                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Homepage Branding</h3>
-                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <h3 style="margin-top:0; font-size: 1.1rem; margin-bottom: 10px;">Homepage Branding</h3>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                             <div style="flex: 2; min-width: 200px;">
                                 <label class="label-text">Game Title Text:</label>
                                 <input type="text" id="gameTitleInput" value="LIKE OR FOLLOW" oninput="previewTitle()">
                             </div>
-                            <div style="flex: 1; min-width: 150px;">
-                                <label class="label-text">Vertical Position (vh):</label>
+                            <div style="flex: 1; min-width: 120px;">
+                                <label class="label-text">Vertical Post (vh):</label>
                                 <input type="number" id="titleMarginInput" value="10" step="1" oninput="previewTitle()">
                             </div>
-                            <div style="flex: 1; min-width: 150px;">
+                            <div style="flex: 1; min-width: 140px;">
                                 <label class="label-text">Title Font Style:</label>
                                 <select id="titleFontSelect" onchange="previewTitle()">
-                                    <option value="'Nunito', sans-serif">Nunito (Modern App)</option>
-                                    <option value="'Poppins', sans-serif">Poppins (Clean)</option>
-                                    <option value="'Comic Neue', cursive">Comic Neue (Playful)</option>
+                                    <option value="'Nunito', sans-serif">Nunito (Modern)</option>
+                                    <option value="'Poppins', sans-serif">Poppins</option>
+                                    <option value="'Comic Neue', cursive">Comic Neue</option>
                                     <option value="'Fredoka One', cursive">Fredoka One</option>
                                     <option value="'Chewy', cursive">Chewy</option>
                                     <option value="'Bangers', cursive">Bangers</option>
@@ -448,29 +415,29 @@
                                     <option value="'Jua', sans-serif">Jua</option>
                                 </select>
                             </div>
-                            <div style="flex: 1; min-width: 100px;">
+                            <div style="flex: 1; min-width: 80px;">
                                 <label class="label-text">Size (rem):</label>
                                 <input type="number" id="titleSizeInput" value="8" step="0.5" oninput="previewTitle()">
                             </div>
-                            <div style="flex: 1; min-width: 100px;">
-                                <label class="label-text">Text Color:</label>
+                            <div style="flex: 1; min-width: 70px;">
+                                <label class="label-text">Color:</label>
                                 <input type="color" id="gameTitleColorInput" value="#ffffff" onchange="previewTitle()">
                             </div>
-                            <div style="flex: 1; min-width: 100px;">
-                                <label class="label-text">Outline Color:</label>
+                            <div style="flex: 1; min-width: 70px;">
+                                <label class="label-text">Outline:</label>
                                 <input type="color" id="gameOutlineColorInput" value="#ffffff" onchange="previewTitle()">
                             </div>
-                            <div style="flex: 1; min-width: 100px;">
-                                <label class="label-text">Outline Thick (px):</label>
+                            <div style="flex: 1; min-width: 80px;">
+                                <label class="label-text">Thick (px):</label>
                                 <input type="number" id="gameOutlineThickInput" value="3" step="1" oninput="previewTitle()">
                             </div>
                         </div>
                     </div>
 
                     <div class="q-row">
-                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Game Rules & Visuals</h3>
-                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                            <div style="flex: 1; min-width: 150px;">
+                        <h3 style="margin-top:0; font-size: 1.1rem; margin-bottom: 10px;">Game Rules & Visuals</h3>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 140px;">
                                 <label class="label-text">Number of Teams:</label>
                                 <select id="numTeamsSelect">
                                     <option value="2">2 Teams</option> <option value="3">3 Teams</option>
@@ -479,7 +446,7 @@
                                     <option value="8">8 Teams</option>
                                 </select>
                             </div>
-                            <div style="flex: 1; min-width: 150px;">
+                            <div style="flex: 1; min-width: 140px;">
                                 <label class="label-text">Grid Size (Posts):</label>
                                 <select id="gridSizeSelect">
                                     <option value="10">10 Posts (Fast)</option>
@@ -487,7 +454,7 @@
                                     <option value="26">26 Posts (Full)</option>
                                 </select>
                             </div>
-                            <div style="flex: 1; min-width: 150px;">
+                            <div style="flex: 1; min-width: 140px;">
                                 <label class="label-text">Tile Auto-Adjust Size:</label>
                                 <select id="tileSizeSelect" onchange="previewTileSize()">
                                     <option value="70px">Small Tiles</option>
@@ -495,11 +462,11 @@
                                     <option value="140px">Large Tiles</option>
                                 </select>
                             </div>
-                            <div style="flex: 1; min-width: 150px;">
+                            <div style="flex: 1; min-width: 140px;">
                                 <label class="label-text">Wrong Penalty:</label>
                                 <input type="number" id="wrongPenaltyInput" value="10" min="0">
                             </div>
-                            <div style="flex: 1; min-width: 150px;">
+                            <div style="flex: 1; min-width: 140px;">
                                 <label class="label-text">Background Theme:</label>
                                 <select id="themeSelect" onchange="previewTheme()">
                                     <option value="theme-default">Classic Desk</option>
@@ -508,12 +475,12 @@
                                     <option value="theme-ocean">Deep Ocean</option>
                                 </select>
                             </div>
-                            <div style="flex: 1; min-width: 150px;">
+                            <div style="flex: 1; min-width: 140px;">
                                 <label class="label-text">Global Game Font:</label>
                                 <select id="fontSelect" onchange="previewFont()">
-                                    <option value="'Nunito', sans-serif">Nunito (Modern App)</option>
-                                    <option value="'Poppins', sans-serif">Poppins (Clean)</option>
-                                    <option value="'Comic Neue', cursive">Comic Neue (Playful)</option>
+                                    <option value="'Nunito', sans-serif">Nunito</option>
+                                    <option value="'Poppins', sans-serif">Poppins</option>
+                                    <option value="'Comic Neue', cursive">Comic Neue</option>
                                     <option value="'Fredoka One', cursive">Fredoka One</option>
                                     <option value="'Chewy', cursive">Chewy</option>
                                     <option value="'Bangers', cursive">Bangers</option>
@@ -532,29 +499,29 @@
                     </div>
 
                     <div class="q-row">
-                        <h3 style="margin-top:0; font-size: 1.2rem; margin-bottom: 15px;">Database, Files & Audio</h3>
+                        <h3 style="margin-top:0; font-size: 1.1rem; margin-bottom: 10px;">Database, Files & Audio</h3>
                         
                         <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px;">
-                            <button class="btn btn-green" style="font-size:0.9rem; padding: 10px 15px;" onclick="exportData()">📥 Export File Backup</button>
-                            <button class="btn btn-blue" style="font-size:0.9rem; padding: 10px 15px;" onclick="document.getElementById('fileIn').click()">📤 Import File Backup</button>
+                            <button class="btn btn-green" style="font-size:0.9rem; padding: 8px 15px;" onclick="exportData()">📥 Export File Backup</button>
+                            <button class="btn btn-blue" style="font-size:0.9rem; padding: 8px 15px;" onclick="document.getElementById('fileIn').click()">📤 Import File Backup</button>
                             <input type="file" id="fileIn" style="display:none;" accept=".json" onchange="importData(event)">
                         </div>
 
-                        <div style="display: flex; flex-direction: column; gap: 15px;">
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
                             <div>
                                 <label class="label-text">Custom YouTube BGM URL (Overrides default music):</label>
                                 <input type="text" id="ytMusicInput" placeholder="Paste YouTube link here..." onchange="updateMusicSource()">
                             </div>
                             
-                            <div style="display: flex; align-items: center; gap: 10px;">
-                                <button id="btnMusicToggle" class="btn btn-orange" style="font-size:0.9rem; padding: 10px 15px;" onclick="toggleMusic()">🎵 Music: ON</button>
-                            </div>
-                            
-                            <div style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: bold;">
-                                <span style="min-width:70px;">Music Vol:</span> <input type="range" id="volMusic" min="0" max="1" step="0.1" value="0.3" oninput="updateVolumes()" style="flex:1;">
-                            </div>
-                            <div style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: bold;">
-                                <span style="min-width:70px;">SFX Vol:</span> <input type="range" id="volSFX" min="0" max="1" step="0.1" value="0.9" oninput="updateVolumes()" style="flex:1;">
+                            <div style="display: flex; align-items: center; gap: 10px; margin-top:5px;">
+                                <button id="btnMusicToggle" class="btn btn-orange" style="font-size:0.9rem; padding: 8px 15px;" onclick="toggleMusic()">🎵 Music: ON</button>
+                                
+                                <div style="display: flex; align-items: center; gap: 5px; font-size: 0.9rem; font-weight: bold; margin-left:15px; flex:1;">
+                                    <span>BGM:</span> <input type="range" id="volMusic" min="0" max="1" step="0.1" value="0.3" oninput="updateVolumes()" style="flex:1;">
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 5px; font-size: 0.9rem; font-weight: bold; flex:1;">
+                                    <span>SFX:</span> <input type="range" id="volSFX" min="0" max="1" step="0.1" value="0.9" oninput="updateVolumes()" style="flex:1;">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -586,7 +553,7 @@
         let previousScreen = 'screenTitle';
 
         // Upgraded Custom Outcomes Array
-        let customOutcomes = ["+10", "+20", "+50", "-10", "-20", "-50", "*2", "/2", "swap score", "+5", "-5", "+100"];
+        let customOutcomes = ["+10", "+20", "+50", "-10", "-20", "-50", "*2", "/2", "swap score", "lose all points"];
         
         let gameGridSize = 26;
         let activeTheme = "theme-default";
@@ -713,7 +680,7 @@
                 }
             } catch(e) { console.log("No follow.json found, checking local storage..."); }
 
-            let data = localStorage.getItem('social_edition_master');
+            let data = localStorage.getItem('social_edition_v8');
             if (data) { applyParsedData(JSON.parse(data)); } 
             else { generateDefaultData(); }
         }
@@ -754,10 +721,9 @@
             }
         }
 
-        // Logic array management
         function addOutcome() {
             cacheCurrentOutcomes();
-            customOutcomes.push("+10");
+            customOutcomes.push("+10"); 
             buildOutcomesSetup();
             buildSetup();
         }
@@ -765,26 +731,31 @@
         function removeOutcome(idx) {
             cacheCurrentOutcomes();
             customOutcomes.splice(idx, 1);
-            if(customOutcomes.length === 0) customOutcomes.push("+10"); // ensure minimum 1
+            if(customOutcomes.length === 0) customOutcomes.push("+10"); 
             buildOutcomesSetup();
             buildSetup();
         }
 
         function cacheCurrentOutcomes() {
             let inputs = document.querySelectorAll('.custom-out-input');
+            let tempArray = [];
             inputs.forEach(inp => {
-                let idx = parseInt(inp.dataset.idx);
-                customOutcomes[idx] = inp.value;
+                if(inp.value.trim() !== "") {
+                    tempArray.push(inp.value.trim());
+                }
             });
+            if(tempArray.length === 0) tempArray.push("+10"); 
+            customOutcomes = tempArray;
         }
 
         function buildOutcomesSetup() {
             const list = document.getElementById('outcomesSetupList'); list.innerHTML = '';
             customOutcomes.forEach((out, i) => {
                 list.insertAdjacentHTML('beforeend', `
-                    <div style="background: var(--input-bg); padding: 10px; border-radius: 8px; border: 1px solid var(--border-color); display: flex; gap: 5px; align-items:center;">
-                        <input type="text" class="custom-out-input" data-idx="${i}" value="${out}" style="flex:1;">
-                        <button class="btn btn-outline" style="padding: 5px 10px; color: var(--social-red); border-color: var(--social-red);" onclick="removeOutcome(${i})">X</button>
+                    <div style="background: var(--input-bg); padding: 8px 12px; border-radius: 8px; border: 1px solid var(--border-color); display: flex; gap: 8px; align-items:center;">
+                        <span style="font-weight:bold; color:var(--social-blue); font-size:0.9rem;">#${i+1}</span>
+                        <input type="text" class="custom-out-input" data-idx="${i}" value="${out}" style="flex:1; padding: 5px; margin: 0; font-size: 0.9rem;">
+                        <button class="btn btn-outline" style="padding: 4px 8px; font-size: 0.8rem; color: var(--social-red); border-color: var(--social-red);" onclick="removeOutcome(${i})" title="Remove Logic">✖</button>
                     </div>
                 `);
             });
@@ -800,6 +771,12 @@
         function buildSetup() {
             const list = document.getElementById('setupList'); list.innerHTML = '';
             questions.forEach((q, i) => {
+                
+                // Safety catch in case an outcome was deleted that this question was using
+                if(!customOutcomes.includes(q.outcome)) {
+                    q.outcome = customOutcomes[0];
+                }
+
                 let optsHTML = [0,1,2,3].map(oi => `
                     <div style="display: flex; align-items: center; gap: 8px; margin-top: 5px;">
                         <input type="radio" name="correct_radio_${i}" style="transform: scale(1.3); cursor: pointer;" ${q.correct == oi ? 'checked' : ''} value="${oi}">
@@ -809,9 +786,9 @@
 
                 list.insertAdjacentHTML('beforeend', `
                     <div class="q-row">
-                        <strong style="color:var(--social-blue); font-size:1.2rem;">Post Slot #${i+1}</strong>
+                        <strong style="color:var(--social-blue); font-size:1.1rem;">Post Slot #${i+1}</strong>
                         
-                        <div style="display:flex; gap:15px; margin: 15px 0; align-items:center; background:var(--input-bg); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.2);">
+                        <div style="display:flex; gap:15px; margin: 10px 0; align-items:center; background:var(--input-bg); padding:10px; border-radius:8px; border:1px solid rgba(255,255,255,0.2);">
                             <div style="flex: 1;">
                                 <label class="label-text">Grid Tile Name/Number:</label>
                                 <input type="text" id="qTileLabel_${i}" value="${q.tileLabel || alphabet[i]}" placeholder="e.g. 1, Math, A">
@@ -933,7 +910,6 @@
             let sfxV = document.getElementById('volSFX').value;
             ['sndClick','sndAdd','sndMinus','sndSwap','sndLose','sndReveal'].forEach(id => { document.getElementById(id).volume = sfxV; });
             
-            // Send volume command to YT iframe
             let iframe = document.getElementById('ytIframePlayer');
             if(iframe && iframe.src) {
                 let vol = Math.floor(document.getElementById('volMusic').value * 100);
@@ -943,12 +919,14 @@
 
         function saveData() {
             try {
-                cacheCurrentOutcomes(); // saves the logic array dynamically
+                cacheCurrentOutcomes(); 
                 
                 questions.forEach((q, i) => {
                     q.tileLabel = document.getElementById(`qTileLabel_${i}`).value;
-                    q.text = document.getElementById(`qText_${i}`).value; q.type = document.getElementById(`qType_${i}`).value;
-                    q.outcome = document.getElementById(`qOut_${i}`).value; q.answer = document.getElementById(`qAns_${i}`).value;
+                    q.text = document.getElementById(`qText_${i}`).value; 
+                    q.type = document.getElementById(`qType_${i}`).value;
+                    q.outcome = document.getElementById(`qOut_${i}`).value; 
+                    q.answer = document.getElementById(`qAns_${i}`).value;
                     q.options = [0,1,2,3].map(oi => document.getElementById(`q${i}_o${oi}`).value);
                     let radios = document.getElementsByName(`correct_radio_${i}`);
                     for(let r = 0; r < radios.length; r++) { if(radios[r].checked) { q.correct = parseInt(radios[r].value); break; } }
@@ -980,9 +958,9 @@
                     titleMargin: activeTitleMargin, titleOutlineColor: activeTitleOutlineColor, titleOutlineThickness: activeTitleOutlineThickness,
                     ytMusicUrl: ytUrl
                 };
-                localStorage.setItem('social_edition_master', JSON.stringify(payload));
+                localStorage.setItem('social_edition_v8', JSON.stringify(payload));
                 
-                buildSetup(); shuffle(); alert("Dashboard Saved!"); changeScreen(previousScreen);
+                buildSetup(); shuffle(); alert("Dashboard Saved Successfully!"); changeScreen(previousScreen);
             } catch (error) {
                 alert("Error saving data. Please check inputs.");
                 console.error(error);
@@ -1010,7 +988,7 @@
                 try {
                     const parsed = JSON.parse(event.target.result);
                     if (parsed.questions && Array.isArray(parsed.questions)) {
-                        localStorage.setItem('social_edition_master', JSON.stringify(parsed));
+                        localStorage.setItem('social_edition_v8', JSON.stringify(parsed));
                         loadData(); buildOutcomesSetup(); buildSetup(); applySavedSettings(); alert("Data Imported!");
                     } else { alert("Data mismatch. Please check file."); }
                 } catch(err) { alert("Failed to parse file."); }
@@ -1085,7 +1063,6 @@
             document.getElementById('randomNumDisplay').innerText = '?';
             changeScreen('screenRandomizer');
             
-            // Trigger music
             if (isMusicPlaying) {
                 let ytUrl = document.getElementById('ytMusicInput').value;
                 if(ytUrl && extractYouTubeID(ytUrl)) {
@@ -1207,7 +1184,6 @@
             let q = questions[activeIdx]; used[activeIdx] = true; 
             let val = q.outcome.toString().toLowerCase(); let chosenSound = 'sndAdd';
 
-            // New Math Logic: Supports +, -, *, x, /, ÷
             if (val.includes('+')) { scores[targetIdx] += parseInt(val.replace(/[^\d]/g, '')); chosenSound = 'sndAdd'; } 
             else if (val.includes('-')) { scores[targetIdx] -= parseInt(val.replace(/[^\d]/g, '')); chosenSound = 'sndMinus'; } 
             else if (val.includes('*') || val.includes('x')) { scores[targetIdx] *= parseInt(val.replace(/[^\d]/g, '')); chosenSound = 'sndAdd'; } 
